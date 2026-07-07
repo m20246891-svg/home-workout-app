@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
+import { getWorkoutCoverUrl } from '../utils/coverImage'
 import data from '../data/workouts.json'
 
 const levelLabels = { beginner: 'Новичок', intermediate: 'Средний', advanced: 'Продвинутый' }
@@ -16,11 +18,17 @@ function formatDosage(item) {
 
 export default function WorkoutDetail() {
   const { id } = useParams()
+  const [imgError, setImgError] = useState(false)
 
   let workout = null
+  let coverUrl = ''
   for (const cat of data.categories) {
     const found = cat.workouts.find((w) => w.id === id)
     if (found) { workout = found; break }
+  }
+
+  if (workout) {
+    coverUrl = getWorkoutCoverUrl(workout, data.categories)
   }
 
   if (!workout) {
@@ -34,9 +42,20 @@ export default function WorkoutDetail() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header image placeholder */}
-      <div className="h-40 bg-gradient-to-br from-blue-400 to-blue-600 flex items-end p-4">
-        <h1 className="text-2xl font-bold text-white">{workout.title}</h1>
+      {/* Cover image header */}
+      <div className="relative h-48 bg-gradient-to-br from-blue-400 to-blue-600 overflow-hidden">
+        {!imgError && (
+          <img
+            src={coverUrl}
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover"
+            onError={() => setImgError(true)}
+          />
+        )}
+        {!imgError && <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />}
+        <div className="absolute bottom-0 left-0 right-0 p-4">
+          <h1 className="text-2xl font-bold text-white">{workout.title}</h1>
+        </div>
       </div>
 
       <div className="p-4 space-y-4">
