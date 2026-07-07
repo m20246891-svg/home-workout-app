@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Env files
+.env
+.env.local
+.env.*.local
+
+# macOS
+.DS_Store
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/settings.json
+.idea/
+*.sublime-*
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Misc
+.cache/
+*.tsbuildinfo
+.eslintcache
+
+# PWA generated (vite-plugin-pwa output)
+sw.js
+workbox-*.js
+
+# Design reference (keep tracked, but ignore system files)
+design-reference/.DS_Store
