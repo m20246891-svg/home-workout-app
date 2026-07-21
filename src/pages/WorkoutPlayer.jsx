@@ -155,7 +155,7 @@ export default function WorkoutPlayer() {
 
   if (!workout) {
     return (
-      <div className="p-4 text-white bg-gray-900 min-h-screen flex items-center justify-center">
+      <div className="p-4 text-gray-900 bg-white min-h-screen flex items-center justify-center">
         <p>Тренировка не найдена</p>
       </div>
     )
@@ -164,8 +164,8 @@ export default function WorkoutPlayer() {
   // Countdown phase
   if (phase === 'countdown') {
     return (
-      <div className="flex flex-col min-h-screen bg-gray-900 text-white items-center justify-center">
-        <p className="text-2xl text-gray-400 mb-4">Приготовьтесь</p>
+      <div className="flex flex-col min-h-screen bg-white text-gray-900 items-center justify-center">
+        <p className="text-2xl text-gray-500 mb-4">Приготовьтесь</p>
         <div className="text-9xl font-bold">{countdown}</div>
       </div>
     )
@@ -189,7 +189,7 @@ export default function WorkoutPlayer() {
         {/* Exit button */}
         <button
           onClick={() => setShowExitModal(true)}
-          className="fixed top-3 right-3 z-20 w-9 h-9 flex items-center justify-center rounded-full bg-gray-800 text-gray-400"
+          className="fixed top-3 right-3 z-20 w-9 h-9 flex items-center justify-center rounded-full bg-gray-200 text-gray-500 hover:bg-gray-300 transition-colors"
         >
           ✕
         </button>
@@ -218,7 +218,7 @@ export default function WorkoutPlayer() {
         {/* Exit button */}
         <button
           onClick={() => setShowExitModal(true)}
-          className="fixed top-3 right-3 z-20 w-9 h-9 flex items-center justify-center rounded-full bg-gray-800 text-gray-400"
+          className="fixed top-3 right-3 z-20 w-9 h-9 flex items-center justify-center rounded-full bg-gray-200 text-gray-500 hover:bg-gray-300 transition-colors"
         >
           ✕
         </button>

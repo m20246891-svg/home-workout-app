@@ -35,5 +35,9 @@ npm-debug.log*
 sw.js
 workbox-*.js
 
+# Licensed animations (never commit, never deploy)
+public/exercises-local/*
+!public/exercises-local/.gitkeep
+
 # Design reference (keep tracked, but ignore system files)
 design-reference/.DS_Store

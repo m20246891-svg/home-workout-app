@@ -27,3 +27,9 @@ export function getWorkoutCoverUrl(workout, categories) {
 
   return `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=1024&height=768&nologo=true&seed=${seed}`
 }
+
+export function getExerciseImageUrl(exerciseId, exerciseName) {
+  const prompt = `person doing ${exerciseName} exercise, fitness form demonstration, fitness photography, athletic person, bright modern home interior, natural daylight, high detail, clean minimal background`
+  const seed = hashString(exerciseId) + 10000
+  return `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=720&height=720&nologo=true&seed=${seed}`
+}

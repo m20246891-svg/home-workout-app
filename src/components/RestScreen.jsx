@@ -11,16 +11,16 @@ export default function RestScreen({
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-900 text-white">
+    <div className="flex flex-col min-h-screen bg-white text-gray-900">
       {/* Center */}
       <div className="flex-1 flex flex-col items-center justify-center px-6">
-        <h2 className="text-2xl font-semibold text-gray-400 mb-4">Отдых</h2>
+        <h2 className="text-2xl font-semibold text-gray-500 mb-4">Отдых</h2>
         <div className="text-8xl font-bold tabular-nums mb-8">{displayTime()}</div>
 
         {nextExerciseName && (
           <div className="text-center">
-            <p className="text-sm text-gray-500 mb-1">Следующее:</p>
-            <p className="text-lg font-medium text-white">{nextExerciseName}</p>
+            <p className="text-sm text-gray-400 mb-1">Следующее:</p>
+            <p className="text-lg font-medium text-gray-900">{nextExerciseName}</p>
           </div>
         )}
       </div>
@@ -29,7 +29,7 @@ export default function RestScreen({
       <div className="px-4 pb-8 space-y-3">
         <button
           onClick={onAddTime}
-          className="w-full py-3.5 rounded-xl border border-gray-600 text-white font-semibold text-base hover:bg-gray-800 transition-colors"
+          className="w-full py-3.5 rounded-xl border border-gray-300 text-gray-700 font-semibold text-base hover:bg-gray-100 transition-colors"
         >
           +20 сек
         </button>

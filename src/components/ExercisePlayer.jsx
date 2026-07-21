@@ -1,3 +1,6 @@
+import { useState, useEffect } from 'react'
+import { getExerciseImageUrl } from '../utils/coverImage'
+
 export default function ExercisePlayer({
   exercise,
   exerciseIndex,
@@ -8,6 +11,12 @@ export default function ExercisePlayer({
   onPause,
   onNext,
 }) {
+  const [mediaStage, setMediaStage] = useState('gif')
+
+  useEffect(() => {
+    setMediaStage('gif')
+  }, [exercise.exerciseId])
+
   const displayTime = () => {
     if (!isTimed) return null
     const min = Math.floor(timer / 60)
@@ -15,15 +24,59 @@ export default function ExercisePlayer({
     return `${min}:${String(sec).padStart(2, '0')}`
   }
 
+  const renderMedia = () => {
+    switch (mediaStage) {
+      case 'gif':
+        return (
+          <img
+            src={`/exercises-local/${exercise.exerciseId}.gif`}
+            alt=""
+            className="w-full h-48 rounded-xl object-contain bg-white"
+            onError={() => setMediaStage('mp4')}
+          />
+        )
+      case 'mp4':
+        return (
+          <video
+            src={`/exercises/${exercise.exerciseId}.mp4`}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-48 rounded-xl object-cover bg-gray-100"
+            onError={() => setMediaStage('image')}
+          />
+        )
+      case 'image':
+        return (
+          <img
+            src={getExerciseImageUrl(exercise.exerciseId, exercise.name)}
+            alt=""
+            className="w-full h-48 rounded-xl object-cover bg-gray-100"
+            onError={() => setMediaStage('none')}
+          />
+        )
+      default:
+        return null
+    }
+  }
+
   return (
-    <div className="flex flex-col min-h-screen bg-gray-900 text-white">
+    <div className="flex flex-col min-h-screen bg-white text-gray-900">
       {/* Top bar */}
       <div className="flex items-center justify-between px-4 py-3">
-        <span className="text-sm text-gray-400">
+        <span className="text-sm text-gray-500">
           Упражнение {exerciseIndex} из {totalExercises}
         </span>
-        <span className="text-sm text-gray-400">{isTimed ? displayTime() : `${exercise.reps} повторений`}</span>
+        <span className="text-sm text-gray-500">{isTimed ? displayTime() : `${exercise.reps} повторений`}</span>
       </div>
+
+      {/* Media area — GIF > MP4 > image > none */}
+      {mediaStage !== 'none' && (
+        <div className="px-4 pb-2">
+          {renderMedia()}
+        </div>
+      )}
 
       {/* Center content */}
       <div className="flex-1 flex flex-col items-center justify-center px-6 text-center">
@@ -39,11 +92,11 @@ export default function ExercisePlayer({
 
         {/* Note if present */}
         {exercise.note && (
-          <p className="text-base text-blue-300 mb-4">{exercise.note}</p>
+          <p className="text-base text-blue-600 mb-4">{exercise.note}</p>
         )}
 
         {/* Instructions */}
-        <p className="text-sm text-gray-300 leading-relaxed max-w-md">{exercise.instructions}</p>
+        <p className="text-sm text-gray-500 leading-relaxed max-w-md">{exercise.instructions}</p>
       </div>
 
       {/* Bottom controls */}
@@ -51,7 +104,7 @@ export default function ExercisePlayer({
         {isTimed && (
           <button
             onClick={onPause}
-            className="w-full py-3.5 rounded-xl border border-gray-600 text-white font-semibold text-base hover:bg-gray-800 transition-colors"
+            className="w-full py-3.5 rounded-xl border border-gray-300 text-gray-700 font-semibold text-base hover:bg-gray-100 transition-colors"
           >
             {isPaused ? 'Продолжить' : 'Пауза'}
           </button>
