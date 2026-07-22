@@ -7,7 +7,6 @@ import Workouts from './pages/Workouts'
 import WorkoutDetail from './pages/WorkoutDetail'
 import WorkoutPlayer from './pages/WorkoutPlayer'
 import WorkoutComplete from './pages/WorkoutComplete'
-import Activity from './pages/Activity'
 import Profile from './pages/Profile'
 
 export default function App() {
@@ -35,7 +34,6 @@ export default function App() {
           <Route path="/workout/:id" element={<WorkoutDetail />} />
           <Route path="/workout/:id/play" element={<WorkoutPlayer />} />
           <Route path="/workout/:id/complete" element={<WorkoutComplete />} />
-          <Route path="/activity" element={<Activity />} />
           <Route path="/profile" element={<Profile />} />
         </Routes>
       </main>
