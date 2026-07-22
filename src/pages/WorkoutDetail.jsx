@@ -1,7 +1,19 @@
-import { useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { getWorkoutCoverUrl } from '../utils/coverImage'
 import data from '../data/workouts.json'
+
+const categoryEmoji = {
+  'upper-body': '💪',
+  'lower-body': '🦵',
+  'core': '🔥',
+  'full-body': '⚡',
+}
+
+function getCategoryForWorkout(workoutId) {
+  for (const cat of data.categories) {
+    if (cat.workouts.some((w) => w.id === workoutId)) return cat.id
+  }
+  return null
+}
 
 const levelLabels = { beginner: 'Новичок', intermediate: 'Средний', advanced: 'Продвинутый' }
 const equipmentLabels = { none: 'Без инвентаря', dumbbells: 'Гантели', mat: 'Коврик' }
@@ -18,17 +30,11 @@ function formatDosage(item) {
 
 export default function WorkoutDetail() {
   const { id } = useParams()
-  const [imgError, setImgError] = useState(false)
 
   let workout = null
-  let coverUrl = ''
   for (const cat of data.categories) {
     const found = cat.workouts.find((w) => w.id === id)
     if (found) { workout = found; break }
-  }
-
-  if (workout) {
-    coverUrl = getWorkoutCoverUrl(workout, data.categories)
   }
 
   if (!workout) {
@@ -40,19 +46,25 @@ export default function WorkoutDetail() {
     )
   }
 
+  const catId = getCategoryForWorkout(workout.id)
+  const emoji = categoryEmoji[catId] || '🏋️'
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Cover image header */}
       <div className="relative h-48 bg-gradient-to-br from-blue-400 to-blue-600 overflow-hidden">
-        {!imgError && (
+        {workout.coverImage ? (
           <img
-            src={coverUrl}
+            src={workout.coverImage}
             alt=""
             className="absolute inset-0 w-full h-full object-cover"
-            onError={() => setImgError(true)}
           />
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="text-7xl opacity-60">{emoji}</span>
+          </div>
         )}
-        {!imgError && <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 p-4">
           <h1 className="text-2xl font-bold text-white">{workout.title}</h1>
         </div>

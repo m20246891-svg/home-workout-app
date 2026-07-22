@@ -5,63 +5,20 @@
       "name": "Всё тело",
       "workouts": [
         {
-          "id": "full-body-beginner-10",
-          "title": "Всё тело · Новичок",
-          "level": "beginner",
-          "durationMin": 10,
-          "equipment": "none",
-          "description": "Короткая тренировка на всё тело без инвентаря. Подходит для первого занятия.",
-          "blocks": [
-            {
-              "id": "warmup",
-              "name": "Разминка",
-              "repeat": 1,
-              "items": [
-                { "type": "exercise", "exerciseId": "jumping-jacks", "mode": "timed", "durationSec": 30 },
-                { "type": "exercise", "exerciseId": "arm-circles", "mode": "timed", "durationSec": 20 },
-                { "type": "rest", "durationSec": 10 }
-              ]
-            },
-            {
-              "id": "main",
-              "name": "Основная часть",
-              "repeat": 2,
-              "items": [
-                { "type": "exercise", "exerciseId": "squats", "mode": "reps", "reps": 12 },
-                { "type": "rest", "durationSec": 15 },
-                { "type": "exercise", "exerciseId": "pushups", "mode": "reps", "reps": 8 },
-                { "type": "rest", "durationSec": 15 },
-                { "type": "exercise", "exerciseId": "bird-dog", "mode": "timed", "durationSec": 30 },
-                { "type": "rest", "durationSec": 15 }
-              ]
-            },
-            {
-              "id": "cooldown",
-              "name": "Заминка",
-              "repeat": 1,
-              "items": [
-                { "type": "exercise", "exerciseId": "standing-toe-touch", "mode": "timed", "durationSec": 30 },
-                { "type": "exercise", "exerciseId": "cat-cow", "mode": "timed", "durationSec": 30 }
-              ]
-            }
-          ]
-        },
-        {
-          "id": "full-body-intermediate-20",
-          "title": "Всё тело · Средний",
+          "id": "full-body-hiit",
+          "title": "Всё тело · ВИИТ",
           "level": "intermediate",
-          "durationMin": 20,
+          "durationMin": 16,
           "equipment": "none",
-          "description": "Интенсивная круговая тренировка на все группы мышц. Без инвентаря.",
+          "description": "Интервальная тренировка на всё тело. Кардио + сила, максимум калорий.",
           "blocks": [
             {
               "id": "warmup",
               "name": "Разминка",
               "repeat": 1,
               "items": [
-                { "type": "exercise", "exerciseId": "jumping-jacks", "mode": "timed", "durationSec": 40 },
-                { "type": "exercise", "exerciseId": "lunges", "mode": "reps", "reps": 10, "note": "на каждую ногу" },
-                { "type": "rest", "durationSec": 10 }
+                { "type": "exercise", "exerciseId": "mountain-climber", "mode": "timed", "durationSec": 30 },
+                { "type": "rest", "durationSec": 15 }
               ]
             },
             {
@@ -69,14 +26,14 @@
               "name": "Основная часть",
               "repeat": 3,
               "items": [
-                { "type": "exercise", "exerciseId": "burpees", "mode": "reps", "reps": 10 },
-                { "type": "rest", "durationSec": 10 },
-                { "type": "exercise", "exerciseId": "squats", "mode": "reps", "reps": 15 },
-                { "type": "rest", "durationSec": 10 },
-                { "type": "exercise", "exerciseId": "pushups", "mode": "reps", "reps": 12 },
-                { "type": "rest", "durationSec": 10 },
-                { "type": "exercise", "exerciseId": "russian-twists", "mode": "reps", "reps": 20 },
-                { "type": "rest", "durationSec": 15 }
+                { "type": "exercise", "exerciseId": "burpee", "mode": "reps", "reps": 10 },
+                { "type": "rest", "durationSec": 15 },
+                { "type": "exercise", "exerciseId": "jump-squat", "mode": "reps", "reps": 15 },
+                { "type": "rest", "durationSec": 15 },
+                { "type": "exercise", "exerciseId": "pushup", "mode": "reps", "reps": 10 },
+                { "type": "rest", "durationSec": 15 },
+                { "type": "exercise", "exerciseId": "russian-twist", "mode": "reps", "reps": 20, "note": "по 10 на каждую сторону" },
+                { "type": "rest", "durationSec": 25 }
               ]
             },
             {
@@ -84,187 +41,8 @@
               "name": "Заминка",
               "repeat": 1,
               "items": [
-                { "type": "exercise", "exerciseId": "child-pose", "mode": "timed", "durationSec": 30 },
-                { "type": "exercise", "exerciseId": "quad-stretch", "mode": "timed", "durationSec": 30, "note": "на каждую ногу" }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "cardio-hiit",
-      "name": "Кардио / ВИИТ",
-      "workouts": [
-        {
-          "id": "cardio-beginner-12",
-          "title": "Кардио для начинающих",
-          "level": "beginner",
-          "durationMin": 12,
-          "equipment": "none",
-          "description": "Мягкая кардио-тренировка для разогрева и поднятия пульса.",
-          "blocks": [
-            {
-              "id": "warmup",
-              "name": "Разминка",
-              "repeat": 1,
-              "items": [
-                { "type": "exercise", "exerciseId": "jumping-jacks", "mode": "timed", "durationSec": 20 },
-                { "type": "exercise", "exerciseId": "arm-circles", "mode": "timed", "durationSec": 20 },
-                { "type": "rest", "durationSec": 10 }
-              ]
-            },
-            {
-              "id": "main",
-              "name": "Основная часть",
-              "repeat": 2,
-              "items": [
-                { "type": "exercise", "exerciseId": "high-knees", "mode": "timed", "durationSec": 20 },
-                { "type": "rest", "durationSec": 20 },
-                { "type": "exercise", "exerciseId": "side-lunges", "mode": "reps", "reps": 10, "note": "на каждую сторону" },
-                { "type": "rest", "durationSec": 20 }
-              ]
-            },
-            {
-              "id": "cooldown",
-              "name": "Заминка",
-              "repeat": 1,
-              "items": [
-                { "type": "exercise", "exerciseId": "hip-flexor-stretch", "mode": "timed", "durationSec": 30, "note": "на каждую ногу" }
-              ]
-            }
-          ]
-        },
-        {
-          "id": "hiit-intermediate-15",
-          "title": "ВИИТ · Жиросжигание",
-          "level": "intermediate",
-          "durationMin": 15,
-          "equipment": "none",
-          "description": "Интенсивная интервальная тренировка. 40 секунд работы, 20 отдыха.",
-          "blocks": [
-            {
-              "id": "warmup",
-              "name": "Разминка",
-              "repeat": 1,
-              "items": [
-                { "type": "exercise", "exerciseId": "jumping-jacks", "mode": "timed", "durationSec": 30 },
-                { "type": "exercise", "exerciseId": "lunges", "mode": "reps", "reps": 8, "note": "на каждую ногу" },
-                { "type": "rest", "durationSec": 10 }
-              ]
-            },
-            {
-              "id": "main",
-              "name": "Основная часть",
-              "repeat": 2,
-              "items": [
-                { "type": "exercise", "exerciseId": "burpees", "mode": "timed", "durationSec": 40 },
-                { "type": "rest", "durationSec": 20 },
-                { "type": "exercise", "exerciseId": "mountain-climbers", "mode": "timed", "durationSec": 40 },
-                { "type": "rest", "durationSec": 20 },
-                { "type": "exercise", "exerciseId": "high-knees", "mode": "timed", "durationSec": 40 },
-                { "type": "rest", "durationSec": 20 },
-                { "type": "exercise", "exerciseId": "jumping-jacks", "mode": "timed", "durationSec": 40 },
-                { "type": "rest", "durationSec": 20 }
-              ]
-            },
-            {
-              "id": "cooldown",
-              "name": "Заминка",
-              "repeat": 1,
-              "items": [
-                { "type": "exercise", "exerciseId": "standing-toe-touch", "mode": "timed", "durationSec": 30 },
-                { "type": "exercise", "exerciseId": "child-pose", "mode": "timed", "durationSec": 30 }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "stretching",
-      "name": "Растяжка",
-      "workouts": [
-        {
-          "id": "stretch-beginner-10",
-          "title": "Утренняя растяжка",
-          "level": "beginner",
-          "durationMin": 10,
-          "equipment": "mat",
-          "description": "Мягкая растяжка для пробуждения тела и улучшения гибкости.",
-          "blocks": [
-            {
-              "id": "warmup",
-              "name": "Разминка",
-              "repeat": 1,
-              "items": [
-                { "type": "exercise", "exerciseId": "arm-circles", "mode": "timed", "durationSec": 20 },
-                { "type": "exercise", "exerciseId": "cat-cow", "mode": "timed", "durationSec": 30 }
-              ]
-            },
-            {
-              "id": "main",
-              "name": "Основная часть",
-              "repeat": 1,
-              "items": [
-                { "type": "exercise", "exerciseId": "downward-dog", "mode": "timed", "durationSec": 40 },
-                { "type": "rest", "durationSec": 10 },
-                { "type": "exercise", "exerciseId": "child-pose", "mode": "timed", "durationSec": 40 },
-                { "type": "rest", "durationSec": 10 },
-                { "type": "exercise", "exerciseId": "standing-toe-touch", "mode": "timed", "durationSec": 30 },
-                { "type": "rest", "durationSec": 10 },
-                { "type": "exercise", "exerciseId": "cobra-stretch", "mode": "timed", "durationSec": 30 }
-              ]
-            },
-            {
-              "id": "cooldown",
-              "name": "Заминка",
-              "repeat": 1,
-              "items": [
-                { "type": "exercise", "exerciseId": "child-pose", "mode": "timed", "durationSec": 30 }
-              ]
-            }
-          ]
-        },
-        {
-          "id": "stretch-advanced-15",
-          "title": "Глубокая растяжка",
-          "level": "advanced",
-          "durationMin": 15,
-          "equipment": "mat",
-          "description": "Комплекс на глубокую растяжку всех мышц. Требуется коврик.",
-          "blocks": [
-            {
-              "id": "warmup",
-              "name": "Разминка",
-              "repeat": 1,
-              "items": [
-                { "type": "exercise", "exerciseId": "cat-cow", "mode": "timed", "durationSec": 40 },
-                { "type": "exercise", "exerciseId": "downward-dog", "mode": "timed", "durationSec": 30 }
-              ]
-            },
-            {
-              "id": "main",
-              "name": "Основная часть",
-              "repeat": 1,
-              "items": [
-                { "type": "exercise", "exerciseId": "hamstring-stretch", "mode": "timed", "durationSec": 40, "note": "на каждую ногу" },
-                { "type": "rest", "durationSec": 10 },
-                { "type": "exercise", "exerciseId": "hip-flexor-stretch", "mode": "timed", "durationSec": 40, "note": "на каждую ногу" },
-                { "type": "rest", "durationSec": 10 },
-                { "type": "exercise", "exerciseId": "quad-stretch", "mode": "timed", "durationSec": 40, "note": "на каждую ногу" },
-                { "type": "rest", "durationSec": 10 },
-                { "type": "exercise", "exerciseId": "shoulder-stretch", "mode": "timed", "durationSec": 40, "note": "на каждую руку" },
-                { "type": "rest", "durationSec": 10 },
-                { "type": "exercise", "exerciseId": "butterfly-stretch", "mode": "timed", "durationSec": 45 }
-              ]
-            },
-            {
-              "id": "cooldown",
-              "name": "Завершение",
-              "repeat": 1,
-              "items": [
-                { "type": "exercise", "exerciseId": "child-pose", "mode": "timed", "durationSec": 45 }
+                { "type": "exercise", "exerciseId": "world-greatest-stretch", "mode": "timed", "durationSec": 40, "note": "на каждую сторону" },
+                { "type": "exercise", "exerciseId": "butterfly-stretch", "mode": "timed", "durationSec": 30 }
               ]
             }
           ]
@@ -273,89 +51,33 @@
     }
   ],
   "exercises": {
-    "jumping-jacks": {
-      "name": "Прыжки ноги вместе-врозь",
-      "instructions": "Встань прямо, ноги вместе, руки вдоль тела. Прыжком расставь ноги на ширину плеч и одновременно подними руки над головой. Вернись в исходное положение прыжком."
-    },
-    "arm-circles": {
-      "name": "Вращения руками",
-      "instructions": "Встань прямо, вытяни руки в стороны. Делай круговые движения руками вперёд, затем назад. Амплитуда максимальная."
-    },
-    "squats": {
-      "name": "Приседания",
-      "instructions": "Ноги на ширине плеч, стопы слегка развёрнуты наружу. Отводи таз назад, сгибая колени, как будто садишься на стул. Спина прямая, колени не выходят за носки. Опускайся до параллели бёдер с полом."
-    },
-    "pushups": {
-      "name": "Отжимания",
-      "instructions": "Прими упор лёжа, ладони на ширине плеч, тело прямое от головы до пят. Опускай грудь к полу, сгибая локти под 45°. Вдох внизу, выдох на подъёме. Если тяжело — отжимайся с колен."
-    },
-    "bird-dog": {
-      "name": "Птица-собака",
-      "instructions": "Встань на четвереньки, ладони под плечами, колени под тазом. Одновременно вытяни правую руку вперёд и левую ногу назад, сохраняя корпус неподвижным. Удерживай баланс, вернись в исходное и поменяй сторону."
-    },
-    "lunges": {
-      "name": "Выпады",
-      "instructions": "Сделай широкий шаг вперёд, сгибая обе ноги до прямого угла. Переднее колено не выходит за носок, заднее почти касается пола. Корпус держи прямо. Вернись толчком и повтори на другую ногу."
-    },
-    "burpees": {
-      "name": "Бёрпи",
-      "instructions": "Из положения стоя присядь, поставь руки на пол. Прыжком уйди в упор лёжа, сделай отжимание. Прыжком верни ноги к рукам и выпрыгни вверх с хлопком над головой."
-    },
-    "mountain-climbers": {
+    "mountain-climber": {
       "name": "Скалолаз",
-      "instructions": "Прими упор лёжа, руки на ширине плеч. Поочерёдно подтягивай колени к груди в быстром темпе, держа корпус прямым. Стопа касается пола под тазом."
+      "instructions": "Прими упор лёжа, руки на ширине плеч. Поочерёдно подтягивай колени к груди в быстром темпе, держа корпус прямым и напряжённым."
     },
-    "high-knees": {
-      "name": "Бег с высоким подниманием бедра",
-      "instructions": "Беги на месте, поднимая колени как можно выше — до уровня таза или выше. Корпус слегка наклонён вперёд. Руки работают как при беге. Дыши ритмично."
+    "burpee": {
+      "name": "Бёрпи",
+      "instructions": "Из положения стоя присядь, поставь руки на пол, прыжком уйди в упор лёжа. Сделай отжимание, прыжком верни ноги к рукам и выпрыгни вверх с хлопком над головой."
     },
-    "russian-twists": {
+    "jump-squat": {
+      "name": "Прыжковые приседания",
+      "instructions": "Присядь до параллели бёдер с полом, затем выпрыгни вверх с максимальным усилием. Мягко приземляйся на слегка согнутые ноги и сразу уходи в следующий присед."
+    },
+    "pushup": {
+      "name": "Отжимания",
+      "instructions": "Прими упор лёжа, ладони на ширине плеч, тело прямое от головы до пят. Опускай грудь к полу, сгибая локти. Выжми себя вверх. Вдох внизу, выдох на подъёме."
+    },
+    "russian-twist": {
       "name": "Русский твист",
-      "instructions": "Сядь на пол, ноги согнуты, стопы на весу. Отклони корпус назад до напряжения пресса. Поворачивай корпус влево и вправо, руки перед грудью. Для усложнения держи руки вытянутыми."
+      "instructions": "Сядь на пол, ноги согнуты, стопы на весу. Отклони корпус назад до напряжения пресса. Поворачивай корпус влево и вправо, руки перед грудью."
     },
-    "side-lunges": {
-      "name": "Боковые выпады",
-      "instructions": "Встань прямо, ноги широко. Сделай выпад вправо, сгибая правую ногу, левая остаётся прямой. Корпус держи ровно. Вернись в центр и повтори влево."
-    },
-    "downward-dog": {
-      "name": "Собака мордой вниз",
-      "instructions": "Из упора на четвереньках подними таз вверх, выпрямляя ноги и руки. Тело образует треугольник. Пятки тяни к полу, голову держи между рук. Удерживай положение, дыши ровно."
-    },
-    "child-pose": {
-      "name": "Поза ребёнка",
-      "instructions": "Встань на колени, опусти таз на пятки. Наклонись корпусом вперёд, вытяни руки перед собой или положи вдоль тела. Лбом коснись пола. Расслабься, дыши глубоко."
-    },
-    "cobra-stretch": {
-      "name": "Поза кобры",
-      "instructions": "Ляг на живот, ладони под плечами. На вдохе плавно подними грудь, выпрямляя руки. Таз и ноги остаются на полу. Смотри вперёд, плечи опущены вниз."
-    },
-    "cat-cow": {
-      "name": "Кошка-корова",
-      "instructions": "Встань на четвереньки. На вдохе прогни спину вниз, подними голову и таз вверх (корова). На выдохе округли спину вверх, подбородок к груди (кошка). Движение плавное, с дыханием."
-    },
-    "standing-toe-touch": {
-      "name": "Наклон к стопам",
-      "instructions": "Встань прямо, ноги вместе. На выдохе наклонись вперёд, стараясь коснуться руками пола. Ноги прямые. Если не достаёшь — слегка согни колени. Расслабь шею и голову."
-    },
-    "hamstring-stretch": {
-      "name": "Растяжка задней поверхности бедра",
-      "instructions": "Сядь на пол, вытяни одну ногу вперёд, вторую согни, стопа у внутренней стороны бедра. Наклонись корпусом к прямой ноге, держа спину ровно. Задержись в комфортном положении."
-    },
-    "quad-stretch": {
-      "name": "Растяжка квадрицепса",
-      "instructions": "Встань прямо, одной рукой держись за опору. Согни ногу в колене, пятку к ягодице, захвати стопу рукой. Тяни пятку к ягодице, колено направлено вниз. Задержись."
-    },
-    "hip-flexor-stretch": {
-      "name": "Растяжка сгибателей бедра",
-      "instructions": "Встань в глубокий выпад: правая нога впереди под прямым углом, левое колено на полу. Подай таз вперёд, почувствуй растяжение в левом бедре. Поменяй сторону."
-    },
-    "shoulder-stretch": {
-      "name": "Растяжка плеч",
-      "instructions": "Вытяни правую руку перед грудью, левой рукой прижми её к груди. Задержись. Затем заведи правую руку за спину сверху, левую — снизу, попробуй сцепить пальцы. Повтори на другую сторону."
+    "world-greatest-stretch": {
+      "name": "Комплексная растяжка",
+      "instructions": "Из выпада вперёд опусти руку к полу у передней стопы, затем разверни корпус и вытяни вторую руку вверх. Динамичная растяжка на всё тело. Поменяй сторону."
     },
     "butterfly-stretch": {
       "name": "Бабочка",
-      "instructions": "Сядь на пол, стопы вместе, колени разведены в стороны. Возьми стопы руками и мягко надави локтями на колени, опуская их к полу. Спина прямая."
+      "instructions": "Сядь, стопы вместе, колени разведены в стороны. Возьми стопы руками и мягко надави локтями на колени, опуская их к полу. Спина прямая."
     }
   }
 }

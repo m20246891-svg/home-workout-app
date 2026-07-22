@@ -11,10 +11,10 @@ export default function ExercisePlayer({
   onPause,
   onNext,
 }) {
-  const [mediaStage, setMediaStage] = useState('gif')
+  const [mediaStage, setMediaStage] = useState('mp4')
 
   useEffect(() => {
-    setMediaStage('gif')
+    setMediaStage('mp4')
   }, [exercise.exerciseId])
 
   const displayTime = () => {
@@ -26,15 +26,6 @@ export default function ExercisePlayer({
 
   const renderMedia = () => {
     switch (mediaStage) {
-      case 'gif':
-        return (
-          <img
-            src={`/exercises-local/${exercise.exerciseId}.gif`}
-            alt=""
-            className="w-full h-48 rounded-xl object-contain bg-white"
-            onError={() => setMediaStage('mp4')}
-          />
-        )
       case 'mp4':
         return (
           <video
@@ -44,6 +35,15 @@ export default function ExercisePlayer({
             muted
             playsInline
             className="w-full h-48 rounded-xl object-cover bg-gray-100"
+            onError={() => setMediaStage('gif')}
+          />
+        )
+      case 'gif':
+        return (
+          <img
+            src={`/exercises/${exercise.exerciseId}.gif`}
+            alt=""
+            className="w-full h-48 rounded-xl object-contain bg-white"
             onError={() => setMediaStage('image')}
           />
         )
@@ -71,7 +71,7 @@ export default function ExercisePlayer({
         <span className="text-sm text-gray-500">{isTimed ? displayTime() : `${exercise.reps} повторений`}</span>
       </div>
 
-      {/* Media area — GIF > MP4 > image > none */}
+      {/* Media area — MP4 > GIF > image > none */}
       {mediaStage !== 'none' && (
         <div className="px-4 pb-2">
           {renderMedia()}

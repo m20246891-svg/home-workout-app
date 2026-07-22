@@ -1,7 +1,19 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { getWorkoutCoverUrl } from '../utils/coverImage'
 import data from '../data/workouts.json'
+
+const categoryEmoji = {
+  'upper-body': '💪',
+  'lower-body': '🦵',
+  'core': '🔥',
+  'full-body': '⚡',
+}
+
+function getCategoryForWorkout(workoutId) {
+  for (const cat of data.categories) {
+    if (cat.workouts.some((w) => w.id === workoutId)) return cat.id
+  }
+  return null
+}
 
 const levelLabels = {
   beginner: 'Новичок',
@@ -22,32 +34,25 @@ const equipmentLabels = {
 }
 
 export default function WorkoutCard({ workout }) {
-  const [imgLoaded, setImgLoaded] = useState(false)
-  const [imgError, setImgError] = useState(false)
-
-  const coverUrl = getWorkoutCoverUrl(workout, data.categories)
+  const catId = getCategoryForWorkout(workout.id)
+  const emoji = categoryEmoji[catId] || '🏋️'
 
   return (
     <Link
       to={`/workout/${workout.id}`}
       className="block rounded-2xl border border-gray-200 bg-white hover:shadow-md transition-shadow overflow-hidden"
     >
-      {/* Cover image */}
-      <div className="relative h-36 bg-gray-100">
-        {!imgError && (
+      {/* Cover image or placeholder */}
+      <div className="relative h-36">
+        {workout.coverImage ? (
           <img
-            src={coverUrl}
+            src={workout.coverImage}
             alt=""
-            className={`w-full h-full object-cover transition-opacity duration-300 ${imgLoaded ? 'opacity-100' : 'opacity-0'}`}
-            onLoad={() => setImgLoaded(true)}
-            onError={() => setImgError(true)}
+            className="w-full h-full object-cover"
           />
-        )}
-        {(!imgLoaded || imgError) && (
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
-            <span className="text-3xl opacity-60">
-              {workout.level === 'beginner' ? '🌟' : workout.level === 'advanced' ? '💪' : '🔥'}
-            </span>
+        ) : (
+          <div className="w-full h-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
+            <span className="text-5xl opacity-70">{emoji}</span>
           </div>
         )}
       </div>

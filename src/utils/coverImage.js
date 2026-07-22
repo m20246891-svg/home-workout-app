@@ -1,7 +1,8 @@
 const categoryPrompts = {
-  'full-body': 'full body workout at home',
-  'cardio-hiit': 'high intensity interval training at home',
-  'stretching': 'stretching and flexibility yoga session',
+  'upper-body': 'upper body home workout, push ups',
+  'lower-body': 'leg workout, lunges and squats at home',
+  'core': 'core and abs home workout',
+  'full-body': 'full body HIIT home workout',
 }
 
 const fitnessTail =
