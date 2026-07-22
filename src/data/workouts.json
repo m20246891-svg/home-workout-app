@@ -100,6 +100,50 @@
           ]
         },
         {
+          "id": "full-body-1",
+          "title": "Всё тело — День 1",
+          "level": "beginner",
+          "durationMin": 9,
+          "equipment": "none",
+          "description": "Вводная тренировка на всё тело без инвентаря.",
+          "blocks": [
+            {
+              "id": "warmup",
+              "name": "Разминка",
+              "repeat": 1,
+              "items": [
+                { "type": "exercise", "exerciseId": "bodyweight-squat", "mode": "timed", "durationSec": 30 },
+                { "type": "rest", "durationSec": 15 }
+              ]
+            },
+            {
+              "id": "main",
+              "name": "Основная часть",
+              "repeat": 2,
+              "items": [
+                { "type": "exercise", "exerciseId": "push-up", "mode": "timed", "durationSec": 30 },
+                { "type": "rest", "durationSec": 15 },
+                { "type": "exercise", "exerciseId": "forward-lunge", "mode": "timed", "durationSec": 30, "note": "на каждую ногу" },
+                { "type": "rest", "durationSec": 15 },
+                { "type": "exercise", "exerciseId": "bench-dips", "mode": "timed", "durationSec": 25 },
+                { "type": "rest", "durationSec": 15 },
+                { "type": "exercise", "exerciseId": "bodyweight-squat", "mode": "timed", "durationSec": 30 },
+                { "type": "rest", "durationSec": 20 }
+              ]
+            },
+            {
+              "id": "core",
+              "name": "Пресс",
+              "repeat": 1,
+              "items": [
+                { "type": "exercise", "exerciseId": "hand-plank", "mode": "timed", "durationSec": 25 },
+                { "type": "rest", "durationSec": 15 },
+                { "type": "exercise", "exerciseId": "bodyweight-russian-twist", "mode": "timed", "durationSec": 30 }
+              ]
+            }
+          ]
+        },
+        {
           "id": "upper-body-1",
           "title": "Верх тела — День 2",
           "level": "intermediate",
@@ -467,10 +511,10 @@
     "days": [
       {
         "day": 1,
-        "title": "День 1",
+        "title": "День 1 — Всё тело",
         "durationMin": 9,
         "kcal": 90,
-        "workoutId": "full-body-hiit"
+        "workoutId": "full-body-1"
       },
       {
         "day": 2,
