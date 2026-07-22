@@ -1,9 +1,20 @@
+import { useState } from 'react'
 import StreakBadge from '../components/StreakBadge'
-import { Link } from 'react-router-dom'
+import PlanDetail from '../components/PlanDetail'
 import data from '../data/workouts.json'
 
 export default function Workouts() {
   const plans = data.plans || []
+  const [selectedPlanId, setSelectedPlanId] = useState(null)
+
+  if (selectedPlanId) {
+    return (
+      <PlanDetail
+        planId={selectedPlanId}
+        onBack={() => setSelectedPlanId(null)}
+      />
+    )
+  }
 
   return (
     <div className="px-4 pt-4 pb-6">
@@ -19,10 +30,10 @@ export default function Workouts() {
       ) : (
         <div className="space-y-3">
           {plans.map((plan) => (
-            <Link
+            <button
               key={plan.id}
-              to="/progress"
-              className="block rounded-2xl border border-gray-200 bg-white hover:shadow-md transition-shadow overflow-hidden"
+              onClick={() => setSelectedPlanId(plan.id)}
+              className="w-full text-left rounded-2xl border border-gray-200 bg-white hover:shadow-md transition-shadow overflow-hidden"
             >
               {/* Cover */}
               <div className="h-36 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
@@ -52,7 +63,7 @@ export default function Workouts() {
                   </span>
                 </div>
               </div>
-            </Link>
+            </button>
           ))}
         </div>
       )}

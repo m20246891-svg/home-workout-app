@@ -50,9 +50,9 @@ export default function WorkoutDetail() {
   const emoji = categoryEmoji[catId] || '🏋️'
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="flex flex-col bg-gray-50 h-full">
       {/* Cover image header */}
-      <div className="relative h-48 bg-gradient-to-br from-gray-400 to-gray-600 overflow-hidden">
+      <div className="relative h-48 flex-shrink-0 bg-gradient-to-br from-gray-400 to-gray-600 overflow-hidden">
         {workout.coverImage ? (
           <img
             src={workout.coverImage}
@@ -70,76 +70,80 @@ export default function WorkoutDetail() {
         </div>
       </div>
 
-      <div className="p-4 space-y-4">
-        {/* Metadata */}
-        <div className="flex flex-wrap gap-3 text-sm text-gray-600">
-          <span className="inline-flex items-center gap-1">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            {workout.durationMin} мин
-          </span>
-          <span className="inline-flex items-center gap-1">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            {levelLabels[workout.level]}
-          </span>
-          <span className="inline-flex items-center gap-1">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
-            </svg>
-            {equipmentLabels[workout.equipment]}
-          </span>
-        </div>
+      <div className="flex-1 overflow-y-auto">
+        <div className="p-4 space-y-4 pb-36">
+          {/* Metadata */}
+          <div className="flex flex-wrap gap-3 text-sm text-gray-600">
+            <span className="inline-flex items-center gap-1">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              {workout.durationMin} мин
+            </span>
+            <span className="inline-flex items-center gap-1">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              {levelLabels[workout.level]}
+            </span>
+            <span className="inline-flex items-center gap-1">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+              </svg>
+              {equipmentLabels[workout.equipment]}
+            </span>
+          </div>
 
-        {/* Description */}
-        <p className="text-gray-700 text-sm leading-relaxed">{workout.description}</p>
+          {/* Description */}
+          <p className="text-gray-700 text-sm leading-relaxed">{workout.description}</p>
 
-        {/* Blocks */}
-        <div className="space-y-4">
-          {workout.blocks.map((block) => (
-            <div key={block.id} className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-              <div className="flex items-center gap-2 mb-3">
-                <h3 className="font-semibold text-gray-900">{block.name}</h3>
-                {block.repeat > 1 && (
-                  <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">
-                    {block.repeat} круга
-                  </span>
-                )}
+          {/* Blocks */}
+          <div className="space-y-4">
+            {workout.blocks.map((block) => (
+              <div key={block.id} className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+                <div className="flex items-center gap-2 mb-3">
+                  <h3 className="font-semibold text-gray-900">{block.name}</h3>
+                  {block.repeat > 1 && (
+                    <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">
+                      {block.repeat} круга
+                    </span>
+                  )}
+                </div>
+                <ul className="space-y-2">
+                  {block.items.map((item, idx) => (
+                    <li key={idx} className="flex items-center gap-2 text-sm">
+                      {item.type === 'rest' ? (
+                        <>
+                          <span className="w-1.5 h-1.5 rounded-full bg-gray-300 flex-shrink-0" />
+                          <span className="text-gray-500">Отдых</span>
+                          <span className="text-gray-400">·</span>
+                          <span className="text-gray-500">{item.durationSec} сек</span>
+                        </>
+                      ) : (
+                        <>
+                          <span className="w-1.5 h-1.5 rounded-full bg-gray-400 flex-shrink-0" />
+                          <div className="flex-1 min-w-0">
+                            <span className="text-gray-800">
+                              {data.exercises[item.exerciseId]?.name || item.exerciseId}
+                            </span>
+                            <span className="text-gray-500 ml-1.5">{formatDosage(item)}</span>
+                            {item.note && (
+                              <span className="block text-gray-400 text-xs mt-0.5">{item.note}</span>
+                            )}
+                          </div>
+                        </>
+                      )}
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <ul className="space-y-2">
-                {block.items.map((item, idx) => (
-                  <li key={idx} className="flex items-center gap-2 text-sm">
-                    {item.type === 'rest' ? (
-                      <>
-                        <span className="w-1.5 h-1.5 rounded-full bg-gray-300 flex-shrink-0" />
-                        <span className="text-gray-500">Отдых</span>
-                        <span className="text-gray-400">·</span>
-                        <span className="text-gray-500">{item.durationSec} сек</span>
-                      </>
-                    ) : (
-                      <>
-                        <span className="w-1.5 h-1.5 rounded-full bg-gray-400 flex-shrink-0" />
-                        <div className="flex-1 min-w-0">
-                          <span className="text-gray-800">
-                            {data.exercises[item.exerciseId]?.name || item.exerciseId}
-                          </span>
-                          <span className="text-gray-500 ml-1.5">{formatDosage(item)}</span>
-                          {item.note && (
-                            <span className="block text-gray-400 text-xs mt-0.5">{item.note}</span>
-                          )}
-                        </div>
-                      </>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
+      </div>
 
-        {/* Start button */}
+      {/* Start button — fixed over tab bar */}
+      <div className="fixed bottom-[50px] left-0 right-0 z-30 bg-white border-t border-gray-100 shadow-[0_-2px_8px_rgba(0,0,0,0.06)] px-4 py-4">
         <Link
           to={`/workout/${id}/play`}
           className="block w-full py-3.5 bg-primary text-white text-center font-semibold rounded-xl text-base hover:bg-gray-800 active:bg-gray-700 transition-colors"

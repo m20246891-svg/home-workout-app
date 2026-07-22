@@ -6,15 +6,11 @@ const program = data.program
 const plan = (data.plans && data.plans[0]) || program
 
 export default function Progress() {
-  const { program: prog, startProgram, getCurrentProgramDay, refresh } = useProgram()
-  const currentDay = getCurrentProgramDay()
+  const { program: prog, startProgram, getCurrentAvailableDay, refresh } = useProgram()
+  const availableDay = getCurrentAvailableDay()
   const hasStarted = !!prog.startDate
   const completedCount = prog.completedDays.length
-
-  console.log('[Progress] render startDate:', prog.startDate, 'currentDay:', currentDay, 'hasStarted:', hasStarted)
-  if (currentDay >= 1) {
-    console.log('[Progress] Day1 — future:', 1 > currentDay, 'completed:', prog.completedDays.includes(1), 'isCurrentDay:', 1 === currentDay)
-  }
+  const dayProgress = prog.dayProgress || {}
 
   function handleStart() {
     startProgram()
@@ -77,12 +73,21 @@ export default function Progress() {
 
       <div className="space-y-3">
         {program.days.map((day, idx) => {
-          const isCompleted = prog.completedDays.includes(day.day)
-          const isCurrentDay = day.day === currentDay
-          const isFuture = day.day > currentDay
-          const isAvailable = !isFuture && !isCompleted
+          const dayNum = day.day
+          const isCompleted = prog.completedDays.includes(dayNum)
+          const isAvailable = dayNum === availableDay && !isCompleted
+          const isLocked = dayNum > availableDay && !isCompleted
           const lineAfter = idx < program.days.length - 1
           const kcal = day.kcal || Math.round(day.durationMin * 9.5)
+
+          // Calculate progress percent
+          let pct = 0
+          const dp = dayProgress[String(dayNum)]
+          if (isCompleted) {
+            pct = 100
+          } else if (dp && dp.totalExercises > 0) {
+            pct = Math.round((dp.completedExercises.length / dp.totalExercises) * 100)
+          }
 
           return (
             <div key={day.day} className="flex gap-3">
@@ -90,7 +95,7 @@ export default function Progress() {
               <div className="flex flex-col items-center w-5 flex-shrink-0">
                 <div
                   className={`w-3.5 h-3.5 rounded-full border-2 mt-4 ${
-                    isCompleted || isCurrentDay
+                    isCompleted || isAvailable
                       ? 'bg-gray-900 border-gray-900'
                       : 'bg-white border-gray-300'
                   }`}
@@ -105,11 +110,13 @@ export default function Progress() {
               </div>
 
               {/* Day card */}
-              {isFuture ? (
-                <div className="flex-1 rounded-2xl border border-gray-100 bg-gray-50 overflow-hidden opacity-50">
+              {isLocked ? (
+                <div className="flex-1 rounded-2xl border border-gray-100 bg-gray-50 overflow-hidden opacity-50 cursor-not-allowed relative group">
                   <div className="p-4">
                     <div className="flex justify-between items-start mb-2">
-                      <h3 className="text-lg font-bold text-gray-400">День {day.day}</h3>
+                      <h3 className="text-lg font-bold text-gray-400">
+                        День {dayNum}
+                      </h3>
                       <span className="text-gray-300">🔒</span>
                     </div>
                     <div className="flex gap-2 mb-3">
@@ -123,27 +130,40 @@ export default function Progress() {
                     <div className="h-24 rounded-xl bg-gray-100 flex items-center justify-center">
                       <span className="text-3xl opacity-30">🏋️</span>
                     </div>
+                    {/* Tooltip on hover */}
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                      <span className="bg-gray-800 text-white text-xs px-3 py-1.5 rounded-lg shadow">
+                        Завершите предыдущий день
+                      </span>
+                    </div>
                   </div>
                 </div>
               ) : (
                 <Link
                   to={`/workout/${day.workoutId}/play`}
-                  state={{ programDay: day.day }}
-                  className={`block flex-1 rounded-2xl border transition-colors ${
-                    isCurrentDay && !isCompleted
+                  state={{ programDay: dayNum }}
+                  className={`block flex-1 rounded-2xl border transition-colors relative ${
+                    isAvailable
                       ? 'bg-white border-gray-300 shadow-md'
-                      : isCompleted
-                      ? 'bg-white border-gray-200'
                       : 'bg-white border-gray-200 hover:border-gray-300 shadow-sm'
                   }`}
                 >
                   <div className="p-4">
                     {/* Day header */}
                     <div className="flex justify-between items-start mb-2">
-                      <h3 className="text-lg font-bold text-gray-900">День {day.day}</h3>
-                      {isCompleted && (
-                        <span className="text-accent text-xl font-bold">✓</span>
-                      )}
+                      <h3 className="text-lg font-bold text-gray-900">
+                        День {dayNum}
+                      </h3>
+                      <div className="flex items-center gap-1.5">
+                        {pct > 0 && (
+                          <span className={`text-xs font-medium ${pct >= 100 ? 'text-green-600' : 'text-neutral-500'}`}>
+                            {pct}%
+                          </span>
+                        )}
+                        {isCompleted && (
+                          <span className="text-accent text-xl font-bold leading-none">✓</span>
+                        )}
+                      </div>
                     </div>
 
                     {/* Pills */}
@@ -170,9 +190,7 @@ export default function Progress() {
                       className={`w-full py-3.5 rounded-xl text-center transition-colors ${
                         isCompleted
                           ? 'bg-gray-100 text-gray-700 font-semibold text-sm'
-                          : isCurrentDay
-                          ? 'bg-primary text-white font-bold text-base'
-                          : 'bg-white text-gray-700 border border-gray-300 font-semibold text-sm'
+                          : 'bg-primary text-white font-bold text-base'
                       }`}
                     >
                       {isCompleted ? 'Повторить' : 'Начать'}

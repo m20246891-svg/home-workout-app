@@ -161,6 +161,7 @@ export default function Profile() {
 
           {/* Fields */}
           <div className="flex-1 min-w-0 space-y-3">
+            {/* Name */}
             <div>
               <p className="text-xs text-gray-500 mb-1">Имя</p>
               <input
@@ -171,36 +172,36 @@ export default function Profile() {
                 className="w-full px-3 py-2 rounded-lg border border-gray-200 text-sm text-gray-900 placeholder-gray-400 bg-white focus:outline-none focus:border-gray-400 transition-colors"
               />
             </div>
-            <div className="flex gap-3 items-end">
-              <div className="w-20 flex-shrink-0">
-                <p className="text-xs text-gray-500 mb-1">Возраст</p>
-                <input
-                  type="number"
-                  value={userProfile.age}
-                  onChange={(e) => handleProfileChange('age', e.target.value)}
-                  placeholder="0"
-                  min="0"
-                  max="150"
-                  className="w-full px-3 py-2 rounded-lg border border-gray-200 text-sm text-gray-900 placeholder-gray-400 bg-white focus:outline-none focus:border-gray-400 transition-colors"
-                />
-              </div>
-              <div className="flex-1">
-                <p className="text-xs text-gray-500 mb-1">Пол</p>
-                <div className="flex gap-2">
-                  {genderOptions.map((opt) => (
-                    <button
-                      key={opt.value}
-                      onClick={() => handleProfileChange('gender', opt.value)}
-                      className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                        userProfile.gender === opt.value
-                          ? 'bg-primary text-white'
-                          : 'bg-gray-100 text-gray-700 border border-gray-200 hover:bg-gray-200'
-                      }`}
-                    >
-                      {opt.label}
-                    </button>
-                  ))}
-                </div>
+            {/* Age */}
+            <div>
+              <p className="text-xs text-gray-500 mb-1">Возраст</p>
+              <input
+                type="number"
+                value={userProfile.age}
+                onChange={(e) => handleProfileChange('age', e.target.value)}
+                placeholder="0"
+                min="0"
+                max="150"
+                className="w-32 px-3 py-2 rounded-lg border border-gray-200 text-sm text-gray-900 placeholder-gray-400 bg-white focus:outline-none focus:border-gray-400 transition-colors"
+              />
+            </div>
+            {/* Gender */}
+            <div>
+              <p className="text-xs text-gray-500 mb-1">Пол</p>
+              <div className="grid grid-cols-2 gap-2">
+                {genderOptions.map((opt) => (
+                  <button
+                    key={opt.value}
+                    onClick={() => handleProfileChange('gender', opt.value)}
+                    className={`w-full px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                      userProfile.gender === opt.value
+                        ? 'bg-primary text-white'
+                        : 'bg-gray-100 text-gray-700 border border-gray-200 hover:bg-gray-200'
+                    }`}
+                  >
+                    {opt.label}
+                  </button>
+                ))}
               </div>
             </div>
           </div>

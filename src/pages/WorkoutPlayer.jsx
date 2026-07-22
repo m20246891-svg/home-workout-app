@@ -3,6 +3,9 @@ import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import data from '../data/workouts.json'
 import ExercisePlayer from '../components/ExercisePlayer'
 import RestScreen from '../components/RestScreen'
+import WorkoutReport from '../components/WorkoutReport'
+import useLocalProgress from '../hooks/useLocalProgress'
+import useProgram from '../hooks/useProgram'
 
 function flattenSteps(blocks) {
   const steps = []
@@ -36,17 +39,19 @@ export default function WorkoutPlayer() {
   const location = useLocation()
   const programDay = location.state?.programDay
   const workout = findWorkout(id)
+  const { addCompletedWorkout } = useLocalProgress()
+  const { markProgramDayDone, saveDayProgress } = useProgram()
 
   const [{ steps, exerciseCount }, _] = useState(
     () => workout ? flattenSteps(workout.blocks) : { steps: [], exerciseCount: 0 }
   )
 
-  const [phase, setPhase] = useState('countdown') // countdown | playing | complete
+  const [phase, setPhase] = useState('countdown') // countdown | playing | workoutReport
   const [countdown, setCountdown] = useState(3)
   const [stepIndex, setStepIndex] = useState(0)
   const [timer, setTimer] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
-  const [showExitModal, setShowExitModal] = useState(false)
+  const [completedStepIndexes, setCompletedStepIndexes] = useState([])
 
   const currentStep = steps[stepIndex]
   const exerciseIndex = steps.slice(0, stepIndex + 1).filter((s) => s.stepType === 'exercise').length
@@ -119,9 +124,22 @@ export default function WorkoutPlayer() {
   function advanceToNext() {
     clearTimer()
     setIsPaused(false)
+
+    // Mark current exercise as completed (dedup for StrictMode double-fire)
+    if (currentStep?.stepType === 'exercise') {
+      setCompletedStepIndexes((prev) => {
+        if (prev.includes(stepIndex)) return prev
+        const next = [...prev, stepIndex]
+        if (programDay) {
+          saveDayProgress(programDay, next, exerciseCount)
+        }
+        return next
+      })
+    }
+
     const nextIdx = stepIndex + 1
     if (nextIdx >= steps.length) {
-      setPhase('complete')
+      setPhase('workoutReport')
     } else {
       setStepIndex(nextIdx)
       const nextStep = steps[nextIdx]
@@ -140,20 +158,22 @@ export default function WorkoutPlayer() {
   }
 
   function handleExit() {
-    setShowExitModal(false)
-    navigate(`/workout/${id}`)
+    setPhase('workoutReport')
   }
 
   function handleAddTime() {
     setTimer((prev) => prev + 20)
   }
 
-  // Navigate to complete page
-  useEffect(() => {
-    if (phase === 'complete') {
-      navigate(`/workout/${id}/complete`, { replace: true, state: { programDay } })
+  function handleCloseReport(saveProgress) {
+    if (saveProgress && programDay) {
+      markProgramDayDone(programDay)
     }
-  }, [phase, navigate, id, programDay])
+    if (saveProgress) {
+      addCompletedWorkout(id)
+    }
+    navigate('/progress', { replace: true })
+  }
 
   if (!workout) {
     return (
@@ -173,6 +193,20 @@ export default function WorkoutPlayer() {
     )
   }
 
+  // Report phase
+  if (phase === 'workoutReport') {
+    return (
+      <WorkoutReport
+        workout={workout}
+        steps={steps}
+        completedStepIndexes={completedStepIndexes}
+        totalExercises={exerciseCount}
+        onContinue={() => setPhase('playing')}
+        onClose={handleCloseReport}
+      />
+    )
+  }
+
   // Rest step
   if (currentStep?.stepType === 'rest') {
     const nextExerciseIdx = steps.slice(stepIndex + 1).findIndex((s) => s.stepType === 'exercise')
@@ -188,14 +222,13 @@ export default function WorkoutPlayer() {
           onAddTime={handleAddTime}
           nextExerciseName={nextExercise?.name || null}
         />
-        {/* Exit button */}
+        {/* Exit button → goes to report */}
         <button
-          onClick={() => setShowExitModal(true)}
+          onClick={() => setPhase('workoutReport')}
           className="fixed top-3 right-3 z-20 w-9 h-9 flex items-center justify-center rounded-full bg-gray-200 text-gray-500 hover:bg-gray-300 transition-colors"
         >
           ✕
         </button>
-        {showExitModal && <ExitModal onConfirm={handleExit} onCancel={() => setShowExitModal(false)} />}
       </>
     )
   }
@@ -217,42 +250,16 @@ export default function WorkoutPlayer() {
           onPause={handlePause}
           onNext={advanceToNext}
         />
-        {/* Exit button */}
+        {/* Exit button → goes to report */}
         <button
-          onClick={() => setShowExitModal(true)}
+          onClick={() => setPhase('workoutReport')}
           className="fixed top-3 right-3 z-20 w-9 h-9 flex items-center justify-center rounded-full bg-gray-200 text-gray-500 hover:bg-gray-300 transition-colors"
         >
           ✕
         </button>
-        {showExitModal && <ExitModal onConfirm={handleExit} onCancel={() => setShowExitModal(false)} />}
       </>
     )
   }
 
   return null
-}
-
-function ExitModal({ onConfirm, onCancel }) {
-  return (
-    <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center px-6">
-      <div className="bg-white rounded-2xl p-6 w-full max-w-sm text-center">
-        <h3 className="text-lg font-semibold text-gray-900 mb-2">Завершить тренировку?</h3>
-        <p className="text-sm text-gray-500 mb-6">Весь прогресс в этой тренировке будет потерян.</p>
-        <div className="space-y-2">
-          <button
-            onClick={onConfirm}
-            className="w-full py-3 rounded-xl bg-red-600 text-white font-semibold text-sm hover:bg-red-700 transition-colors"
-          >
-            Выйти
-          </button>
-          <button
-            onClick={onCancel}
-            className="w-full py-3 rounded-xl bg-gray-100 text-gray-800 font-semibold text-sm hover:bg-gray-200 transition-colors"
-          >
-            Продолжить
-          </button>
-        </div>
-      </div>
-    </div>
-  )
 }

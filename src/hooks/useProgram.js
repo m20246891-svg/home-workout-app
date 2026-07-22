@@ -16,7 +16,7 @@ function daysBetween(startStr, endStr) {
 }
 
 function defaultProgram() {
-  return { startDate: null, completedDays: [] }
+  return { startDate: null, completedDays: [], dayProgress: {} }
 }
 
 export default function useProgram() {
@@ -24,23 +24,37 @@ export default function useProgram() {
 
   const startProgram = useCallback(() => {
     const today = todayString()
-    const updated = { startDate: today, completedDays: [] }
+    const updated = { startDate: today, completedDays: [], dayProgress: {} }
     set('program', updated)
     setProgram(updated)
   }, [])
 
-  const getCurrentProgramDay = useCallback(() => {
-    if (!program.startDate) return 0
-    const diff = daysBetween(program.startDate, todayString())
-    const day = Math.min(Math.max(diff + 1, 1), 28)
-    return day
-  }, [program.startDate])
+  const getCurrentAvailableDay = useCallback(() => {
+    if (!program.startDate) return 1
+    const maxCompleted = program.completedDays.length > 0
+      ? Math.max(...program.completedDays)
+      : 0
+    return Math.min(maxCompleted + 1, 28)
+  }, [program.startDate, program.completedDays])
 
   const markProgramDayDone = useCallback((day) => {
     const prev = get('program') || defaultProgram()
     if (prev.completedDays.includes(day)) return
     const completedDays = [...prev.completedDays, day]
-    const updated = { ...prev, completedDays }
+    // Remove partial progress for completed day
+    const dayProgress = { ...(prev.dayProgress || {}) }
+    delete dayProgress[String(day)]
+    const updated = { ...prev, completedDays, dayProgress }
+    set('program', updated)
+    setProgram(updated)
+  }, [])
+
+  const saveDayProgress = useCallback((day, completedExercises, totalExercises) => {
+    const prev = get('program') || defaultProgram()
+    if (prev.completedDays.includes(day)) return // don't save if already completed
+    const dayProgress = { ...(prev.dayProgress || {}) }
+    dayProgress[String(day)] = { completedExercises, totalExercises }
+    const updated = { ...prev, dayProgress }
     set('program', updated)
     setProgram(updated)
   }, [])
@@ -51,5 +65,5 @@ export default function useProgram() {
     return data
   }, [])
 
-  return { program, startProgram, getCurrentProgramDay, markProgramDayDone, refresh }
+  return { program, startProgram, getCurrentAvailableDay, markProgramDayDone, saveDayProgress, refresh }
 }
