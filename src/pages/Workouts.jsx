@@ -37,7 +37,7 @@ export default function Workouts() {
             onClick={() => setActiveLevel(l.value)}
             className={`whitespace-nowrap rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
               activeLevel === l.value
-                ? 'bg-blue-600 text-white'
+                ? 'bg-primary text-white'
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             }`}
           >

@@ -61,7 +61,7 @@ export default function Onboarding({ onComplete }) {
           <div
             key={i}
             className={`w-2 h-2 rounded-full transition-colors ${
-              i === step ? 'bg-blue-600 w-6' : i < step ? 'bg-blue-300' : 'bg-gray-200'
+              i === step ? 'bg-primary w-6' : i < step ? 'bg-gray-400' : 'bg-gray-200'
             }`}
           />
         ))}
@@ -78,7 +78,7 @@ export default function Onboarding({ onComplete }) {
             <button
               key={opt.value}
               onClick={() => handleSelect(opt.value)}
-              className="w-full py-4 px-6 rounded-2xl border-2 border-gray-200 bg-white text-gray-800 font-medium text-base text-left hover:border-blue-500 hover:bg-blue-50 active:bg-blue-100 transition-colors"
+              className="w-full py-4 px-6 rounded-2xl border-2 border-gray-200 bg-white text-gray-800 font-medium text-base text-left hover:border-gray-300 hover:bg-gray-50 active:bg-gray-100 transition-colors"
             >
               {opt.label}
             </button>

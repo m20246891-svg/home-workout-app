@@ -35,7 +35,7 @@ export default function RestScreen({
         </button>
         <button
           onClick={onSkip}
-          className="w-full py-3.5 rounded-xl bg-blue-600 text-white font-semibold text-base hover:bg-blue-700 active:bg-blue-800 transition-colors"
+          className="w-full py-3.5 rounded-xl bg-primary text-white font-semibold text-base hover:bg-gray-800 active:bg-gray-700 transition-colors"
         >
           Пропустить
         </button>

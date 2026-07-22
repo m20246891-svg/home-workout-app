@@ -74,7 +74,7 @@ export default function Profile() {
                     onClick={() => handleChange(group.key, opt.value)}
                     className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
                       onboarding[group.key] === opt.value
-                        ? 'bg-blue-600 text-white'
+                        ? 'bg-primary text-white'
                         : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                     }`}
                   >

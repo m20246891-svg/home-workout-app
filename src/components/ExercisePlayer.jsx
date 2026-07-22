@@ -92,7 +92,7 @@ export default function ExercisePlayer({
 
         {/* Note if present */}
         {exercise.note && (
-          <p className="text-base text-blue-600 mb-4">{exercise.note}</p>
+          <p className="text-base text-gray-500 mb-4">{exercise.note}</p>
         )}
 
         {/* Instructions */}
@@ -111,7 +111,7 @@ export default function ExercisePlayer({
         )}
         <button
           onClick={onNext}
-          className="w-full py-3.5 rounded-xl bg-blue-600 text-white font-semibold text-base hover:bg-blue-700 active:bg-blue-800 transition-colors"
+          className="w-full py-3.5 rounded-xl bg-primary text-white font-semibold text-base hover:bg-gray-800 active:bg-gray-700 transition-colors"
         >
           {isTimed ? 'Дальше' : 'Готово'}
         </button>

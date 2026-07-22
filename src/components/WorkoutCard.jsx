@@ -51,7 +51,7 @@ export default function WorkoutCard({ workout }) {
             className="w-full h-full object-cover"
           />
         ) : (
-          <div className="w-full h-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
+          <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
             <span className="text-5xl opacity-70">{emoji}</span>
           </div>
         )}

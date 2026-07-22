@@ -17,7 +17,7 @@ export default function TabBar() {
             className={({ isActive }) =>
               `flex-1 py-3 text-center text-sm font-medium transition-colors ${
                 isActive
-                  ? 'text-blue-600 border-t-2 border-blue-600 -mt-px'
+                  ? 'text-gray-900 border-t-2 border-gray-900 -mt-px'
                   : 'text-gray-500 hover:text-gray-700'
               }`
             }

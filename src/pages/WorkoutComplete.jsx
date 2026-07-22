@@ -46,7 +46,7 @@ export default function WorkoutComplete() {
           <p className="text-lg text-gray-500 mb-2">{workout.title}</p>
         )}
         {programDay && (
-          <p className="text-sm text-blue-600 mb-2">День {programDay} программы отмечен ✓</p>
+          <p className="text-sm text-gray-600 mb-2">День {programDay} программы отмечен ✓</p>
         )}
         <p className="text-gray-400 mb-2">Отличная работа. Продолжай в том же духе!</p>
 
@@ -79,7 +79,7 @@ export default function WorkoutComplete() {
         )}
         <Link
           to="/workouts"
-          className="block w-full py-3.5 rounded-xl bg-blue-600 text-white font-semibold text-base text-center hover:bg-blue-700 active:bg-blue-800 transition-colors"
+          className="block w-full py-3.5 rounded-xl bg-primary text-white font-semibold text-base text-center hover:bg-gray-800 active:bg-gray-700 transition-colors"
         >
           На главную
         </Link>

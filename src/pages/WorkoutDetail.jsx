@@ -41,7 +41,7 @@ export default function WorkoutDetail() {
     return (
       <div className="p-4">
         <h1 className="text-xl font-bold">Тренировка не найдена</h1>
-        <Link to="/workouts" className="text-blue-600 mt-2 inline-block">← Назад к тренировкам</Link>
+        <Link to="/workouts" className="text-gray-600 mt-2 inline-block hover:text-gray-900">← Назад к тренировкам</Link>
       </div>
     )
   }
@@ -52,7 +52,7 @@ export default function WorkoutDetail() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Cover image header */}
-      <div className="relative h-48 bg-gradient-to-br from-blue-400 to-blue-600 overflow-hidden">
+      <div className="relative h-48 bg-gradient-to-br from-gray-400 to-gray-600 overflow-hidden">
         {workout.coverImage ? (
           <img
             src={workout.coverImage}
@@ -120,7 +120,7 @@ export default function WorkoutDetail() {
                       </>
                     ) : (
                       <>
-                        <span className="w-1.5 h-1.5 rounded-full bg-blue-400 flex-shrink-0" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-gray-400 flex-shrink-0" />
                         <div className="flex-1 min-w-0">
                           <span className="text-gray-800">
                             {data.exercises[item.exerciseId]?.name || item.exerciseId}
@@ -142,7 +142,7 @@ export default function WorkoutDetail() {
         {/* Start button */}
         <Link
           to={`/workout/${id}/play`}
-          className="block w-full py-3.5 bg-blue-600 text-white text-center font-semibold rounded-xl text-base hover:bg-blue-700 active:bg-blue-800 transition-colors"
+          className="block w-full py-3.5 bg-primary text-white text-center font-semibold rounded-xl text-base hover:bg-gray-800 active:bg-gray-700 transition-colors"
         >
           Начать
         </Link>
