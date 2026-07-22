@@ -17,8 +17,16 @@
               "name": "Разминка",
               "repeat": 1,
               "items": [
-                { "type": "exercise", "exerciseId": "mountain-climber", "mode": "timed", "durationSec": 30 },
-                { "type": "rest", "durationSec": 15 }
+                {
+                  "type": "exercise",
+                  "exerciseId": "mountain-climber",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
               ]
             },
             {
@@ -26,14 +34,47 @@
               "name": "Основная часть",
               "repeat": 3,
               "items": [
-                { "type": "exercise", "exerciseId": "burpee", "mode": "reps", "reps": 10 },
-                { "type": "rest", "durationSec": 15 },
-                { "type": "exercise", "exerciseId": "jump-squat", "mode": "reps", "reps": 15 },
-                { "type": "rest", "durationSec": 15 },
-                { "type": "exercise", "exerciseId": "pushup", "mode": "reps", "reps": 10 },
-                { "type": "rest", "durationSec": 15 },
-                { "type": "exercise", "exerciseId": "russian-twist", "mode": "reps", "reps": 20, "note": "по 10 на каждую сторону" },
-                { "type": "rest", "durationSec": 25 }
+                {
+                  "type": "exercise",
+                  "exerciseId": "burpee",
+                  "mode": "reps",
+                  "reps": 10
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "jump-squat",
+                  "mode": "reps",
+                  "reps": 15
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "pushup",
+                  "mode": "reps",
+                  "reps": 10
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "russian-twist",
+                  "mode": "reps",
+                  "reps": 20,
+                  "note": "по 10 на каждую сторону"
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 25
+                }
               ]
             },
             {
@@ -41,8 +82,19 @@
               "name": "Заминка",
               "repeat": 1,
               "items": [
-                { "type": "exercise", "exerciseId": "world-greatest-stretch", "mode": "timed", "durationSec": 40, "note": "на каждую сторону" },
-                { "type": "exercise", "exerciseId": "butterfly-stretch", "mode": "timed", "durationSec": 30 }
+                {
+                  "type": "exercise",
+                  "exerciseId": "world-greatest-stretch",
+                  "mode": "timed",
+                  "durationSec": 40,
+                  "note": "на каждую сторону"
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "butterfly-stretch",
+                  "mode": "timed",
+                  "durationSec": 30
+                }
               ]
             }
           ]
@@ -79,5 +131,181 @@
       "name": "Бабочка",
       "instructions": "Сядь, стопы вместе, колени разведены в стороны. Возьми стопы руками и мягко надави локтями на колени, опуская их к полу. Спина прямая."
     }
+  },
+  "program": {
+    "id": "full-body-28",
+    "title": "Всё тело · усиление силы",
+    "subtitle": "28-дневный режим",
+    "totalDays": 28,
+    "days": [
+      {
+        "day": 1,
+        "title": "День 1",
+        "durationMin": 9,
+        "workoutId": "full-body-hiit"
+      },
+      {
+        "day": 2,
+        "title": "День 2",
+        "durationMin": 12,
+        "workoutId": "full-body-hiit"
+      },
+      {
+        "day": 3,
+        "title": "День 3",
+        "durationMin": 15,
+        "workoutId": "full-body-hiit"
+      },
+      {
+        "day": 4,
+        "title": "День 4",
+        "durationMin": 18,
+        "workoutId": "full-body-hiit"
+      },
+      {
+        "day": 5,
+        "title": "День 5",
+        "durationMin": 20,
+        "workoutId": "full-body-hiit"
+      },
+      {
+        "day": 6,
+        "title": "День 6",
+        "durationMin": 12,
+        "workoutId": "full-body-hiit"
+      },
+      {
+        "day": 7,
+        "title": "День 7",
+        "durationMin": 10,
+        "workoutId": "full-body-hiit"
+      },
+      {
+        "day": 8,
+        "title": "День 8",
+        "durationMin": 14,
+        "workoutId": "full-body-hiit"
+      },
+      {
+        "day": 9,
+        "title": "День 9",
+        "durationMin": 17,
+        "workoutId": "full-body-hiit"
+      },
+      {
+        "day": 10,
+        "title": "День 10",
+        "durationMin": 19,
+        "workoutId": "full-body-hiit"
+      },
+      {
+        "day": 11,
+        "title": "День 11",
+        "durationMin": 11,
+        "workoutId": "full-body-hiit"
+      },
+      {
+        "day": 12,
+        "title": "День 12",
+        "durationMin": 13,
+        "workoutId": "full-body-hiit"
+      },
+      {
+        "day": 13,
+        "title": "День 13",
+        "durationMin": 16,
+        "workoutId": "full-body-hiit"
+      },
+      {
+        "day": 14,
+        "title": "День 14",
+        "durationMin": 18,
+        "workoutId": "full-body-hiit"
+      },
+      {
+        "day": 15,
+        "title": "День 15",
+        "durationMin": 9,
+        "workoutId": "full-body-hiit"
+      },
+      {
+        "day": 16,
+        "title": "День 16",
+        "durationMin": 12,
+        "workoutId": "full-body-hiit"
+      },
+      {
+        "day": 17,
+        "title": "День 17",
+        "durationMin": 15,
+        "workoutId": "full-body-hiit"
+      },
+      {
+        "day": 18,
+        "title": "День 18",
+        "durationMin": 20,
+        "workoutId": "full-body-hiit"
+      },
+      {
+        "day": 19,
+        "title": "День 19",
+        "durationMin": 11,
+        "workoutId": "full-body-hiit"
+      },
+      {
+        "day": 20,
+        "title": "День 20",
+        "durationMin": 14,
+        "workoutId": "full-body-hiit"
+      },
+      {
+        "day": 21,
+        "title": "День 21",
+        "durationMin": 17,
+        "workoutId": "full-body-hiit"
+      },
+      {
+        "day": 22,
+        "title": "День 22",
+        "durationMin": 13,
+        "workoutId": "full-body-hiit"
+      },
+      {
+        "day": 23,
+        "title": "День 23",
+        "durationMin": 16,
+        "workoutId": "full-body-hiit"
+      },
+      {
+        "day": 24,
+        "title": "День 24",
+        "durationMin": 18,
+        "workoutId": "full-body-hiit"
+      },
+      {
+        "day": 25,
+        "title": "День 25",
+        "durationMin": 10,
+        "workoutId": "full-body-hiit"
+      },
+      {
+        "day": 26,
+        "title": "День 26",
+        "durationMin": 12,
+        "workoutId": "full-body-hiit"
+      },
+      {
+        "day": 27,
+        "title": "День 27",
+        "durationMin": 15,
+        "workoutId": "full-body-hiit"
+      },
+      {
+        "day": 28,
+        "title": "День 28",
+        "durationMin": 19,
+        "workoutId": "full-body-hiit"
+      }
+    ]
   }
 }

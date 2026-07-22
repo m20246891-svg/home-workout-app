@@ -7,6 +7,7 @@ import Workouts from './pages/Workouts'
 import WorkoutDetail from './pages/WorkoutDetail'
 import WorkoutPlayer from './pages/WorkoutPlayer'
 import WorkoutComplete from './pages/WorkoutComplete'
+import Progress from './pages/Progress'
 import Profile from './pages/Profile'
 
 export default function App() {
@@ -29,7 +30,8 @@ export default function App() {
     <div className="min-h-screen flex flex-col">
       <main className={`flex-1 ${hideTabBar ? '' : 'pb-16'}`}>
         <Routes>
-          <Route path="/" element={<Navigate to="/workouts" replace />} />
+          <Route path="/" element={<Navigate to="/progress" replace />} />
+          <Route path="/progress" element={<Progress />} />
           <Route path="/workouts" element={<Workouts />} />
           <Route path="/workout/:id" element={<WorkoutDetail />} />
           <Route path="/workout/:id/play" element={<WorkoutPlayer />} />

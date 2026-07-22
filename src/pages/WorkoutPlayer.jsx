@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import data from '../data/workouts.json'
 import ExercisePlayer from '../components/ExercisePlayer'
 import RestScreen from '../components/RestScreen'
@@ -33,6 +33,8 @@ function findWorkout(id) {
 export default function WorkoutPlayer() {
   const { id } = useParams()
   const navigate = useNavigate()
+  const location = useLocation()
+  const programDay = location.state?.programDay
   const workout = findWorkout(id)
 
   const [{ steps, exerciseCount }, _] = useState(
@@ -149,9 +151,9 @@ export default function WorkoutPlayer() {
   // Navigate to complete page
   useEffect(() => {
     if (phase === 'complete') {
-      navigate(`/workout/${id}/complete`, { replace: true })
+      navigate(`/workout/${id}/complete`, { replace: true, state: { programDay } })
     }
-  }, [phase, navigate, id])
+  }, [phase, navigate, id, programDay])
 
   if (!workout) {
     return (
