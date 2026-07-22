@@ -35,7 +35,7 @@ export default function ExercisePlayer({
             loop
             muted
             playsInline
-            className="w-full h-48 rounded-xl object-cover bg-gray-100"
+            className="w-full h-auto block"
             onError={() => setMediaStage('gif')}
           />
         )
@@ -44,7 +44,7 @@ export default function ExercisePlayer({
           <img
             src={`/exercises/${exercise.exerciseId}.gif`}
             alt=""
-            className="w-full h-48 rounded-xl object-contain bg-white"
+            className="w-full h-auto"
             onError={() => setMediaStage('image')}
           />
         )
@@ -53,7 +53,7 @@ export default function ExercisePlayer({
           <img
             src={getExerciseImageUrl(exercise.exerciseId, exercise.name)}
             alt=""
-            className="w-full h-48 rounded-xl object-cover bg-gray-100"
+            className="w-full h-auto"
             onError={() => setMediaStage('none')}
           />
         )
@@ -63,7 +63,7 @@ export default function ExercisePlayer({
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-white text-gray-900">
+    <div className="flex flex-col h-screen bg-white text-gray-900">
       {/* Top bar */}
       <div className="flex items-center justify-between px-4 py-3">
         <span className="text-sm text-gray-500">
@@ -72,36 +72,32 @@ export default function ExercisePlayer({
         <span className="text-sm text-gray-500">{isTimed ? displayTime() : `${exercise.reps} повторений`}</span>
       </div>
 
-      {/* Media area — MP4 > GIF > image > none */}
-      {mediaStage !== 'none' && (
-        <div className="px-4 pb-2">
-          {renderMedia()}
-        </div>
-      )}
-
-      {/* Center content */}
-      <div className="flex-1 flex flex-col items-center justify-center px-6 text-center">
-        {/* Exercise name */}
-        <h2 className="text-2xl font-bold mb-2">{exercise.name}</h2>
-
-        {/* Timer or rep count */}
-        {isTimed ? (
-          <div className="text-7xl font-bold tabular-nums my-8">{displayTime()}</div>
-        ) : (
-          <div className="text-6xl font-bold my-8">{exercise.reps}</div>
-        )}
-
-        {/* Note if present */}
-        {exercise.note && (
-          <p className="text-base text-gray-500 mb-4">{exercise.note}</p>
-        )}
-
-        {/* Instructions */}
-        <p className="text-sm text-gray-500 leading-relaxed max-w-md">{exercise.instructions}</p>
+      {/* Media — natural size, no letterbox */}
+      <div className="w-full">
+        {mediaStage !== 'none' && renderMedia()}
       </div>
 
-      {/* Bottom controls */}
-      <div className="px-4 pb-8 space-y-3">
+      {/* Content — fills remaining space below video */}
+      <div className="px-6 pt-3 pb-1 text-center flex-1 flex flex-col overflow-hidden">
+        <h2 className="text-2xl font-bold">{exercise.name}</h2>
+
+        {isTimed ? (
+          <div className="text-5xl font-bold tabular-nums my-2">{displayTime()}</div>
+        ) : (
+          <div className="text-4xl font-bold my-2">{exercise.reps}</div>
+        )}
+
+        {exercise.note && (
+          <p className="text-base text-gray-500 mb-3">{exercise.note}</p>
+        )}
+
+        <div className="flex-1 overflow-y-auto pb-3">
+          <p className="text-sm text-gray-500 leading-relaxed">{exercise.instructions}</p>
+        </div>
+      </div>
+
+      {/* Bottom controls — always visible */}
+      <div className="px-4 pb-6 pt-2 space-y-3">
         {isTimed && (
           <button
             onClick={onPause}
