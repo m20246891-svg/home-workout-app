@@ -151,7 +151,7 @@ export default function Progress() {
                     </div>
 
                     {/* Cover slot */}
-                    <div className="h-24 rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center mb-3">
+                    <div className="h-24 rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center mb-4">
                       {day.coverImage ? (
                         <img src={day.coverImage} alt="" className="w-full h-full object-cover rounded-xl" />
                       ) : (
@@ -161,11 +161,15 @@ export default function Progress() {
 
                     {/* Action button */}
                     {isCompleted ? (
-                      <div className="w-full py-2.5 rounded-xl bg-gray-100 text-gray-600 font-semibold text-sm text-center">
+                      <div className="w-full py-3.5 rounded-xl bg-gray-100 text-gray-700 font-semibold text-sm text-center">
                         Повторить
                       </div>
+                    ) : isCurrentDay ? (
+                      <div className="w-full py-3.5 rounded-xl bg-primary text-white font-bold text-base text-center">
+                        Начать
+                      </div>
                     ) : (
-                      <div className="w-full py-2.5 rounded-xl bg-primary text-white font-semibold text-sm text-center">
+                      <div className="w-full py-3.5 rounded-xl border border-gray-300 text-gray-700 font-semibold text-sm text-center bg-white">
                         Начать
                       </div>
                     )}
