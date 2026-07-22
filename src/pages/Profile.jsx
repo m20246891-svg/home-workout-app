@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import useLocalProgress from '../hooks/useLocalProgress'
+import useProgram from '../hooks/useProgram'
 import { get, set } from '../utils/storage'
 import data from '../data/workouts.json'
 
@@ -37,6 +38,7 @@ const optionGroups = [
 
 export default function Profile() {
   const { progress, resetProgress } = useLocalProgress()
+  const { program: prog } = useProgram()
   const [onboarding, setOnboarding] = useState(() => get('onboarding') || {})
   const [showResetConfirm, setShowResetConfirm] = useState(false)
 
@@ -67,15 +69,15 @@ export default function Profile() {
           {optionGroups.map((group) => (
             <div key={group.key}>
               <p className="text-sm text-gray-500 mb-2">{group.label}</p>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2.5">
                 {group.options.map((opt) => (
                   <button
                     key={opt.value}
                     onClick={() => handleChange(group.key, opt.value)}
-                    className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                    className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                       onboarding[group.key] === opt.value
                         ? 'bg-primary text-white'
-                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                        : 'bg-gray-100 text-gray-700 border border-gray-200 hover:bg-gray-200'
                     }`}
                   >
                     {opt.label}
@@ -90,11 +92,11 @@ export default function Profile() {
       {/* Stats cards */}
       <h2 className="text-lg font-semibold text-gray-900 mb-3">Статистика</h2>
       <div className="grid grid-cols-2 gap-3 mb-4">
-        <div className="bg-white rounded-xl border border-gray-200 p-4">
+        <div className="bg-white rounded-xl border border-gray-200 p-4 flex flex-col justify-between">
           <p className="text-sm text-gray-500 mb-1">Тренировок</p>
           <p className="text-3xl font-bold text-gray-900">{total}</p>
         </div>
-        <div className="bg-white rounded-xl border border-gray-200 p-4">
+        <div className="bg-white rounded-xl border border-gray-200 p-4 flex flex-col justify-between">
           <p className="text-sm text-gray-500 mb-1">Серия</p>
           <p className="text-3xl font-bold text-gray-900">
             {progress.streak || 0}
@@ -124,6 +126,29 @@ export default function Profile() {
               <span className="text-xs text-gray-400 whitespace-nowrap">{entry.date}</span>
             </div>
           ))}
+        </div>
+      )}
+
+      {/* Completed programs */}
+      <h2 className="text-lg font-semibold text-gray-900 mb-3">Пройденные планы</h2>
+
+      {!prog.startDate ? (
+        <div className="text-center py-6 mb-4 bg-white rounded-xl border border-gray-200">
+          <p className="text-gray-400">Пока нет пройденных планов</p>
+        </div>
+      ) : (
+        <div className="space-y-2 mb-4">
+          <div className="bg-white rounded-xl border border-gray-200 px-4 py-3 flex items-center justify-between">
+            <div className="flex items-center gap-3 min-w-0">
+              <span className="flex-shrink-0 text-base">🏋️</span>
+              <span className="text-sm text-gray-800 truncate">
+                {data.program.title}
+              </span>
+            </div>
+            <span className="text-xs text-gray-500 whitespace-nowrap flex-shrink-0 ml-2">
+              {prog.completedDays.length} / {data.program.totalDays}
+            </span>
+          </div>
         </div>
       )}
 
