@@ -98,6 +98,226 @@
               ]
             }
           ]
+        },
+        {
+          "id": "upper-body-1",
+          "title": "Верх тела — День 2",
+          "level": "intermediate",
+          "durationMin": 16,
+          "equipment": "dumbbells",
+          "description": "Тренировка верхней части тела с гантелями: жим, тяга, отжимания и пресс.",
+          "blocks": [
+            {
+              "id": "warmup",
+              "name": "Разминка",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "push-up",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            },
+            {
+              "id": "main",
+              "name": "Основная часть",
+              "repeat": 3,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "dumbbell-seated-overhead-press",
+                  "mode": "timed",
+                  "durationSec": 35
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "dumbbell-curl",
+                  "mode": "timed",
+                  "durationSec": 35
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bench-dips",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "push-up",
+                  "mode": "timed",
+                  "durationSec": 35
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 20
+                }
+              ]
+            },
+            {
+              "id": "core",
+              "name": "Пресс",
+              "repeat": 2,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "hand-plank",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            },
+            {
+              "id": "cooldown",
+              "name": "Заминка",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "push-up",
+                  "mode": "timed",
+                  "durationSec": 20
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "lower-body-1",
+          "title": "Низ тела — День 3",
+          "level": "intermediate",
+          "durationMin": 16,
+          "equipment": "none",
+          "description": "Тренировка ног и кора без инвентаря: приседания, выпады, прыжки и пресс.",
+          "blocks": [
+            {
+              "id": "warmup",
+              "name": "Разминка",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-squat",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            },
+            {
+              "id": "main",
+              "name": "Основная часть",
+              "repeat": 3,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-squat",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "forward-lunge",
+                  "mode": "timed",
+                  "durationSec": 35,
+                  "note": "на каждую ногу"
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "jump-squats",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 20
+                }
+              ]
+            },
+            {
+              "id": "glutes-core",
+              "name": "Ягодицы и пресс",
+              "repeat": 2,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-hip-abduction",
+                  "mode": "timed",
+                  "durationSec": 30,
+                  "note": "на каждую сторону"
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-russian-twist",
+                  "mode": "timed",
+                  "durationSec": 35
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "supermans",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            },
+            {
+              "id": "finisher",
+              "name": "Завершение",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-donkey-calf-raise",
+                  "mode": "timed",
+                  "durationSec": 30
+                }
+              ]
+            }
+          ]
         }
       ]
     }
@@ -130,10 +350,117 @@
     "butterfly-stretch": {
       "name": "Бабочка",
       "instructions": "Сядь, стопы вместе, колени разведены в стороны. Возьми стопы руками и мягко надави локтями на колени, опуская их к полу. Спина прямая."
+    },
+
+    "push-up": {
+      "name": "Отжимания",
+      "primaryMuscles": ["Chest"],
+      "equipment": ["Bodyweight"],
+      "difficulty": "beginner",
+      "durationSec": 7,
+      "instructions": "Встань в упор лёжа, руки чуть шире плеч. Напряги пресс и ягодицы, держи тело прямой линией. Опускай грудь к полу на 2-3 секунды, локти под 45 градусов. Задержись внизу на секунду, затем выжми себя вверх до полного выпрямления рук."
+    },
+    "jump-squats": {
+      "name": "Прыжковые приседания",
+      "primaryMuscles": ["Glutes", "Quadriceps"],
+      "equipment": ["Bodyweight"],
+      "difficulty": "beginner",
+      "durationSec": 6,
+      "instructions": "Встань, ноги на ширине плеч. Быстро присядь на четверть, отводя таз назад и занося руки назад. Взрывным движением выпрыгни вверх, выбрасывая руки над головой. Мягко приземлись на согнутые ноги и сразу переходи в следующий присед."
+    },
+    "bodyweight-russian-twist": {
+      "name": "Русский твист",
+      "primaryMuscles": ["Core"],
+      "equipment": ["Bodyweight"],
+      "difficulty": "beginner",
+      "durationSec": 10,
+      "instructions": "Сядь на пол, согни колени, стопы на полу. Отклони корпус назад на 45 градусов, напряги пресс. Подними стопы на пару сантиметров от пола, держа голени параллельно полу. Сцепи руки перед грудью и поворачивай корпус в стороны, касаясь пола руками у бедра."
+    },
+    "bodyweight-squat": {
+      "name": "Приседания",
+      "primaryMuscles": ["Glutes", "Quadriceps"],
+      "equipment": ["Bodyweight"],
+      "difficulty": "beginner",
+      "durationSec": 9,
+      "instructions": "Встань прямо, ноги на ширине плеч, носки слегка развёрнуты. Напряги пресс, подними грудь, вытяни руки вперёд для баланса. Отводи таз назад и вниз, как будто садишься на стул, держа вес на пятках. Опустись до параллели бёдер с полом, затем через пятки вернись вверх, сжимая ягодицы в верхней точке."
+    },
+    "hand-plank": {
+      "name": "Планка на руках",
+      "primaryMuscles": ["Core"],
+      "equipment": ["Bodyweight"],
+      "difficulty": "beginner",
+      "durationSec": 10,
+      "instructions": "Встань на четвереньки, ладони строго под плечами. Отшагни ногами назад, выпрямив их. Оттолкнись полом, чтобы развести лопатки. Сожми ягодицы и напряги пресс, не давая тазу провисать или подниматься. Держи позицию с ровным дыханием, взгляд в пол между руками."
+    },
+    "forward-lunge": {
+      "name": "Выпады вперёд",
+      "primaryMuscles": ["Glutes", "Quadriceps"],
+      "equipment": ["Bodyweight"],
+      "difficulty": "beginner",
+      "durationSec": 7,
+      "instructions": "Встань прямо, ноги на ширине бёдер, руки на поясе. Сделай широкий шаг вперёд, мягко приземляясь на пятку. Опусти заднее колено к полу, пока оба колена не согнутся примерно на 90 градусов. Держи корпус прямо, переднее колено над стопой. Оттолкнись передней пяткой и вернись в исходное положение. Чередуй ноги."
+    },
+    "dumbbell-seated-overhead-press": {
+      "name": "Жим гантелей сидя",
+      "primaryMuscles": ["Shoulders"],
+      "equipment": ["Dumbbell"],
+      "difficulty": "beginner",
+      "durationSec": 10,
+      "instructions": "Сядь на скамью со спинкой, гантели в руках на бёдрах. Подними гантели к плечам, ладони вперёд, локти согнуты под 90 градусов. Напряги пресс, прижми спину к скамье. Выжми гантели вверх и слегка внутрь, почти до касания в верхней точке. Опусти под контролем в исходное положение."
+    },
+    "dumbbell-curl": {
+      "name": "Сгибания рук с гантелями",
+      "primaryMuscles": ["Biceps"],
+      "equipment": ["Dumbbell"],
+      "difficulty": "beginner",
+      "durationSec": 6,
+      "instructions": "Встань прямо, гантели в опущенных руках, ладони вперёд. Ноги на ширине плеч, пресс напряжён, плечи отведены назад. Сгибай обе руки в локтях, поднимая гантели к плечам, локти прижаты к корпусу. Сожми бицепс в верхней точке на секунду. Опускай гантели медленно на 2-3 секунды до полного выпрямления."
+    },
+    "bench-dips": {
+      "name": "Обратные отжимания от скамьи",
+      "primaryMuscles": ["Triceps"],
+      "equipment": ["Bodyweight"],
+      "difficulty": "beginner",
+      "durationSec": 5,
+      "instructions": "Сядь на край скамьи, возьмись за край руками по бокам от бёдер. Соскользни со скамьи, выставив ноги вперёд. Опускай тело, сгибая локти назад, пока плечи не станут почти параллельны полу. Задержись внизу на секунду, затем выжми себя обратно через ладони. Заблокируй локти вверху, не поднимая плечи."
+    },
+    "bodyweight-donkey-calf-raise": {
+      "name": "Подъёмы на носки стоя",
+      "primaryMuscles": ["Calves"],
+      "equipment": ["Bodyweight"],
+      "difficulty": "beginner",
+      "durationSec": 6,
+      "instructions": "Встань подушечками стоп на край ступеньки или платформы, пятки свисают. Наклонись вперёд, оперевшись руками о стену или поверхность. Держи спину прямой, ноги почти прямые. Опусти пятки ниже платформы до растяжения икр, затем поднимись на носки максимально высоко. Сожми икры вверху, опусти под контролем."
+    },
+    "bodyweight-hip-abduction": {
+      "name": "Отведение ноги лёжа на боку",
+      "primaryMuscles": ["Glutes"],
+      "equipment": ["Bodyweight"],
+      "difficulty": "beginner",
+      "durationSec": 7,
+      "instructions": "Ляг на бок на коврик, ноги вместе, нижняя рука под головой. Удерживай таз ровно, слегка согни нижнюю ногу для устойчивости. Верхняя нога прямая, носок слегка вперёд, стопа натянута. Подними верхнюю ногу вверх плавным движением до ощущения работы в боковой части бедра. Опусти медленно, не касаясь нижней ноги."
+    },
+    "supermans": {
+      "name": "Супермен",
+      "primaryMuscles": ["Core"],
+      "equipment": ["Bodyweight"],
+      "difficulty": "beginner",
+      "durationSec": 8,
+      "instructions": "Ляг на живот на коврик, руки вытянуты перед собой, ноги прямые. Напряги пресс и сожми ягодицы. Одновременно подними руки, грудь и ноги от пола, ведя верхней частью спины. Задержись вверху на 1-2 секунды, сжимая поясницу и ягодицы. Опусти всё на пол медленно на 2-3 секунды. Повтори."
     }
   },
+  "plans": [
+    {
+      "id": "full-body-28",
+      "title": "Всё тело",
+      "description": "28-дневная программа для всего тела",
+      "durationMin": 16,
+      "totalDays": 28
+    }
+  ],
   "program": {
     "id": "full-body-28",
+    "planId": "full-body-28",
     "title": "Всё тело · адаптация",
     "subtitle": "28-дневный режим",
     "totalDays": 28,
@@ -147,17 +474,17 @@
       },
       {
         "day": 2,
-        "title": "День 2",
-        "durationMin": 12,
-        "kcal": 120,
-        "workoutId": "full-body-hiit"
+        "title": "День 2 — Верх тела",
+        "durationMin": 16,
+        "kcal": 150,
+        "workoutId": "upper-body-1"
       },
       {
         "day": 3,
-        "title": "День 3",
-        "durationMin": 15,
-        "kcal": 150,
-        "workoutId": "full-body-hiit"
+        "title": "День 3 — Низ тела",
+        "durationMin": 16,
+        "kcal": 180,
+        "workoutId": "lower-body-1"
       },
       {
         "day": 4,

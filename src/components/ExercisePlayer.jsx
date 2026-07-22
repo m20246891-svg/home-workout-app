@@ -30,6 +30,7 @@ export default function ExercisePlayer({
         return (
           <video
             src={`/exercises/${exercise.exerciseId}.mp4`}
+            poster={`/exercises/${exercise.exerciseId}.webp`}
             autoPlay
             loop
             muted

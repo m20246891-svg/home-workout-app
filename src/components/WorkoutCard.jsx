@@ -39,7 +39,7 @@ export default function WorkoutCard({ workout }) {
 
   return (
     <Link
-      to={`/workout/${workout.id}`}
+      to="/progress"
       className="block rounded-2xl border border-gray-200 bg-white hover:shadow-md transition-shadow overflow-hidden"
     >
       {/* Cover image or placeholder */}

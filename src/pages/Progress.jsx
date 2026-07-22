@@ -3,12 +3,18 @@ import useProgram from '../hooks/useProgram'
 import data from '../data/workouts.json'
 
 const program = data.program
+const plan = (data.plans && data.plans[0]) || program
 
 export default function Progress() {
   const { program: prog, startProgram, getCurrentProgramDay, refresh } = useProgram()
   const currentDay = getCurrentProgramDay()
   const hasStarted = !!prog.startDate
   const completedCount = prog.completedDays.length
+
+  console.log('[Progress] render startDate:', prog.startDate, 'currentDay:', currentDay, 'hasStarted:', hasStarted)
+  if (currentDay >= 1) {
+    console.log('[Progress] Day1 — future:', 1 > currentDay, 'completed:', prog.completedDays.includes(1), 'isCurrentDay:', 1 === currentDay)
+  }
 
   function handleStart() {
     startProgram()
@@ -61,7 +67,7 @@ export default function Progress() {
 
   return (
     <div className="px-4 pt-4 pb-6">
-      <h1 className="text-2xl font-bold text-gray-900 mb-1">{program.title}</h1>
+      <h1 className="text-2xl font-bold text-gray-900 mb-1">{plan.title}</h1>
       <p className="text-gray-500 mb-4">{program.subtitle}</p>
 
       <p className="text-sm text-gray-600 mb-4">
