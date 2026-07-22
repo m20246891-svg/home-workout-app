@@ -12,40 +12,15 @@ function findWorkoutTitle(id) {
   return id
 }
 
-function generateAvatarSvg(seed) {
-  let s = typeof seed === 'number' ? seed : String(seed).split('').reduce((a, c) => a + c.charCodeAt(0), 0)
-  if (s <= 0) s = 1
-  const rand = () => {
-    s = (s * 16807) % 2147483647
-    return (s - 1) / 2147483646
-  }
+const animalEmojis = [
+  '🐱', '🐶', '🦊', '🐼', '🐨', '🐯', '🦁', '🐰', '🐻', '🐸',
+  '🐵', '🦉', '🐺', '🐹', '🐷', '🐮', '🦝', '🐭', '🐧', '🦄',
+  '🐙', '🦋', '🐞', '🐳',
+]
 
-  const gridSize = 5
-  const cellSize = 16
-  const size = gridSize * cellSize
-  const cells = []
-
-  const base = 210 + Math.floor(rand() * 30)
-  const bg = `rgb(${base},${base},${base})`
-
-  for (let row = 0; row < gridSize; row++) {
-    for (let col = 0; col < Math.ceil(gridSize / 2); col++) {
-      if (rand() > 0.5) {
-        const g = 120 + Math.floor(rand() * 70)
-        const fill = `rgb(${g},${g},${g})`
-        cells.push(`<rect x="${col * cellSize}" y="${row * cellSize}" width="${cellSize}" height="${cellSize}" fill="${fill}" rx="3"/>`)
-        const mirror = gridSize - 1 - col
-        if (mirror !== col) {
-          cells.push(`<rect x="${mirror * cellSize}" y="${row * cellSize}" width="${cellSize}" height="${cellSize}" fill="${fill}" rx="3"/>`)
-        }
-      }
-    }
-  }
-
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" width="100%" height="100%">
-  <rect width="${size}" height="${size}" fill="${bg}" rx="0"/>
-  ${cells.join('\n  ')}
-</svg>`
+function getAnimalEmoji(seed) {
+  const idx = Math.abs(typeof seed === 'number' ? seed : String(seed).length) % animalEmojis.length
+  return animalEmojis[idx]
 }
 
 const goalOptions = [
@@ -95,7 +70,7 @@ export default function Profile() {
     set('userProfile', userProfile)
   }, [userProfile])
 
-  const avatarSvg = generateAvatarSvg(userProfile.avatarSeed)
+  const avatarEmoji = getAnimalEmoji(userProfile.avatarSeed)
 
   function handleChange(key, value) {
     const updated = { ...onboarding, [key]: value }
@@ -173,8 +148,8 @@ export default function Profile() {
         <div className="flex gap-4">
           {/* Avatar */}
           <div className="flex flex-col items-center gap-1.5 flex-shrink-0">
-            <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-100 ring-2 ring-gray-200">
-              <div dangerouslySetInnerHTML={{ __html: avatarSvg }} />
+            <div className="w-16 h-16 rounded-full bg-gray-100 ring-2 ring-gray-200 flex items-center justify-center text-2xl">
+              <span>{avatarEmoji}</span>
             </div>
             <button
               onClick={handleShuffleAvatar}
@@ -288,19 +263,19 @@ export default function Profile() {
       {/* Completed programs */}
       <h2 className="text-lg font-semibold text-gray-900 mb-3">Пройденные планы</h2>
 
-      {!prog.startDate ? (
+      {!prog.startDate || prog.completedDays.length < data.program.totalDays ? (
         <EmptyState message="Пока нет пройденных планов" />
       ) : (
         <div className="space-y-2 mb-4">
           <div className="bg-white rounded-xl border border-gray-200 px-4 py-3 flex items-center justify-between">
             <div className="flex items-center gap-3 min-w-0">
-              <span className="flex-shrink-0 text-base">🏋️</span>
+              <span className="flex-shrink-0 text-base">🏆</span>
               <span className="text-sm text-gray-800 truncate">
                 {data.program.title}
               </span>
             </div>
-            <span className="text-xs text-gray-500 whitespace-nowrap flex-shrink-0 ml-2">
-              {prog.completedDays.length} / {data.program.totalDays}
+            <span className="text-xs text-accent font-medium whitespace-nowrap flex-shrink-0 ml-2">
+              {data.program.totalDays} / {data.program.totalDays}
             </span>
           </div>
         </div>
