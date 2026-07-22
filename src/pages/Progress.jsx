@@ -123,7 +123,7 @@ export default function Progress() {
                 <Link
                   to={`/workout/${day.workoutId}/play`}
                   state={{ programDay: day.day }}
-                  className={`flex-1 rounded-2xl border overflow-hidden transition-colors ${
+                  className={`block flex-1 rounded-2xl border transition-colors ${
                     isCurrentDay && !isCompleted
                       ? 'bg-white border-gray-300 shadow-md'
                       : isCompleted
@@ -160,19 +160,17 @@ export default function Progress() {
                     </div>
 
                     {/* Action button */}
-                    {isCompleted ? (
-                      <div className="w-full py-3.5 rounded-xl bg-gray-100 text-gray-700 font-semibold text-sm text-center">
-                        Повторить
-                      </div>
-                    ) : isCurrentDay ? (
-                      <div className="w-full py-3.5 rounded-xl bg-primary text-white font-bold text-base text-center">
-                        Начать
-                      </div>
-                    ) : (
-                      <div className="w-full py-3.5 rounded-xl border border-gray-300 text-gray-700 font-semibold text-sm text-center bg-white">
-                        Начать
-                      </div>
-                    )}
+                    <div
+                      className={`w-full py-3.5 rounded-xl text-center transition-colors ${
+                        isCompleted
+                          ? 'bg-gray-100 text-gray-700 font-semibold text-sm'
+                          : isCurrentDay
+                          ? 'bg-primary text-white font-bold text-base'
+                          : 'bg-white text-gray-700 border border-gray-300 font-semibold text-sm'
+                      }`}
+                    >
+                      {isCompleted ? 'Повторить' : 'Начать'}
+                    </div>
                   </div>
                 </Link>
               )}
