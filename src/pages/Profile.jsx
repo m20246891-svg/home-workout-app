@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import useLocalProgress from '../hooks/useLocalProgress'
 import useProgram from '../hooks/useProgram'
 import { get, set } from '../utils/storage'
@@ -10,6 +10,42 @@ function findWorkoutTitle(id) {
     if (found) return found.title
   }
   return id
+}
+
+function generateAvatarSvg(seed) {
+  let s = typeof seed === 'number' ? seed : String(seed).split('').reduce((a, c) => a + c.charCodeAt(0), 0)
+  if (s <= 0) s = 1
+  const rand = () => {
+    s = (s * 16807) % 2147483647
+    return (s - 1) / 2147483646
+  }
+
+  const gridSize = 5
+  const cellSize = 16
+  const size = gridSize * cellSize
+  const cells = []
+
+  const base = 210 + Math.floor(rand() * 30)
+  const bg = `rgb(${base},${base},${base})`
+
+  for (let row = 0; row < gridSize; row++) {
+    for (let col = 0; col < Math.ceil(gridSize / 2); col++) {
+      if (rand() > 0.5) {
+        const g = 120 + Math.floor(rand() * 70)
+        const fill = `rgb(${g},${g},${g})`
+        cells.push(`<rect x="${col * cellSize}" y="${row * cellSize}" width="${cellSize}" height="${cellSize}" fill="${fill}" rx="3"/>`)
+        const mirror = gridSize - 1 - col
+        if (mirror !== col) {
+          cells.push(`<rect x="${mirror * cellSize}" y="${row * cellSize}" width="${cellSize}" height="${cellSize}" fill="${fill}" rx="3"/>`)
+        }
+      }
+    }
+  }
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" width="100%" height="100%">
+  <rect width="${size}" height="${size}" fill="${bg}" rx="0"/>
+  ${cells.join('\n  ')}
+</svg>`
 }
 
 const goalOptions = [
@@ -36,11 +72,30 @@ const optionGroups = [
   { key: 'equipment', label: 'Инвентарь', options: equipmentOptions },
 ]
 
+const genderOptions = [
+  { value: 'male', label: 'Мужской' },
+  { value: 'female', label: 'Женский' },
+]
+
 export default function Profile() {
   const { progress, resetProgress } = useLocalProgress()
   const { program: prog } = useProgram()
   const [onboarding, setOnboarding] = useState(() => get('onboarding') || {})
   const [showResetConfirm, setShowResetConfirm] = useState(false)
+
+  const [userProfile, setUserProfile] = useState(() => {
+    const saved = get('userProfile')
+    if (saved) return saved
+    const fresh = { name: '', age: '', gender: '', avatarSeed: Math.floor(Math.random() * 2147483647) }
+    set('userProfile', fresh)
+    return fresh
+  })
+
+  useEffect(() => {
+    set('userProfile', userProfile)
+  }, [userProfile])
+
+  const avatarSvg = generateAvatarSvg(userProfile.avatarSeed)
 
   function handleChange(key, value) {
     const updated = { ...onboarding, [key]: value }
@@ -53,41 +108,145 @@ export default function Profile() {
     setShowResetConfirm(false)
   }
 
+  function handleProfileChange(field, value) {
+    setUserProfile((prev) => ({ ...prev, [field]: value }))
+  }
+
+  function handleShuffleAvatar() {
+    setUserProfile((prev) => ({ ...prev, avatarSeed: Math.floor(Math.random() * 2147483647) }))
+  }
+
   const completed = progress.completedWorkouts || []
   const sorted = [...completed].reverse()
   const total = completed.length
+
+  function PillGroup({ label, options, value, onChange }) {
+    return (
+      <div>
+        <p className="text-sm text-gray-500 mb-2">{label}</p>
+        <div className="flex flex-wrap gap-2.5">
+          {options.map((opt) => (
+            <button
+              key={opt.value}
+              onClick={() => onChange(opt.value)}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                value === opt.value
+                  ? 'bg-primary text-white'
+                  : 'bg-gray-100 text-gray-700 border border-gray-200 hover:bg-gray-200'
+              }`}
+            >
+              {opt.label}
+            </button>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  function SectionCard({ children, className = '' }) {
+    return (
+      <div className={`bg-white rounded-xl border border-gray-200 p-4 mb-4 ${className}`}>
+        {children}
+      </div>
+    )
+  }
+
+  function SectionHeader({ children }) {
+    return <h2 className="text-lg font-semibold text-gray-900 mb-4">{children}</h2>
+  }
+
+  function EmptyState({ message, submessage }) {
+    return (
+      <div className="text-center py-6 mb-4 bg-white rounded-xl border border-gray-200">
+        <p className="text-gray-400">{message}</p>
+        {submessage && <p className="text-gray-400 text-sm mt-1">{submessage}</p>}
+      </div>
+    )
+  }
 
   return (
     <div className="px-4 pt-4 pb-6">
       <h1 className="text-2xl font-bold text-gray-900 mb-5">Профиль</h1>
 
-      {/* Onboarding answers */}
-      <div className="bg-white rounded-xl border border-gray-200 p-4 mb-4">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Мои настройки</h2>
+      {/* User profile card */}
+      <SectionCard>
+        <div className="flex gap-4">
+          {/* Avatar */}
+          <div className="flex flex-col items-center gap-1.5 flex-shrink-0">
+            <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-100 ring-2 ring-gray-200">
+              <div dangerouslySetInnerHTML={{ __html: avatarSvg }} />
+            </div>
+            <button
+              onClick={handleShuffleAvatar}
+              className="text-xs text-gray-400 hover:text-gray-700 transition-colors"
+            >
+              Перемешать
+            </button>
+          </div>
 
-        <div className="space-y-4">
-          {optionGroups.map((group) => (
-            <div key={group.key}>
-              <p className="text-sm text-gray-500 mb-2">{group.label}</p>
-              <div className="flex flex-wrap gap-2.5">
-                {group.options.map((opt) => (
-                  <button
-                    key={opt.value}
-                    onClick={() => handleChange(group.key, opt.value)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                      onboarding[group.key] === opt.value
-                        ? 'bg-primary text-white'
-                        : 'bg-gray-100 text-gray-700 border border-gray-200 hover:bg-gray-200'
-                    }`}
-                  >
-                    {opt.label}
-                  </button>
-                ))}
+          {/* Fields */}
+          <div className="flex-1 min-w-0 space-y-3">
+            <div>
+              <p className="text-xs text-gray-500 mb-1">Имя</p>
+              <input
+                type="text"
+                value={userProfile.name}
+                onChange={(e) => handleProfileChange('name', e.target.value)}
+                placeholder="Ваше имя"
+                className="w-full px-3 py-2 rounded-lg border border-gray-200 text-sm text-gray-900 placeholder-gray-400 bg-white focus:outline-none focus:border-gray-400 transition-colors"
+              />
+            </div>
+            <div className="flex gap-3 items-end">
+              <div className="w-20 flex-shrink-0">
+                <p className="text-xs text-gray-500 mb-1">Возраст</p>
+                <input
+                  type="number"
+                  value={userProfile.age}
+                  onChange={(e) => handleProfileChange('age', e.target.value)}
+                  placeholder="0"
+                  min="0"
+                  max="150"
+                  className="w-full px-3 py-2 rounded-lg border border-gray-200 text-sm text-gray-900 placeholder-gray-400 bg-white focus:outline-none focus:border-gray-400 transition-colors"
+                />
+              </div>
+              <div className="flex-1">
+                <p className="text-xs text-gray-500 mb-1">Пол</p>
+                <div className="flex gap-2">
+                  {genderOptions.map((opt) => (
+                    <button
+                      key={opt.value}
+                      onClick={() => handleProfileChange('gender', opt.value)}
+                      className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                        userProfile.gender === opt.value
+                          ? 'bg-primary text-white'
+                          : 'bg-gray-100 text-gray-700 border border-gray-200 hover:bg-gray-200'
+                      }`}
+                    >
+                      {opt.label}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
+          </div>
+        </div>
+      </SectionCard>
+
+      {/* Onboarding answers */}
+      <SectionCard>
+        <SectionHeader>Мои настройки</SectionHeader>
+        <div className="space-y-4">
+          {optionGroups.map((group) => (
+            <PillGroup
+              key={group.key}
+              label={group.label}
+              options={group.options}
+              value={onboarding[group.key]}
+              onChange={(val) => handleChange(group.key, val)}
+            />
           ))}
         </div>
-      </div>
+      </SectionCard>
 
       {/* Stats cards */}
       <h2 className="text-lg font-semibold text-gray-900 mb-3">Статистика</h2>
@@ -109,10 +268,7 @@ export default function Profile() {
       <h2 className="text-lg font-semibold text-gray-900 mb-3">История</h2>
 
       {sorted.length === 0 ? (
-        <div className="text-center py-6 mb-4 bg-white rounded-xl border border-gray-200">
-          <p className="text-gray-400">Пока нет завершённых тренировок</p>
-          <p className="text-gray-400 text-sm mt-1">Заверши свою первую тренировку!</p>
-        </div>
+        <EmptyState message="Пока нет завершённых тренировок" submessage="Заверши свою первую тренировку!" />
       ) : (
         <div className="space-y-2 mb-4">
           {sorted.map((entry, idx) => (
@@ -133,9 +289,7 @@ export default function Profile() {
       <h2 className="text-lg font-semibold text-gray-900 mb-3">Пройденные планы</h2>
 
       {!prog.startDate ? (
-        <div className="text-center py-6 mb-4 bg-white rounded-xl border border-gray-200">
-          <p className="text-gray-400">Пока нет пройденных планов</p>
-        </div>
+        <EmptyState message="Пока нет пройденных планов" />
       ) : (
         <div className="space-y-2 mb-4">
           <div className="bg-white rounded-xl border border-gray-200 px-4 py-3 flex items-center justify-between">
