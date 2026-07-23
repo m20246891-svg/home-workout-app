@@ -5,6 +5,14 @@ function todayString() {
   return new Date().toISOString().split('T')[0]
 }
 
+function localTodayString() {
+  const d = new Date()
+  const y = d.getFullYear()
+  const m = String(d.getMonth() + 1).padStart(2, '0')
+  const day = String(d.getDate()).padStart(2, '0')
+  return `${y}-${m}-${day}`
+}
+
 function recalculateStreak(prevProgress, today) {
   if (!prevProgress.lastCompletedDate) return 1
 
@@ -18,7 +26,7 @@ function recalculateStreak(prevProgress, today) {
 }
 
 function defaultProgress() {
-  return { completedWorkouts: [], streak: 0, lastCompletedDate: null, onboarding: null }
+  return { completedWorkouts: [], streak: 0, lastCompletedDate: null, completedDates: [], onboarding: null }
 }
 
 export default function useLocalProgress() {
@@ -28,11 +36,16 @@ export default function useLocalProgress() {
 
   const addCompletedWorkout = useCallback((workoutId) => {
     const today = todayString()
+    const localToday = localTodayString()
     const prev = get('progress') || defaultProgress()
 
     const completedWorkouts = [...(prev.completedWorkouts || []), { workoutId, date: today }]
     const streak = recalculateStreak(prev, today)
-    const newProgress = { ...prev, completedWorkouts, streak, lastCompletedDate: today }
+    const prevDates = Array.isArray(prev.completedDates) ? prev.completedDates : []
+    const completedDates = prevDates.includes(localToday)
+      ? prevDates
+      : [...prevDates, localToday]
+    const newProgress = { ...prev, completedWorkouts, streak, lastCompletedDate: today, completedDates }
 
     set('progress', newProgress)
     setProgress(newProgress)

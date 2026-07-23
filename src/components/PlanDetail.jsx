@@ -233,7 +233,8 @@ export default function PlanDetail({ planId, onBack }) {
               }
 
               const firstExId = getFirstExerciseId(workout)
-              const previewSrc = firstExId ? `/exercises/${firstExId}.webp` : null
+              const midSrc = firstExId ? `/exercises/${firstExId}-mid.webp` : null
+              const regularSrc = firstExId ? `/exercises/${firstExId}.webp` : null
               const duration = formatDuration(calcWorkoutDuration(workout))
               const desc = getDayDescription(workout)
 
@@ -242,8 +243,19 @@ export default function PlanDetail({ planId, onBack }) {
                   {idx > 0 && <div className="border-t border-gray-100" />}
                   <div className="flex items-center gap-3 py-3">
                     <div className="w-14 h-14 rounded-xl bg-gray-100 flex-shrink-0 overflow-hidden">
-                      {previewSrc ? (
-                        <img src={previewSrc} alt="" className="w-full h-full object-cover" />
+                      {midSrc ? (
+                        <img
+                          src={midSrc}
+                          alt=""
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            if (e.currentTarget.src === midSrc) {
+                              e.currentTarget.src = regularSrc
+                            } else {
+                              e.currentTarget.style.display = 'none'
+                            }
+                          }}
+                        />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center">
                           <span className="text-lg">🏋️</span>
