@@ -8,3 +8,12 @@
     --color-accent: #D97706;
   }
 }
+
+@layer utilities {
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}

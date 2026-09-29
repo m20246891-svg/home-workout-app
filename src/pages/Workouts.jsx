@@ -4,51 +4,57 @@ import StreakBadge from '../components/StreakBadge'
 import PlanDetail from '../components/PlanDetail'
 import data from '../data/workouts.json'
 import { getTodayGeneratedWorkout } from '../utils/generator'
+import { GENERATOR_COVER, PLAN_COVER } from '../utils/covers'
 
 function GeneratorCard() {
   const navigate = useNavigate()
   const today = getTodayGeneratedWorkout()
 
   return (
-    <div className="rounded-2xl bg-primary text-white p-5 mb-6">
-      <div className="flex items-start justify-between gap-3">
-        <div className="min-w-0">
-          <p className="text-xs font-semibold uppercase tracking-wider text-accent">Генератор тренировок</p>
-          <h2 className="text-xl font-bold mt-1 leading-tight">
-            {today ? 'Твоя тренировка на сегодня' : 'Персональная тренировка на каждый день'}
-          </h2>
-          <p className="text-sm text-white/60 mt-1.5">
-            {today
-              ? `${today.title} · ${today.durationMin} мин · ≈ ${today.kcal} ккал`
-              : 'Учтём самочувствие, цель и свободное время'}
-          </p>
-        </div>
-        <span className="text-4xl flex-shrink-0" aria-hidden="true">⚡</span>
+    <div className="relative -mx-2 mb-6 rounded-3xl bg-primary text-white overflow-hidden">
+      <img src={GENERATOR_COVER} alt="" className="absolute inset-y-0 right-0 h-full w-3/4 object-cover object-right" />
+      <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/85 to-transparent" />
+
+      <div className="relative p-5 pr-28">
+        <p className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-accent">
+          <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+          Умный подбор
+        </p>
+        <h2 className="text-2xl font-bold mt-1.5 leading-tight">
+          {today ? 'Твоя тренировка на сегодня' : 'Генератор тренировок'}
+        </h2>
+        <p className="text-sm text-white/70 mt-1.5">
+          {today
+            ? `${today.title} · ${today.durationMin} мин · ≈ ${today.kcal} ккал`
+            : 'Персональный план на каждый день — по самочувствию, цели и свободному времени'}
+        </p>
       </div>
 
-      {today ? (
-        <div className="flex gap-2 mt-4">
-          <button
-            onClick={() => navigate('/generator')}
-            className="flex-1 py-3 rounded-xl bg-white text-gray-900 font-semibold text-sm hover:bg-gray-100 transition-colors"
-          >
-            Открыть
-          </button>
+      <div className="relative px-5 pb-5">
+        {today ? (
+          <div className="flex gap-2">
+            <button
+              onClick={() => navigate('/generator')}
+              className="flex-1 py-3 rounded-xl bg-white text-gray-900 font-semibold text-sm hover:bg-gray-100 transition-colors"
+            >
+              Открыть
+            </button>
+            <button
+              onClick={() => navigate('/generator', { state: { fresh: true } })}
+              className="flex-1 py-3 rounded-xl bg-white/10 backdrop-blur text-white font-semibold text-sm hover:bg-white/15 transition-colors"
+            >
+              Создать новую
+            </button>
+          </div>
+        ) : (
           <button
             onClick={() => navigate('/generator', { state: { fresh: true } })}
-            className="flex-1 py-3 rounded-xl bg-white/10 text-white font-semibold text-sm hover:bg-white/15 transition-colors"
+            className="w-full py-3 rounded-xl bg-white text-gray-900 font-semibold text-sm hover:bg-gray-100 transition-colors"
           >
-            Создать новую
+            Создать тренировку
           </button>
-        </div>
-      ) : (
-        <button
-          onClick={() => navigate('/generator', { state: { fresh: true } })}
-          className="w-full mt-4 py-3 rounded-xl bg-white text-gray-900 font-semibold text-sm hover:bg-gray-100 transition-colors"
-        >
-          Создать тренировку
-        </button>
-      )}
+        )}
+      </div>
     </div>
   )
 }
@@ -90,8 +96,11 @@ export default function Workouts() {
               className="w-full text-left rounded-2xl border border-gray-200 bg-white hover:shadow-md transition-shadow overflow-hidden"
             >
               {/* Cover */}
-              <div className="h-36 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                <span className="text-5xl opacity-70">🏋️</span>
+              <div className="relative h-36 bg-gray-100">
+                <img src={PLAN_COVER} alt="" className="w-full h-full object-cover" />
+                <span className="absolute top-3 left-3 text-xs font-semibold bg-white/90 text-gray-900 px-2.5 py-1 rounded-full">
+                  {plan.totalDays} дней · дома
+                </span>
               </div>
 
               <div className="p-4">

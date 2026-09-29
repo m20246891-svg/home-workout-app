@@ -49,6 +49,83 @@ export const GENDER_OPTIONS = [
   { value: 'female', label: 'Женский' },
 ]
 
+// Формы тела: картинки в public/img/body-now-<пол>-<id>.webp и body-goal-<пол>-<n>.webp.
+export const BODY_NOW_OPTIONS = {
+  male: [
+    { value: 'average', label: 'Средняя' },
+    { value: 'soft', label: 'Полноватая' },
+    { value: 'slim', label: 'Худощавая' },
+    { value: 'muscular', label: 'Мускулистая' },
+  ],
+  female: [
+    { value: 'average', label: 'Средняя' },
+    { value: 'soft', label: 'Полноватая' },
+    { value: 'slim', label: 'Худощавая' },
+    { value: 'toned', label: 'Подтянутая' },
+  ],
+}
+
+// Желаемая форма: 5 ступеней слайдера, fat — ориентир по проценту жира.
+export const BODY_GOAL_STEPS = {
+  male: [
+    { label: 'Стройное', fat: '10–12%' },
+    { label: 'Подтянутое', fat: '12–14%' },
+    { label: 'Атлетичное', fat: '13–15%' },
+    { label: 'Массивное', fat: '10–13%' },
+    { label: 'Мощное', fat: '18–22%' },
+  ],
+  female: [
+    { label: 'Стройное', fat: '18–20%' },
+    { label: 'Подтянутое', fat: '20–22%' },
+    { label: 'Атлетичное', fat: '18–21%' },
+    { label: 'Рельефное', fat: '15–18%' },
+    { label: 'Фигуристое', fat: '24–28%' },
+  ],
+}
+
+export function bodyImage(kind, gender, id) {
+  return `/img/body-${kind}-${gender === 'female' ? 'female' : 'male'}-${id}.webp`
+}
+
+export function calcBmi(weightKg, heightCm) {
+  if (!weightKg || !heightCm) return null
+  return weightKg / (heightCm / 100) ** 2
+}
+
+export function bmiCategory(bmi) {
+  if (bmi == null) return null
+  if (bmi < 18.5) return { id: 'low', label: 'Ниже нормы', tone: 'text-sky-600', hint: 'Сделаем упор на силу и набор мышц' }
+  if (bmi < 25) return { id: 'normal', label: 'Норма', tone: 'text-emerald-600', hint: 'У тебя отличная база — будем её укреплять' }
+  if (bmi < 30) return { id: 'over', label: 'Выше нормы', tone: 'text-accent', hint: 'Сочетание кардио и силы поможет прийти в форму' }
+  return { id: 'high', label: 'Значительно выше нормы', tone: 'text-red-600', hint: 'Начнём мягко и без ударной нагрузки на суставы' }
+}
+
+export function ageFromYear(birthYear) {
+  return birthYear ? new Date().getFullYear() - birthYear : null
+}
+
+// «Для мужчин 30-х лет» — подпись для персонального экрана.
+export function ageGroupTitle(gender, birthYear) {
+  const age = ageFromYear(birthYear)
+  if (!age) return 'Для тебя'
+  const decade = Math.max(10, Math.floor(age / 10) * 10)
+  const who = gender === 'female' ? 'женщин' : 'мужчин'
+  return `Для ${who} ${decade}-х лет`
+}
+
+export function insightText({ bmi, goal }) {
+  const cat = bmiCategory(bmi)
+  const range = cat
+    ? { low: 'ИМТ ниже 18.5', normal: 'ИМТ 18.5–24.9', over: 'ИМТ 25–29.9', high: 'ИМТ от 30' }[cat.id]
+    : ''
+  const plan = {
+    'lose-weight': 'регулярные короткие тренировки, где кардио сочетается с силовыми упражнениями, — так уходит лишний жир и сохраняются мышцы.',
+    'gain-strength': 'силовые упражнения с постепенным ростом нагрузки и достаточным отдыхом между подходами.',
+    'keep-fit': 'сбалансированные тренировки на всё тело 3–5 раз в неделю — это держит тонус и энергию.',
+  }[goal] || 'регулярные тренировки на всё тело с плавным ростом нагрузки.'
+  return range ? `При ${range} лучше всего работают ${plan}` : `Лучше всего работают ${plan}`
+}
+
 // Раньше equipment был строкой ('none' | 'dumbbells' | 'mat'), теперь — массив.
 export function normalizeEquipment(value) {
   if (Array.isArray(value)) return value

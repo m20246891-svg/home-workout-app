@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import data from '../data/workouts.json'
+import { PLAN_COVER } from '../utils/covers'
 
 const muscleLabels = {
   Glutes: 'Ягодицы',
@@ -144,9 +145,7 @@ export default function PlanDetail({ planId, onBack }) {
       <div className="flex-1 overflow-y-auto">
         <div className="px-4 pb-36">
           {/* Cover block */}
-          <div className="h-44 rounded-2xl bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center mb-4">
-            <span className="text-6xl opacity-70">🏋️</span>
-          </div>
+          <img src={PLAN_COVER} alt="" className="w-full h-44 rounded-2xl object-cover mb-4 bg-gray-100" />
 
           <h2 className="text-2xl font-bold mb-1">{plan.title}</h2>
           {plan.description && (
