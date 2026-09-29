@@ -44,10 +44,23 @@ function Macro({ label, value, unit = 'г' }) {
   )
 }
 
-function TargetsCard({ targets, subtitle }) {
+function TargetsCard({ targets, subtitle, onEdit }) {
   return (
     <div className="rounded-3xl bg-primary text-white p-5">
-      <p className="text-xs font-semibold uppercase tracking-wider text-accent">Твоя норма в день</p>
+      <div className="flex items-center justify-between gap-3">
+        <p className="text-xs font-semibold uppercase tracking-wider text-accent">Твоя норма в день</p>
+        {onEdit && (
+          <button
+            onClick={onEdit}
+            className="inline-flex items-center gap-1.5 text-xs font-medium text-white/80 bg-white/10 hover:bg-white/15 rounded-full px-3 py-1.5"
+          >
+            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536M9 11l6.232-6.232a2.5 2.5 0 113.536 3.536L12.536 14.536 9 15l.464-3.536z" />
+            </svg>
+            Изменить данные
+          </button>
+        )}
+      </div>
       <p className="mt-1 flex items-baseline gap-2">
         <span className="text-4xl font-bold tabular-nums">{targets.kcal}</span>
         <span className="text-white/70">ккал</span>
@@ -63,7 +76,7 @@ function TargetsCard({ targets, subtitle }) {
 }
 
 // ── Нет данных для расчёта нормы ─────────────────────────────────────────────
-function DataForm({ inputs, onSaved }) {
+function DataForm({ inputs, onSaved, onCancel }) {
   const [form, setForm] = useState({
     gender: inputs.gender || '',
     age: inputs.age || '',
@@ -106,8 +119,12 @@ function DataForm({ inputs, onSaved }) {
 
   return (
     <div className="rounded-2xl border border-gray-200 p-5">
-      <h2 className="text-lg font-bold text-gray-900">Расскажи о себе</h2>
-      <p className="text-sm text-gray-500 mt-1">Нужно, чтобы рассчитать калории и белок именно для тебя.</p>
+      <h2 className="text-lg font-bold text-gray-900">{onCancel ? 'Мои данные' : 'Расскажи о себе'}</h2>
+      <p className="text-sm text-gray-500 mt-1">
+        {onCancel
+          ? 'Данные из онбординга. После сохранения норма и порции пересчитаются, блюда останутся те же.'
+          : 'Нужно, чтобы рассчитать калории и белок именно для тебя. Что уже известно из онбординга — подставлено.'}
+      </p>
       <div className="grid grid-cols-2 gap-2 mt-4">
         {GENDER_OPTIONS.map((o) => (
           <button
@@ -141,8 +158,13 @@ function DataForm({ inputs, onSaved }) {
         disabled={!ready}
         className="w-full mt-5 py-3.5 rounded-xl bg-primary text-white font-semibold disabled:bg-gray-200 disabled:text-gray-400"
       >
-        Рассчитать норму
+        {onCancel ? 'Сохранить' : 'Рассчитать норму'}
       </button>
+      {onCancel && (
+        <button onClick={onCancel} className="w-full mt-2 py-2.5 text-sm font-medium text-gray-500 hover:text-gray-800">
+          Отмена
+        </button>
+      )}
     </div>
   )
 }
@@ -292,6 +314,7 @@ export default function Nutrition() {
   const [plan, setPlan] = useState(getPlan)
   const [generating, setGenerating] = useState(false)
   const [tab, setTab] = useState('menu')
+  const [editing, setEditing] = useState(false)
   const today = localDate()
 
   const inputs = useMemo(nutritionInputs, [version])
@@ -348,6 +371,22 @@ export default function Nutrition() {
 
   const goalLabel = GOAL_OPTIONS.find((g) => g.value === inputs.goal)?.label
 
+  if (editing) {
+    return (
+      <div className="px-4 pt-4 pb-6">
+        {header}
+        <DataForm
+          inputs={inputs}
+          onCancel={() => setEditing(false)}
+          onSaved={() => {
+            setVersion((v) => v + 1)
+            setEditing(false)
+          }}
+        />
+      </div>
+    )
+  }
+
   // Рациона ещё нет.
   if (!plan) {
     return (
@@ -365,7 +404,7 @@ export default function Nutrition() {
             </ul>
           </div>
         </div>
-        <TargetsCard targets={targets} subtitle={`Цель: ${goalLabel?.toLowerCase()} · ${inputs.weightKg} кг, ${inputs.heightCm} см`} />
+        <TargetsCard targets={targets} onEdit={() => setEditing(true)} subtitle={`Цель: ${goalLabel?.toLowerCase()} · ${inputs.weightKg} кг, ${inputs.heightCm} см`} />
         <button
           onClick={create}
           disabled={!meals}
@@ -385,7 +424,7 @@ export default function Nutrition() {
     <div className="px-4 pt-4 pb-6">
       {header}
 
-      <TargetsCard targets={targets} subtitle={`Цель: ${goalLabel?.toLowerCase()} · день ${todayIdx + 1} из ${PLAN_DAYS}`} />
+      <TargetsCard targets={targets} onEdit={() => setEditing(true)} subtitle={`Цель: ${goalLabel?.toLowerCase()} · ${inputs.weightKg} кг · день ${todayIdx + 1} из ${PLAN_DAYS}`} />
 
       {/* Меню / Покупки */}
       <div className="grid grid-cols-2 gap-1 p-1 rounded-xl bg-gray-100 mt-5 mb-4">
