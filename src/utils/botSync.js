@@ -1,17 +1,20 @@
-// Сообщаем боту серию и дату последней тренировки — для вечерних напоминаний.
+// Сообщаем боту ударный режим, заморозки и дату последней тренировки — для вечерних напоминаний.
 // Работает только внутри Telegram: на сервере данные проверяются по подписи initData.
 import { get, onChange } from './storage'
 import { IN_TELEGRAM } from './telegram'
-import { computeStreak } from './activity'
+import { computeStreak, freezesOf } from './activity'
 
 let lastSent = ''
 
 function report() {
   const progress = get('progress') || {}
   const dates = progress.completedDates || []
+  const frozen = progress.frozenDates || []
   const payload = {
-    streak: computeStreak(dates).current,
-    lastDone: [...dates].sort().pop() || '',
+    streak: computeStreak(dates, undefined, frozen).current,
+    // Последний день, когда режим держался (тренировка или заморозка).
+    lastDone: [...dates, ...frozen].sort().pop() || '',
+    freezes: freezesOf(progress),
     tzOffset: new Date().getTimezoneOffset(),
   }
   const key = JSON.stringify(payload)

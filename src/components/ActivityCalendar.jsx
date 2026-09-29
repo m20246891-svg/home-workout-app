@@ -14,7 +14,8 @@ const WEEKDAYS = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
 const STATUS = {
   done: { cell: 'bg-emerald-500 text-white', dot: 'bg-emerald-500', label: 'Выполнено' },
   partial: { cell: 'bg-amber-400 text-gray-900', dot: 'bg-amber-400', label: 'Не завершено' },
-  missed: { cell: 'bg-red-500 text-white', dot: 'bg-red-500', label: 'Пропущено' },
+  frozen: { cell: 'bg-sky-400 text-white', dot: 'bg-sky-400', label: 'Заморозка' },
+  missed: { cell: 'bg-red-500 text-white', dot: 'bg-red-500', label: 'Пропуск' },
 }
 
 function humanDate(str) {
@@ -22,14 +23,15 @@ function humanDate(str) {
   return `${d.getDate()} ${MONTHS_GEN[d.getMonth()]}`
 }
 
-// Календарь активности: зелёный — выполнено, жёлтый — начато и брошено, красный — пропуск.
-export default function ActivityCalendar({ completedDates, partialDates, trackingStart, entriesByDate }) {
+// Календарь активности: зелёный — выполнено, жёлтый — начато и брошено,
+// голубой — пропуск прикрыт заморозкой, красный — пропуск.
+export default function ActivityCalendar({ completedDates, partialDates, frozenDates, trackingStart, entriesByDate }) {
   const today = localDate()
   const now = new Date()
   const [view, setView] = useState({ y: now.getFullYear(), m: now.getMonth() })
   const [selected, setSelected] = useState(today)
 
-  const statusOf = dayStatuses({ completedDates, partialDates, trackingStart, today })
+  const statusOf = dayStatuses({ completedDates, partialDates, frozenDates, trackingStart, today })
   const cells = monthGrid(view.y, view.m)
 
   const shift = (delta) =>
@@ -41,7 +43,7 @@ export default function ActivityCalendar({ completedDates, partialDates, trackin
 
   // Итоги месяца.
   const monthDates = cells.filter(Boolean)
-  const counts = { done: 0, partial: 0, missed: 0 }
+  const counts = { done: 0, partial: 0, frozen: 0, missed: 0 }
   for (const d of monthDates) {
     const s = statusOf(d)
     if (s) counts[s]++
@@ -100,11 +102,11 @@ export default function ActivityCalendar({ completedDates, partialDates, trackin
       </div>
 
       {/* Легенда и итоги месяца */}
-      <div className="grid grid-cols-3 gap-2 mt-4">
+      <div className="grid grid-cols-4 gap-1.5 mt-4">
         {Object.entries(STATUS).map(([key, s]) => (
-          <div key={key} className="rounded-xl bg-gray-50 px-2.5 py-2">
-            <p className="flex items-center gap-1.5 text-[11px] text-gray-500">
-              <span className={`w-2.5 h-2.5 rounded-full ${s.dot}`} />
+          <div key={key} className="rounded-xl bg-gray-50 px-2 py-2 min-w-0">
+            <p className="flex items-center gap-1 text-[10px] leading-tight text-gray-500">
+              <span className={`w-2 h-2 rounded-full flex-shrink-0 ${s.dot}`} />
               {s.label}
             </p>
             <p className="text-lg font-bold text-gray-900 mt-0.5 tabular-nums">{counts[key]}</p>
@@ -134,7 +136,9 @@ export default function ActivityCalendar({ completedDates, partialDates, trackin
           </ul>
         ) : (
           <p className="text-sm text-gray-400 mt-1">
-            {selectedStatus === 'missed' ? 'В этот день тренировки не было' : selected === today ? 'Сегодня ещё нет тренировок' : 'Нет тренировок'}
+            {selectedStatus === 'frozen'
+              ? '❄️ Тренировки не было — ударный режим сохранила заморозка'
+              : selectedStatus === 'missed' ? 'В этот день тренировки не было' : selected === today ? 'Сегодня ещё нет тренировок' : 'Нет тренировок'}
           </p>
         )}
       </div>

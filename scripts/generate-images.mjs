@@ -153,6 +153,29 @@ add('nutrition-cover', '16:9', [
   'editorial food photography, photorealistic, generous empty space on the left.',
 ].join(' '), NO_TEXT)
 
+// Слайдер «Что ты получишь» в «Питании» — в том же стиле, что обложка; внизу слева место под подпись.
+const FOOD = [
+  'Editorial food photography, photorealistic, natural window light,',
+  'warm neutral palette (light wood, white ceramics, linen) with a subtle amber accent,',
+  'the lower left area calm and uncluttered for a caption.', NO_TEXT,
+].join(' ')
+add('nutrition-portions', '16:9', [
+  'A plate of grilled chicken breast, rice and steamed broccoli next to a minimalist digital kitchen scale',
+  'with a portion of rice on it, measuring cups, on a light wooden kitchen counter. Balanced, precise, healthy portions.',
+].join(' '), FOOD)
+add('nutrition-recipe', '16:9', [
+  'Hands of a man in a dark t-shirt cooking at home: slicing vegetables on a wooden board, a pan with salmon',
+  'and vegetables on the stove next to it, bright modern home kitchen. Face not visible.',
+].join(' '), FOOD)
+add('nutrition-shopping', '16:9', [
+  'A paper grocery bag on a light wooden kitchen table with everyday supermarket groceries spilling out:',
+  'chicken breast, eggs, buckwheat, oats, cottage cheese, tomatoes, cucumbers, apples, greens.',
+].join(' '), FOOD)
+add('nutrition-mealprep', '16:9', [
+  'Overhead view of neatly arranged meal prep containers with healthy home-cooked meals for the week:',
+  'chicken with buckwheat and vegetables, fish with potatoes, cottage cheese with berries, on a light wooden table.',
+].join(' '), FOOD)
+
 // ── Генерация ───────────────────────────────────────────────────────────────
 function fullPrompt(image) {
   return `${image.prompt} ${image.style}`

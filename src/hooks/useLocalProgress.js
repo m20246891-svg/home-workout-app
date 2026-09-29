@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react'
 import { get, set } from '../utils/storage'
-import { localDate, computeStreak } from '../utils/activity'
+import { localDate, computeStreak, earnFreeze } from '../utils/activity'
 
 function todayString() {
   return new Date().toISOString().split('T')[0]
@@ -12,15 +12,16 @@ function defaultProgress() {
     streak: 0,
     lastCompletedDate: null,
     completedDates: [],
+    frozenDates: [],
     partialWorkouts: [],
     onboarding: null,
   }
 }
 
-// Серию всегда пересчитываем по датам: сохранённое значение устаревает, если был пропуск.
+// Ударный режим всегда пересчитываем по датам: сохранённое значение устаревает, если был пропуск.
 function withStreak(p) {
   const data = { ...defaultProgress(), ...p }
-  return { ...data, streak: computeStreak(data.completedDates).current }
+  return { ...data, streak: computeStreak(data.completedDates, localDate(), data.frozenDates).current }
 }
 
 function load() {
@@ -41,8 +42,11 @@ export default function useLocalProgress() {
     const prev = load()
     const today = localDate()
     const completedWorkouts = [...prev.completedWorkouts, { workoutId, title, date: todayString(), localDate: today }]
-    const completedDates = prev.completedDates.includes(today) ? prev.completedDates : [...prev.completedDates, today]
-    return save({ ...prev, completedWorkouts, completedDates, lastCompletedDate: today })
+    const firstToday = !prev.completedDates.includes(today)
+    const completedDates = firstToday ? [...prev.completedDates, today] : prev.completedDates
+    let next = { ...prev, completedWorkouts, completedDates, lastCompletedDate: today }
+    if (firstToday) next = earnFreeze(next, computeStreak(completedDates, today, prev.frozenDates).current)
+    return save(next)
   }, [save])
 
   // Тренировка начата, но брошена — для жёлтых дней в календаре.

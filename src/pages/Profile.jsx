@@ -18,7 +18,7 @@ import StreakCard from '../components/StreakCard'
 import UserAvatar, { avatarSource } from '../components/UserAvatar'
 import ActivityCalendar from '../components/ActivityCalendar'
 import { GENERATED_PREFIX } from '../utils/generator'
-import { localDate } from '../utils/activity'
+import { localDate, freezesOf } from '../utils/activity'
 
 function findWorkoutTitle(id) {
   for (const cat of data.categories) {
@@ -118,6 +118,7 @@ export default function Profile() {
   const completed = progress.completedWorkouts || []
   const total = completed.length
   const completedDates = progress.completedDates || []
+  const frozenDates = progress.frozenDates || []
   const partialWorkouts = progress.partialWorkouts || []
 
   // Календарь: с какого дня считать пропуски — старт программы или первая активность.
@@ -261,8 +262,8 @@ export default function Profile() {
         </div>
       </SectionCard>
 
-      {/* Серия */}
-      <StreakCard completedDates={completedDates} />
+      {/* Ударный режим */}
+      <StreakCard completedDates={completedDates} frozenDates={frozenDates} freezes={freezesOf(progress)} />
 
       <div className="grid grid-cols-2 gap-3 mb-6">
         <div className="bg-white rounded-xl border border-gray-200 p-4">
@@ -280,6 +281,7 @@ export default function Profile() {
       <ActivityCalendar
         completedDates={completedDates}
         partialDates={partialWorkouts.map((p) => p.localDate)}
+        frozenDates={frozenDates}
         trackingStart={trackingStart}
         entriesByDate={entriesByDate}
       />
@@ -341,7 +343,7 @@ export default function Profile() {
           <div className="bg-white rounded-2xl p-6 w-full max-w-sm text-center">
             <h3 className="text-lg font-semibold text-gray-900 mb-2">Сбросить прогресс?</h3>
             <p className="text-sm text-gray-500 mb-6">
-              Будут удалены все завершённые тренировки и серия. Настройки останутся.
+              Будут удалены все завершённые тренировки и ударный режим. Настройки останутся.
             </p>
             <div className="space-y-2">
               <button

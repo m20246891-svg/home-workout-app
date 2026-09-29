@@ -110,7 +110,7 @@ export default function WorkoutReport({
           <div className="border-t border-dashed border-white/10 my-3" />
 
           <p className="text-white/50 text-xs text-center leading-relaxed">
-            Занимайся каждый день — и серия не обнулится.
+            Занимайся каждый день — и ударный режим не сгорит.
           </p>
         </div>
 

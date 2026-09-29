@@ -75,6 +75,76 @@ function TargetsCard({ targets, subtitle, onEdit }) {
   )
 }
 
+// ── Что получит человек: слайдер, листается сам каждые 4 секунды ─────────────
+const SLIDES = [
+  { img: COVER, title: 'Рацион на 30 дней', text: '3 приёма пищи в день из меню клуба' },
+  { img: '/img/nutrition-portions.webp', title: 'Порции под твою норму', text: 'Калории и белок — под твою цель' },
+  { img: '/img/nutrition-recipe.webp', title: 'Рецепт к каждому блюду', text: 'Пошагово, из обычных продуктов' },
+  { img: '/img/nutrition-shopping.webp', title: 'Список покупок на неделю', text: 'Всё есть в обычном магазине' },
+  { img: '/img/nutrition-mealprep.webp', title: 'Новое меню каждые 30 дней', text: 'Не надоест и не придётся думать, что есть' },
+]
+const SLIDE_MS = 4000
+
+function PlanPreview() {
+  const trackRef = useRef(null)
+  const [active, setActive] = useState(0)
+  const [paused, setPaused] = useState(false)
+
+  const goTo = (i) => {
+    const el = trackRef.current
+    if (el) el.scrollTo({ left: i * el.clientWidth, behavior: 'smooth' })
+  }
+
+  // Автолистание; пауза, пока палец на слайдере, и при «уменьшении движения».
+  useEffect(() => {
+    if (paused || window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return
+    const t = setTimeout(() => goTo((active + 1) % SLIDES.length), SLIDE_MS)
+    return () => clearTimeout(t)
+  }, [active, paused])
+
+  const onScroll = () => {
+    const el = trackRef.current
+    if (el) setActive(Math.round(el.scrollLeft / el.clientWidth))
+  }
+
+  return (
+    <div className="rounded-3xl overflow-hidden border border-gray-200 bg-white mb-4">
+      <div className="relative">
+        <div
+          ref={trackRef}
+          onScroll={onScroll}
+          onPointerDown={() => setPaused(true)}
+          onPointerUp={() => setPaused(false)}
+          onPointerCancel={() => setPaused(false)}
+          className="flex overflow-x-auto snap-x snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
+          {SLIDES.map((s, i) => (
+            <div key={s.img} className="relative w-full h-48 flex-shrink-0 snap-center">
+              <img src={s.img} alt="" loading={i ? 'lazy' : 'eager'} className="absolute inset-0 w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent" />
+              <div className="absolute left-4 right-4 bottom-7 text-white">
+                <p className="text-xs font-semibold uppercase tracking-wider text-white/70">Что ты получишь</p>
+                <p className="text-xl font-bold leading-tight">{s.title}</p>
+                <p className="text-sm text-white/80 mt-0.5">{s.text}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="absolute left-0 right-0 bottom-3 flex justify-center gap-1.5">
+          {SLIDES.map((s, i) => (
+            <button
+              key={s.img}
+              onClick={() => goTo(i)}
+              aria-label={`Слайд ${i + 1}`}
+              className={`h-1.5 rounded-full transition-all ${i === active ? 'w-5 bg-white' : 'w-1.5 bg-white/50'}`}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 // ── Нет данных для расчёта нормы ─────────────────────────────────────────────
 function DataForm({ inputs, onSaved, onCancel }) {
   const [form, setForm] = useState({
@@ -364,6 +434,7 @@ export default function Nutrition() {
     return (
       <div className="px-4 pt-4 pb-6">
         {header}
+        <PlanPreview />
         <DataForm inputs={inputs} onSaved={() => setVersion((v) => v + 1)} />
       </div>
     )
@@ -392,18 +463,7 @@ export default function Nutrition() {
     return (
       <div className="px-4 pt-4 pb-6">
         {header}
-        <div className="rounded-3xl overflow-hidden border border-gray-200 bg-white mb-4">
-          <img src={COVER} alt="" className="w-full h-44 object-cover" />
-          <div className="p-5">
-            <h2 className="text-xl font-bold text-gray-900">Рацион на 30 дней</h2>
-            <ul className="mt-3 space-y-2 text-sm text-gray-600">
-              <li>🍳 3 приёма пищи в день — простые блюда из обычного магазина</li>
-              <li>⚖️ Порции пересчитаны под твою норму калорий и белка</li>
-              <li>🛒 Список покупок на каждую неделю</li>
-              <li>🔄 Через 30 дней — новый рацион</li>
-            </ul>
-          </div>
-        </div>
+        <PlanPreview />
         <TargetsCard targets={targets} onEdit={() => setEditing(true)} subtitle={`Цель: ${goalLabel?.toLowerCase()} · ${inputs.weightKg} кг, ${inputs.heightCm} см`} />
         <button
           onClick={create}

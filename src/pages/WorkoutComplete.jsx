@@ -3,6 +3,7 @@ import { useParams, useLocation, Link } from 'react-router-dom'
 import useLocalProgress from '../hooks/useLocalProgress'
 import useProgram from '../hooks/useProgram'
 import { findAnyWorkout } from '../utils/generator'
+import { pluralDays } from '../utils/activity'
 
 export default function WorkoutComplete() {
   const { id } = useParams()
@@ -54,7 +55,7 @@ export default function WorkoutComplete() {
         {progress.streak > 0 && (
           <div className="mt-2 flex items-center gap-2 text-xl text-gray-900">
             <span>🔥</span>
-            <span className="font-semibold">Серия: {progress.streak} {progress.streak === 1 ? 'день' : 'дней'}</span>
+            <span className="font-semibold">Ударный режим: {progress.streak} {pluralDays(progress.streak)}</span>
           </div>
         )}
       </div>

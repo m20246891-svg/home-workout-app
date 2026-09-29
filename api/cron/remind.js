@@ -24,15 +24,15 @@ export default async function handler(req, res) {
       stats.skipped++
       continue
     }
-    // Серия жива, только если последняя тренировка была вчера.
-    const yesterday = localDateFor(u.tzOffset ?? -180, Date.now() - 86400000)
-    const streak = u.lastDone === yesterday ? Number(u.streak) || 0 : 0
+    // Режим жив, если последний день режима — вчера, или пропуск прикроют заморозки.
+    const missed = u.lastDone ? Math.round((Date.parse(today) - Date.parse(u.lastDone)) / 86400000) - 1 : Infinity
+    const streak = missed <= (Number(u.freezes) || 0) ? Number(u.streak) || 0 : 0
 
     try {
       await tg('sendMessage', {
         chat_id: u.chatId,
         text: reminderText(streak, dayNumber),
-        reply_markup: openAppButton(streak > 0 ? '🔥 Сохранить серию' : '💪 Начать тренировку', '/workouts'),
+        reply_markup: openAppButton(streak > 0 ? '🔥 Сохранить режим' : '💪 Начать тренировку', '/workouts'),
       })
       await saveUser(id, { lastReminded: today })
       stats.sent++

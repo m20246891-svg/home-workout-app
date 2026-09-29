@@ -51,7 +51,10 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <main className={`flex-1 ${hideTabBar ? '' : 'pb-16'}`}>
+      <main
+        className="flex-1"
+        style={hideTabBar ? undefined : { paddingBottom: 'calc(6rem + env(safe-area-inset-bottom, 0px))' }}
+      >
         <Routes>
           <Route path="/" element={<Navigate to="/progress" replace />} />
           <Route path="/progress" element={<Progress />} />

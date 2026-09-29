@@ -1,4 +1,4 @@
-// Приложение в Telegram сообщает серию и дату последней тренировки —
+// Приложение в Telegram сообщает ударный режим, заморозки и последний день режима —
 // чтобы вечером не напоминать тем, кто уже потренировался.
 import { verifyInitData, saveUser, parseBody } from './_lib.js'
 
@@ -12,6 +12,7 @@ export default async function handler(req, res) {
   const streak = Math.max(0, Math.min(10000, Number(body.streak) || 0))
   const lastDone = /^\d{4}-\d{2}-\d{2}$/.test(body.lastDone || '') ? body.lastDone : ''
   const tzOffset = Math.max(-840, Math.min(840, Number(body.tzOffset) || 0))
+  const freezes = Math.max(0, Math.min(2, Number(body.freezes) || 0))
 
   try {
     await saveUser(user.id, {
@@ -19,6 +20,7 @@ export default async function handler(req, res) {
       firstName: String(user.first_name || '').slice(0, 64),
       streak,
       lastDone,
+      freezes,
       tzOffset,
       lastSeen: Date.now(),
     })
