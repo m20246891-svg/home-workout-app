@@ -15,6 +15,7 @@ import {
 } from '../utils/preferences'
 import data from '../data/workouts.json'
 import StreakCard from '../components/StreakCard'
+import UserAvatar, { avatarSource } from '../components/UserAvatar'
 import ActivityCalendar from '../components/ActivityCalendar'
 import { GENERATED_PREFIX } from '../utils/generator'
 import { localDate } from '../utils/activity'
@@ -45,17 +46,6 @@ function resizeImage(file, size = 256) {
   })
 }
 
-const animalEmojis = [
-  '🐱', '🐶', '🦊', '🐼', '🐨', '🐯', '🦁', '🐰', '🐻', '🐸',
-  '🐵', '🦉', '🐺', '🐹', '🐷', '🐮', '🦝', '🐭', '🐧', '🦄',
-  '🐙', '🦋', '🐞', '🐳',
-]
-
-function getAnimalEmoji(seed) {
-  const idx = Math.abs(typeof seed === 'number' ? seed : String(seed).length) % animalEmojis.length
-  return animalEmojis[idx]
-}
-
 const optionGroups = [
   { key: 'goal', label: 'Цель', options: GOAL_OPTIONS },
   { key: 'level', label: 'Уровень', options: LEVEL_OPTIONS },
@@ -83,7 +73,7 @@ export default function Profile() {
     set('userProfile', userProfile)
   }, [userProfile])
 
-  const avatarEmoji = getAnimalEmoji(userProfile.avatarSeed)
+  const avatarKind = avatarSource(userProfile).kind
 
   function handleChange(group, value) {
     let nextValue = value
@@ -199,15 +189,13 @@ export default function Profile() {
           {/* Avatar */}
           <div className="flex flex-col items-center gap-1.5 flex-shrink-0">
             <label className="relative w-16 h-16 rounded-full bg-gray-100 ring-2 ring-gray-200 flex items-center justify-center text-2xl overflow-hidden cursor-pointer">
-              {userProfile.avatarPhoto ? (
-                <img src={userProfile.avatarPhoto} alt="" className="w-full h-full object-cover" />
-              ) : (
-                <span>{avatarEmoji}</span>
-              )}
+              <UserAvatar profile={userProfile} className="w-full h-full text-2xl" />
               <span className="absolute bottom-0 inset-x-0 bg-black/50 text-white text-[10px] text-center leading-4">фото</span>
               <input type="file" accept="image/*" onChange={handleAvatarFile} className="sr-only" />
             </label>
-            {userProfile.avatarPhoto ? (
+            {avatarKind === 'telegram' ? (
+              <span className="text-xs text-gray-400">из Telegram</span>
+            ) : avatarKind === 'photo' ? (
               <button
                 onClick={() => handleProfileChange('avatarPhoto', null)}
                 className="text-xs text-gray-400 hover:text-gray-700 transition-colors"

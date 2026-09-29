@@ -1,5 +1,7 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
+import UserAvatar from '../components/UserAvatar'
+import { get } from '../utils/storage'
 import StreakBadge from '../components/StreakBadge'
 import PlanDetail from '../components/PlanDetail'
 import data from '../data/workouts.json'
@@ -62,6 +64,7 @@ function GeneratorCard() {
 export default function Workouts() {
   const plans = data.plans || []
   const [selectedPlanId, setSelectedPlanId] = useState(null)
+  const profile = get('userProfile')
 
   if (selectedPlanId) {
     return (
@@ -76,7 +79,15 @@ export default function Workouts() {
     <div className="px-4 pt-4 pb-6">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
-        <h1 className="text-2xl font-bold text-gray-900">Тренировки</h1>
+        <div className="flex items-center gap-3 min-w-0">
+          <Link to="/profile" aria-label="Профиль">
+            <UserAvatar profile={profile} className="w-11 h-11 text-xl" />
+          </Link>
+          <div className="min-w-0">
+            {profile?.name && <p className="text-sm text-gray-500 truncate">Привет, {profile.name}!</p>}
+            <h1 className="text-2xl font-bold text-gray-900 leading-tight">Тренировки</h1>
+          </div>
+        </div>
         <StreakBadge />
       </div>
 

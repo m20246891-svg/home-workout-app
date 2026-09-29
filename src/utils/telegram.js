@@ -27,6 +27,21 @@ export function telegramUser() {
   return IN_TELEGRAM ? tg.initDataUnsafe?.user ?? null : null
 }
 
+// Имя и фото из Telegram → профиль приложения. Имя подставляем, только если пользователь
+// его ещё не ввёл сам; ссылку на фото обновляем при каждом входе (фото в Telegram могут сменить).
+export function syncTelegramProfile(get, set) {
+  const user = telegramUser()
+  if (!user) return
+  const profile = get('userProfile') || {}
+  const next = { ...profile }
+  if (!profile.name && user.first_name) next.name = user.first_name
+  next.tgPhotoUrl = user.photo_url || null
+  if (next.name !== profile.name || next.tgPhotoUrl !== profile.tgPhotoUrl) {
+    if (next.avatarSeed == null) next.avatarSeed = Math.floor(Math.random() * 2147483647)
+    set('userProfile', next)
+  }
+}
+
 // Системная кнопка «Назад» в шапке Telegram.
 export function setBackButton(onClick) {
   if (!supports('6.1')) return () => {}
