@@ -37,3 +37,7 @@ workbox-*.js
 
 # Design reference (keep tracked, but ignore system files)
 design-reference/.DS_Store
+
+# Локальные заметки с ключами (не коммитить)
+env.local*
+*.rtf

@@ -1,16 +1,16 @@
 // Вебхук бота: /start — приветствие с инструкцией, /stop и /remind — напоминания.
-import { tg, saveUser, APP_URL, openAppButton, welcomeCaption } from './_lib.js'
+import { tg, saveUser, APP_URL, openAppButton, welcomeCaption, secretMatches, parseBody } from './_lib.js'
 
 const WELCOME_IMAGE = `${APP_URL}/img/bot-welcome.jpg`
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end()
   // Telegram присылает секрет, заданный при setWebhook.
-  if (req.headers['x-telegram-bot-api-secret-token'] !== process.env.TELEGRAM_WEBHOOK_SECRET) {
+  if (!secretMatches(req.headers['x-telegram-bot-api-secret-token'], process.env.TELEGRAM_WEBHOOK_SECRET)) {
     return res.status(401).end()
   }
 
-  const update = typeof req.body === 'string' ? JSON.parse(req.body) : req.body
+  const update = parseBody(req)
   const msg = update?.message
   const text = msg?.text?.trim() || ''
   const chatId = msg?.chat?.id

@@ -25,7 +25,33 @@ export async function tg(method, body) {
   return data.result
 }
 
-// ── Upstash Redis (REST) ────────────────────────────────────────────────────
+// ── Проверка секретов ───────────────────────────────────────────────────────
+// Сравнение за постоянное время. Если секрет не задан на сервере — отказ
+// (иначе undefined === undefined пропустил бы любой запрос без заголовка).
+export function secretMatches(received, expected) {
+  if (!expected || typeof received !== 'string') return false
+  const a = Buffer.from(received)
+  const b = Buffer.from(expected)
+  return a.length === b.length && crypto.timingSafeEqual(a, b)
+}
+
+export const isCronAuthorized = (req) =>
+  !!process.env.CRON_SECRET && secretMatches(req.headers.authorization, `Bearer ${process.env.CRON_SECRET}`)
+
+export const escapeHtml = (s) =>
+  String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+
+// Тело запроса: битый JSON — пустой объект, а не падение функции.
+export function parseBody(req) {
+  if (typeof req.body !== 'string') return req.body || {}
+  try {
+    return JSON.parse(req.body || '{}')
+  } catch {
+    return {}
+  }
+}
+
+// ── Upstash Redis (REST)────────────────────────────────────────────────────
 function redisConfig() {
   const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL
   const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN
@@ -104,7 +130,7 @@ export const openAppButton = (text = '🚀 Открыть приложение',
 })
 
 export function welcomeCaption(firstName) {
-  const hi = firstName ? `👋 Привет, ${firstName}!` : '👋 Привет!'
+  const hi = firstName ? `👋 Привет, ${escapeHtml(firstName)}!` : '👋 Привет!'
   return [
     `${hi} Я — Workout Home, твой домашний тренер.`,
     '',

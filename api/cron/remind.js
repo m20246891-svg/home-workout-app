@@ -1,12 +1,12 @@
 // Ежедневное напоминание (Vercel Cron, см. vercel.json).
 // Пишем тем, кто подписан, сегодня ещё не тренировался и заходил за последние 14 дней.
-import { tg, redis, getUser, saveUser, localDateFor, reminderText, openAppButton } from '../_lib.js'
+import { tg, redis, isCronAuthorized, getUser, saveUser, localDateFor, reminderText, openAppButton } from '../_lib.js'
 
 const ACTIVE_DAYS = 14
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
 
 export default async function handler(req, res) {
-  if (req.headers.authorization !== `Bearer ${process.env.CRON_SECRET}`) return res.status(401).end()
+  if (!isCronAuthorized(req)) return res.status(401).end()
 
   const ids = (await redis('SMEMBERS', 'users')) || []
   const dayNumber = Math.floor(Date.now() / 86400000)

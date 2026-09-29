@@ -1,10 +1,10 @@
 // Приложение в Telegram сообщает серию и дату последней тренировки —
 // чтобы вечером не напоминать тем, кто уже потренировался.
-import { verifyInitData, saveUser } from './_lib.js'
+import { verifyInitData, saveUser, parseBody } from './_lib.js'
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end()
-  const body = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : req.body || {}
+  const body = parseBody(req)
 
   const user = verifyInitData(body.initData)
   if (!user?.id) return res.status(401).json({ ok: false })
@@ -16,7 +16,7 @@ export default async function handler(req, res) {
   try {
     await saveUser(user.id, {
       chatId: user.id, // в личке с ботом chat.id совпадает с user.id
-      firstName: user.first_name || '',
+      firstName: String(user.first_name || '').slice(0, 64),
       streak,
       lastDone,
       tzOffset,
