@@ -34,6 +34,6 @@
 ## Публикация (позже, по этапам)
 
 - [x] Веб-версия: https://home-workout-app-eta.vercel.app (Vercel, автодеплой из `main`).
-- [ ] Telegram Mini App: код готов (SDK, кнопка «Назад», вибрация, CloudStorage для прогресса) — осталось создать бота в @BotFather и привязать URL.
+- [x] Telegram Mini App: [@workout_home_ai_bot](https://t.me/workout_home_ai_bot) — кнопка «Назад», вибрация, прогресс в CloudStorage, имя и фото из Telegram.
 - [ ] PWA / публикация в вебсторе и Android (Google Play). Заготовка есть: vite-plugin-pwa, manifest.json, иконки; публикации нет.
-- [ ] Возможно бэкенд (Supabase) для синхронизации прогресса между устройствами.
+- [ ] Возможно бэкенд (Supabase) для синхронизации между вебом и Telegram (внутри Telegram синхронизация уже есть через CloudStorage).
