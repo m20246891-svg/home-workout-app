@@ -27,6 +27,7 @@ export default defineConfig({
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,ico}'],
         navigateFallback: '/index.html',
+        navigateFallbackDenylist: [/^\/api\//],
         // Обложки и анимации упражнений — кэшируем по мере просмотра, а не при установке.
         runtimeCaching: [
           {
