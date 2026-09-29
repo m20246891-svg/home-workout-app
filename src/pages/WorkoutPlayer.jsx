@@ -4,6 +4,7 @@ import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import data from '../data/workouts.json'
 import { findAnyWorkout } from '../utils/generator'
 import { IN_TELEGRAM, haptic, setClosingConfirmation } from '../utils/telegram'
+import { playBell, playBeep, isSoundOn, setSoundOn } from '../utils/sounds'
 import ExercisePlayer from '../components/ExercisePlayer'
 import RestScreen from '../components/RestScreen'
 import WorkoutReport from '../components/WorkoutReport'
@@ -143,6 +144,28 @@ export default function WorkoutPlayer() {
     }, 1000)
     return clearTimer
   }, [phase, isPaused, isEditingRest, isExitModalOpen, timer, clearTimer])
+
+  // Звуки: колокольчик в начале подхода и отдыха; перед концом таймера —
+  // 5 сигналов у упражнения на время и 3 у отдыха (по одному в секунду).
+  const [soundOn, setSoundOnState] = useState(isSoundOn)
+  const toggleSound = () => {
+    setSoundOn(!soundOn)
+    setSoundOnState(!soundOn)
+  }
+  const soundRef = useRef({ step: -1, timer: null })
+  useEffect(() => {
+    if (phase !== 'playing' || !currentStep) return
+    const last = soundRef.current
+    soundRef.current = { step: stepIndex, timer }
+    if (last.step !== stepIndex) {
+      playBell()
+      return
+    }
+    // Сигнал — только когда таймер тикнул на секунду вниз (не после паузы или правки отдыха).
+    if (timer !== last.timer - 1 || timer <= 0) return
+    const beeps = currentStep.stepType === 'rest' ? 3 : currentStep.mode === 'timed' ? 5 : 0
+    if (timer <= beeps) playBeep()
+  }, [phase, stepIndex, timer, currentStep])
 
   // Session elapsed timer
   useEffect(() => {
@@ -610,6 +633,31 @@ export default function WorkoutPlayer() {
                   <polyline points="21 14 16 17 15 12" />
                 </svg>
               )}
+            </button>
+            <button
+              onClick={toggleSound}
+              className={`w-10 h-10 flex items-center justify-center rounded-full backdrop-blur-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400/60 ${
+                isRest
+                  ? 'bg-white/15 text-white hover:bg-white/25'
+                  : 'bg-neutral-200/70 text-neutral-800 hover:bg-neutral-300/70'
+              }`}
+              aria-label={soundOn ? 'Выключить звук' : 'Включить звук'}
+              aria-pressed={soundOn}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z" />
+                {soundOn ? (
+                  <>
+                    <path d="M15.5 9a4 4 0 0 1 0 6" />
+                    <path d="M18 6.5a7.5 7.5 0 0 1 0 11" />
+                  </>
+                ) : (
+                  <>
+                    <line x1="16" y1="9.5" x2="21" y2="14.5" />
+                    <line x1="21" y1="9.5" x2="16" y2="14.5" />
+                  </>
+                )}
+              </svg>
             </button>
             {!isRest && !isLandscape && (
               <button

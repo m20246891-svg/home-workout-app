@@ -7,9 +7,11 @@ import { get, set } from './utils/storage'
 import { startCloudSync } from './utils/cloudSync'
 import { startBotSync } from './utils/botSync'
 import { applyFreezes } from './utils/activity'
+import { installAudioUnlock } from './utils/sounds'
 import './index.css'
 
 initTelegram()
+installAudioUnlock()
 
 // Пропущенные дни прикрываем заморозками — при запуске и при возврате в приложение.
 function applyStoredFreezes() {
