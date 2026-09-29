@@ -9,6 +9,13 @@
     <link rel="icon" type="image/svg+xml" href="/icon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <!-- SDK Telegram Mini App: грузим только при запуске из Telegram (он добавляет tgWebApp* в URL). -->
+    <script>
+      if (/tgWebApp/.test(location.hash + location.search) || sessionStorage.getItem('tg') === '1') {
+        sessionStorage.setItem('tg', '1')
+        document.write('<script src="https://telegram.org/js/telegram-web-app.js"><\/script>')
+      }
+    </script>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="Тренировки" />

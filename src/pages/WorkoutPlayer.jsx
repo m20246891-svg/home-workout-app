@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom'
 import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import data from '../data/workouts.json'
 import { findAnyWorkout } from '../utils/generator'
+import { IN_TELEGRAM, haptic, setClosingConfirmation } from '../utils/telegram'
 import ExercisePlayer from '../components/ExercisePlayer'
 import RestScreen from '../components/RestScreen'
 import WorkoutReport from '../components/WorkoutReport'
@@ -64,6 +65,16 @@ export default function WorkoutPlayer() {
   }, [])
 
   const toggleOrientation = useCallback(() => setIsLandscape((v) => !v), [])
+
+  // В Telegram: спрашивать подтверждение, если тренировку закрывают свайпом или крестиком.
+  useEffect(() => {
+    setClosingConfirmation(true)
+    return () => setClosingConfirmation(false)
+  }, [])
+
+  useEffect(() => {
+    if (phase === 'workoutReport') setClosingConfirmation(false)
+  }, [phase])
 
   const currentStep = steps[stepIndex]
   const exerciseIndex = steps.slice(0, stepIndex + 1).filter((s) => s.stepType === 'exercise').length
@@ -177,9 +188,11 @@ export default function WorkoutPlayer() {
         markProgramDayDone(programDay)
       }
       addCompletedWorkout(id, workout?.title)
+      haptic.success()
       setPhase('workoutReport')
     } else {
       setStepIndex(nextIdx)
+      haptic.step()
       const nextStep = steps[nextIdx]
       if (nextStep.stepType === 'exercise' && nextStep.mode === 'timed') {
         setTimer(nextStep.durationSec)
@@ -551,7 +564,7 @@ export default function WorkoutPlayer() {
           <div className="absolute right-0 top-2 flex flex-col items-center gap-2">
             <button
               onClick={handleFullscreen}
-              className={`w-10 h-10 flex items-center justify-center rounded-full backdrop-blur-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400/60 ${
+              className={`${IN_TELEGRAM ? 'hidden' : ''} w-10 h-10 flex items-center justify-center rounded-full backdrop-blur-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400/60 ${
                 isRest
                   ? 'bg-white/15 text-white hover:bg-white/25'
                   : 'bg-neutral-200/70 text-neutral-800 hover:bg-neutral-300/70'

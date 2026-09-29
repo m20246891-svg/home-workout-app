@@ -33,6 +33,7 @@
 
 ## Публикация (позже, по этапам)
 
-- [ ] Telegram Mini App (обёртка того же React-приложения) — только когда веб-версия готова.
+- [x] Веб-версия: https://home-workout-app-eta.vercel.app (Vercel, автодеплой из `main`).
+- [ ] Telegram Mini App: код готов (SDK, кнопка «Назад», вибрация, CloudStorage для прогресса) — осталось создать бота в @BotFather и привязать URL.
 - [ ] PWA / публикация в вебсторе и Android (Google Play). Заготовка есть: vite-plugin-pwa, manifest.json, иконки; публикации нет.
 - [ ] Возможно бэкенд (Supabase) для синхронизации прогресса между устройствами.

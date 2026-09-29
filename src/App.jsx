@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { get } from './utils/storage'
+import { IN_TELEGRAM, setBackButton } from './utils/telegram'
 import TabBar from './components/TabBar'
 import Onboarding from './pages/Onboarding'
 import Workouts from './pages/Workouts'
@@ -21,6 +22,17 @@ export default function App() {
     const data = get('onboarding')
     setOnboardingDone(!!data)
   }, [])
+
+  // Системная кнопка «Назад» Telegram — на вложенных экранах (плеер закрывается своей кнопкой).
+  const path = location.pathname
+  const showTgBack = IN_TELEGRAM && (path === '/generator' || /^\/workout\/[^/]+$/.test(path))
+  useEffect(() => {
+    if (!showTgBack) return setBackButton(null)
+    return setBackButton(() => {
+      if (window.history.length > 1) navigate(-1)
+      else navigate('/workouts', { replace: true })
+    })
+  }, [showTgBack, path, navigate])
 
   if (onboardingDone === null) return null
 

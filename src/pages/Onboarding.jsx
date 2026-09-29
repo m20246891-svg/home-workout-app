@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { get } from '../utils/storage'
+import { telegramUser } from '../utils/telegram'
 import BodyFigure, { CheckBadge } from '../components/BodyFigure'
 import { WheelPicker, Ruler } from '../components/Pickers'
 import {
@@ -60,7 +61,7 @@ function initialAnswers() {
     heightCm: prefs.heightCm ?? null,
     weightKg: prefs.weightKg ?? null,
     targetWeightKg: prefs.targetWeightKg ?? null,
-    name: profile.name || '',
+    name: profile.name || telegramUser()?.first_name || '',
   }
 }
 
