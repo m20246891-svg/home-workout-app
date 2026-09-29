@@ -4,7 +4,8 @@ import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import data from '../data/workouts.json'
 import { findAnyWorkout } from '../utils/generator'
 import { IN_TELEGRAM, haptic, setClosingConfirmation } from '../utils/telegram'
-import { playBell, playBeep, isSoundOn, setSoundOn } from '../utils/sounds'
+import { playBell, playBeep, playVoice, stopVoice, isSoundOn, setSoundOn } from '../utils/sounds'
+import voiceMap from '../data/voice.json'
 import ExercisePlayer from '../components/ExercisePlayer'
 import RestScreen from '../components/RestScreen'
 import WorkoutReport from '../components/WorkoutReport'
@@ -147,11 +148,18 @@ export default function WorkoutPlayer() {
 
   // Звуки: колокольчик в начале подхода и отдыха; перед концом таймера —
   // 5 сигналов у упражнения на время и 3 у отдыха (по одному в секунду).
+  // Голос: на старте упражнения — название и техника, на отдыхе — какое упражнение следующее.
   const [soundOn, setSoundOnState] = useState(isSoundOn)
   const toggleSound = () => {
+    if (soundOn) stopVoice()
     setSoundOn(!soundOn)
     setSoundOnState(!soundOn)
   }
+  const voiceSrc = (exerciseId, prefix = '') => (voiceMap[exerciseId] ? `/voice/${prefix}${voiceMap[exerciseId]}.m4a` : null)
+  useEffect(() => stopVoice, [])
+  useEffect(() => {
+    if (isPaused || isExitModalOpen || phase !== 'playing') stopVoice()
+  }, [isPaused, isExitModalOpen, phase])
   const soundRef = useRef({ step: -1, timer: null })
   useEffect(() => {
     if (phase !== 'playing' || !currentStep) return
@@ -159,13 +167,19 @@ export default function WorkoutPlayer() {
     soundRef.current = { step: stepIndex, timer }
     if (last.step !== stepIndex) {
       playBell()
+      if (currentStep.stepType === 'exercise') {
+        playVoice(voiceSrc(currentStep.exerciseId))
+      } else {
+        const next = steps.slice(stepIndex + 1).find((s) => s.stepType === 'exercise')
+        playVoice(next && voiceSrc(next.exerciseId, 'next-'))
+      }
       return
     }
     // Сигнал — только когда таймер тикнул на секунду вниз (не после паузы или правки отдыха).
     if (timer !== last.timer - 1 || timer <= 0) return
     const beeps = currentStep.stepType === 'rest' ? 3 : currentStep.mode === 'timed' ? 5 : 0
     if (timer <= beeps) playBeep()
-  }, [phase, stepIndex, timer, currentStep])
+  }, [phase, stepIndex, timer, currentStep, steps])
 
   // Session elapsed timer
   useEffect(() => {

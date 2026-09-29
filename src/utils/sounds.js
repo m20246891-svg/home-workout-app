@@ -1,8 +1,21 @@
-// Звуки тренировки: колокольчик в начале подхода и отдыха, короткие сигналы перед концом таймера.
-// Синтезируются через Web Audio — без аудиофайлов.
+// Звуки тренировки: колокольчик в начале подхода и отдыха, короткие сигналы перед концом таймера
+// (синтезируются через Web Audio) и голосовые подсказки (готовые файлы из public/voice).
+// Голос играет через <audio>: так на iPhone он слышен и в беззвучном режиме.
 import { get, set } from './storage'
 
 let ctx = null
+let voiceEl = null
+let voiceTimer = null
+// 50 мс тишины — «разогревает» элемент <audio> касанием, чтобы потом он играл без касаний.
+const SILENT_WAV = 'data:audio/wav;base64,UklGRrQBAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YZABAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA'
+
+function voice() {
+  if (!voiceEl && typeof Audio !== 'undefined') {
+    voiceEl = new Audio()
+    voiceEl.preload = 'auto'
+  }
+  return voiceEl
+}
 
 function audio() {
   if (ctx) return ctx
@@ -15,7 +28,16 @@ function audio() {
 // Браузеры (особенно iOS и Telegram) включают звук только после касания экрана.
 // Разблокируем контекст на первом касании — обычно это кнопка «Начать».
 export function installAudioUnlock() {
+  let voiceReady = false
   const unlock = () => {
+    const el = voice()
+    if (el && !voiceReady) {
+      voiceReady = true
+      el.src = SILENT_WAV
+      el.play().catch(() => {
+        voiceReady = false
+      })
+    }
     const c = audio()
     if (!c) return
     if (c.state === 'suspended') c.resume()
@@ -64,6 +86,24 @@ export function playBell() {
   tone(c, { freq: base * 2.76, start: t, duration: 0.9, volume: 0.12 })
   tone(c, { freq: base * 5.4, start: t, duration: 0.45, volume: 0.05 })
   tone(c, { freq: base * 0.5, start: t, duration: 1.2, volume: 0.08 })
+}
+
+// Голосовая подсказка — после колокольчика, с небольшой паузой. Новая подсказка обрывает старую.
+export function playVoice(src, delayMs = 700) {
+  stopVoice()
+  if (!src || !isSoundOn()) return
+  const el = voice()
+  if (!el) return
+  voiceTimer = setTimeout(() => {
+    el.src = src
+    el.play().catch(() => {})
+  }, delayMs)
+}
+
+export function stopVoice() {
+  clearTimeout(voiceTimer)
+  // Разогревающую тишину не трогаем: её обрыв может снова «запереть» звук на iOS.
+  if (voiceEl && !voiceEl.paused && voiceEl.src !== SILENT_WAV) voiceEl.pause()
 }
 
 // Короткий сигнал обратного отсчёта.
