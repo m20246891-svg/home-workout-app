@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { createPortal } from 'react-dom'
 import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import data from '../data/workouts.json'
+import { findAnyWorkout } from '../utils/generator'
 import ExercisePlayer from '../components/ExercisePlayer'
 import RestScreen from '../components/RestScreen'
 import WorkoutReport from '../components/WorkoutReport'
@@ -26,20 +27,12 @@ function flattenSteps(blocks) {
   return { steps, exerciseCount }
 }
 
-function findWorkout(id) {
-  for (const cat of data.categories) {
-    const found = cat.workouts.find((w) => w.id === id)
-    if (found) return found
-  }
-  return null
-}
-
 export default function WorkoutPlayer() {
   const { id } = useParams()
   const navigate = useNavigate()
   const location = useLocation()
   const programDay = location.state?.programDay
-  const workout = findWorkout(id)
+  const workout = findAnyWorkout(id)
   const { progress, addCompletedWorkout } = useLocalProgress()
   const { markProgramDayDone, saveDayProgress } = useProgram()
 

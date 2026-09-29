@@ -1,7 +1,57 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import StreakBadge from '../components/StreakBadge'
 import PlanDetail from '../components/PlanDetail'
 import data from '../data/workouts.json'
+import { getTodayGeneratedWorkout } from '../utils/generator'
+
+function GeneratorCard() {
+  const navigate = useNavigate()
+  const today = getTodayGeneratedWorkout()
+
+  return (
+    <div className="rounded-2xl bg-primary text-white p-5 mb-6">
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <p className="text-xs font-semibold uppercase tracking-wider text-accent">Генератор тренировок</p>
+          <h2 className="text-xl font-bold mt-1 leading-tight">
+            {today ? 'Твоя тренировка на сегодня' : 'Персональная тренировка на каждый день'}
+          </h2>
+          <p className="text-sm text-white/60 mt-1.5">
+            {today
+              ? `${today.title} · ${today.durationMin} мин · ≈ ${today.kcal} ккал`
+              : 'Учтём самочувствие, цель и свободное время'}
+          </p>
+        </div>
+        <span className="text-4xl flex-shrink-0" aria-hidden="true">⚡</span>
+      </div>
+
+      {today ? (
+        <div className="flex gap-2 mt-4">
+          <button
+            onClick={() => navigate('/generator')}
+            className="flex-1 py-3 rounded-xl bg-white text-gray-900 font-semibold text-sm hover:bg-gray-100 transition-colors"
+          >
+            Открыть
+          </button>
+          <button
+            onClick={() => navigate('/generator', { state: { fresh: true } })}
+            className="flex-1 py-3 rounded-xl bg-white/10 text-white font-semibold text-sm hover:bg-white/15 transition-colors"
+          >
+            Создать новую
+          </button>
+        </div>
+      ) : (
+        <button
+          onClick={() => navigate('/generator', { state: { fresh: true } })}
+          className="w-full mt-4 py-3 rounded-xl bg-white text-gray-900 font-semibold text-sm hover:bg-gray-100 transition-colors"
+        >
+          Создать тренировку
+        </button>
+      )}
+    </div>
+  )
+}
 
 export default function Workouts() {
   const plans = data.plans || []
@@ -23,6 +73,10 @@ export default function Workouts() {
         <h1 className="text-2xl font-bold text-gray-900">Тренировки</h1>
         <StreakBadge />
       </div>
+
+      <GeneratorCard />
+
+      <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Планы</h2>
 
       {/* Plans */}
       {plans.length === 0 ? (

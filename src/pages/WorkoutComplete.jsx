@@ -2,15 +2,7 @@ import { useEffect, useRef } from 'react'
 import { useParams, useLocation, Link } from 'react-router-dom'
 import useLocalProgress from '../hooks/useLocalProgress'
 import useProgram from '../hooks/useProgram'
-import data from '../data/workouts.json'
-
-function findWorkout(id) {
-  for (const cat of data.categories) {
-    const found = cat.workouts.find((w) => w.id === id)
-    if (found) return found
-  }
-  return null
-}
+import { findAnyWorkout } from '../utils/generator'
 
 export default function WorkoutComplete() {
   const { id } = useParams()
@@ -21,7 +13,7 @@ export default function WorkoutComplete() {
 
   const programDay = location.state?.programDay
 
-  const workout = findWorkout(id)
+  const workout = findAnyWorkout(id)
 
   useEffect(() => {
     if (!saved.current) {

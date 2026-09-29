@@ -4,6 +4,7 @@ import { get } from './utils/storage'
 import TabBar from './components/TabBar'
 import Onboarding from './pages/Onboarding'
 import Workouts from './pages/Workouts'
+import Generator from './pages/Generator'
 import WorkoutDetail from './pages/WorkoutDetail'
 import WorkoutPlayer from './pages/WorkoutPlayer'
 import WorkoutComplete from './pages/WorkoutComplete'
@@ -33,6 +34,7 @@ export default function App() {
           <Route path="/" element={<Navigate to="/progress" replace />} />
           <Route path="/progress" element={<Progress />} />
           <Route path="/workouts" element={<Workouts />} />
+          <Route path="/generator" element={<Generator />} />
           <Route path="/workout/:id" element={<WorkoutDetail />} />
           <Route path="/workout/:id/play" element={<WorkoutPlayer />} />
           <Route path="/workout/:id/complete" element={<WorkoutComplete />} />
