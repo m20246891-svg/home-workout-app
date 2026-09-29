@@ -134,7 +134,7 @@ function CurrentCard({ day, pct, missing, onToggleGear }) {
                       {GEAR[g].missingLabel}
                     </label>
                   ))}
-                <p className="text-xs text-gray-400">Упражнения с гантелями уберём из всех дней плана</p>
+                <p className="text-xs text-gray-400">Во всех днях плана заменим упражнения с гантелями на упражнения без инвентаря</p>
               </div>
             )}
           </div>

@@ -1,4 +1,4 @@
-// Инвентарь в 28-дневном плане: что нужно для дня и как убрать упражнения,
+// Инвентарь в 28-дневном плане: что нужно для дня и чем заменить упражнения,
 // если чего-то нет. Выбор «нет гантелей» — один на весь план.
 // Стул не указываем: он есть в каждом доме.
 import { get, set } from './storage'
@@ -10,6 +10,12 @@ const EXERCISE_GEAR = {
   'hand-plank': 'mat',
   'bodyweight-russian-twist': 'mat',
   supermans: 'mat',
+}
+
+// Замена без инвентаря — из упражнений, для которых есть анимация и озвучка.
+const SUBSTITUTES = {
+  'dumbbell-seated-overhead-press': 'hand-plank', // плечи держат вес тела
+  'dumbbell-curl': 'supermans', // спина — ближайшая замена тянущему движению
 }
 
 export const GEAR = {
@@ -33,7 +39,8 @@ export function workoutGear(workout) {
   return ORDER.filter((g) => used.has(g))
 }
 
-// Тренировка без упражнений на недостающий инвентарь (и без отдыха сразу после них).
+// Тренировка без недостающего инвентаря: упражнение заменяем, а если замены нет —
+// убираем его вместе с отдыхом сразу после него.
 export function withoutGear(workout, missing = getMissingGear()) {
   if (!workout || !missing.length) return workout
   const blocks = workout.blocks
@@ -42,7 +49,13 @@ export function withoutGear(workout, missing = getMissingGear()) {
       let skipRest = false
       for (const item of block.items) {
         if (item.type === 'exercise' && missing.includes(EXERCISE_GEAR[item.exerciseId])) {
-          skipRest = true
+          const substitute = SUBSTITUTES[item.exerciseId]
+          if (substitute) {
+            items.push({ ...item, exerciseId: substitute })
+            skipRest = false
+          } else {
+            skipRest = true
+          }
           continue
         }
         if (item.type === 'rest' && skipRest) {
@@ -66,7 +79,7 @@ function workoutSeconds(workout) {
   )
 }
 
-// Во сколько раз тренировка стала короче — чтобы пересчитать минуты и калории на карточке.
+// Во сколько раз тренировка стала короче (если упражнения убраны без замены) — чтобы пересчитать минуты и калории на карточке.
 export function gearRatio(workout, missing = getMissingGear()) {
   const full = workoutSeconds(workout)
   return full ? workoutSeconds(withoutGear(workout, missing)) / full : 1
