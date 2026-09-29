@@ -145,6 +145,14 @@ add('generator-coach', '16:9', [
   'coach positioned on the right third, empty dark space on the left for text. High quality, cinematic lighting.',
 ].join(' '), NO_TEXT)
 
+// Раздел «Питание».
+add('nutrition-cover', '16:9', [
+  'Overhead flat lay of three healthy home-cooked meals on a light wooden table:',
+  'oatmeal with pear and walnuts, grilled chicken with buckwheat and fresh vegetable salad, baked fish with potatoes and cucumber.',
+  'Simple ceramic plates, linen napkin, natural window light, warm neutral palette with a subtle amber accent,',
+  'editorial food photography, photorealistic, generous empty space on the left.',
+].join(' '), NO_TEXT)
+
 // ── Генерация ───────────────────────────────────────────────────────────────
 function fullPrompt(image) {
   return `${image.prompt} ${image.style}`

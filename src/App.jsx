@@ -11,6 +11,7 @@ import WorkoutPlayer from './pages/WorkoutPlayer'
 import WorkoutComplete from './pages/WorkoutComplete'
 import Progress from './pages/Progress'
 import Profile from './pages/Profile'
+import Nutrition from './pages/Nutrition'
 
 export default function App() {
   const [onboardingDone, setOnboardingDone] = useState(null)
@@ -59,6 +60,7 @@ export default function App() {
           <Route path="/workout/:id" element={<WorkoutDetail />} />
           <Route path="/workout/:id/play" element={<WorkoutPlayer />} />
           <Route path="/workout/:id/complete" element={<WorkoutComplete />} />
+          <Route path="/nutrition" element={<Nutrition />} />
           <Route path="/profile" element={<Profile />} />
         </Routes>
       </main>
