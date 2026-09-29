@@ -153,7 +153,10 @@ export function defaultFocus(zones) {
 }
 
 export function completeOnboarding(answers, profile) {
-  savePreferences({ ...answers, completedAt: new Date().toISOString() })
+  const prevPrefs = get('onboarding') || {}
+  const now = new Date().toISOString()
+  // firstCompletedAt — первое прохождение: с него календарь считает пропуски (повторный онбординг его не сдвигает).
+  savePreferences({ ...answers, completedAt: now, firstCompletedAt: prevPrefs.firstCompletedAt || prevPrefs.completedAt || now })
   // Новые ответы важнее старых ручных настроек генератора.
   remove('generatorSettings')
 

@@ -34,7 +34,7 @@ export default function WorkoutPlayer() {
   const location = useLocation()
   const programDay = location.state?.programDay
   const workout = findAnyWorkout(id)
-  const { progress, addCompletedWorkout, addPartialWorkout } = useLocalProgress()
+  const { progress, addCompletedWorkout, addPartialWorkout, markStarted } = useLocalProgress()
   const { markProgramDayDone, saveDayProgress } = useProgram()
 
   const [{ steps, exerciseCount }, _] = useState(
@@ -63,6 +63,14 @@ export default function WorkoutPlayer() {
     mql.addEventListener('change', handler)
     return () => mql.removeEventListener('change', handler)
   }, [])
+
+  // Как только тренировка пошла — отмечаем день начатым.
+  const startedRef = useRef(false)
+  useEffect(() => {
+    if (phase !== 'playing' || startedRef.current) return
+    startedRef.current = true
+    markStarted()
+  }, [phase, markStarted])
 
   const toggleOrientation = useCallback(() => setIsLandscape((v) => !v), [])
 

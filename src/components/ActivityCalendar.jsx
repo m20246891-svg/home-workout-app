@@ -11,11 +11,12 @@ const MONTHS_GEN = [
 ]
 const WEEKDAYS = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
 
+// ring — кружок вокруг числа, dot — маркер в легенде и в списке тренировок дня.
 const STATUS = {
-  done: { cell: 'bg-emerald-500 text-white', dot: 'bg-emerald-500', label: 'Выполнено' },
-  partial: { cell: 'bg-amber-400 text-gray-900', dot: 'bg-amber-400', label: 'Не завершено' },
-  frozen: { cell: 'bg-sky-400 text-white', dot: 'bg-sky-400', label: 'Заморозка' },
-  missed: { cell: 'bg-red-500 text-white', dot: 'bg-red-500', label: 'Пропуск' },
+  done: { ring: 'border-emerald-500', dot: 'bg-emerald-500', legend: 'border-emerald-500', label: 'Выполнено' },
+  partial: { ring: 'border-amber-400', dot: 'bg-amber-400', legend: 'border-amber-400', label: 'Начато' },
+  frozen: { ring: 'border-sky-400', dot: 'bg-sky-400', legend: 'border-sky-400', label: 'Заморозка' },
+  missed: { ring: 'border-red-400', dot: 'bg-red-400', legend: 'border-red-400', label: 'Пропуск' },
 }
 
 function humanDate(str) {
@@ -23,8 +24,8 @@ function humanDate(str) {
   return `${d.getDate()} ${MONTHS_GEN[d.getMonth()]}`
 }
 
-// Календарь активности: зелёный — выполнено, жёлтый — начато и брошено,
-// голубой — пропуск прикрыт заморозкой, красный — пропуск.
+// Календарь активности, дни обведены кружком: зелёный — выполнена хотя бы одна тренировка,
+// жёлтый — тренировку начали, голубой — пропуск прикрыт заморозкой, красный — тренировок не было.
 export default function ActivityCalendar({ completedDates, partialDates, frozenDates, trackingStart, entriesByDate }) {
   const today = localDate()
   const now = new Date()
@@ -91,11 +92,18 @@ export default function ActivityCalendar({ completedDates, partialDates, frozenD
               type="button"
               disabled={isFuture}
               onClick={() => setSelected(date)}
-              className={`aspect-square rounded-xl text-sm font-medium flex items-center justify-center transition ${
-                status ? STATUS[status].cell : isFuture ? 'text-gray-300' : 'text-gray-700 bg-gray-50'
-              } ${isToday ? 'ring-2 ring-primary ring-offset-1' : ''} ${isSelected && !isToday ? 'ring-2 ring-gray-300 ring-offset-1' : ''}`}
+              aria-label={`${parseDate(date).getDate()}${status ? `, ${STATUS[status].label.toLowerCase()}` : ''}`}
+              className="aspect-square flex items-center justify-center"
             >
-              {parseDate(date).getDate()}
+              <span
+                className={`w-9 h-9 rounded-full flex items-center justify-center text-sm tabular-nums transition ${
+                  status ? `border-2 ${STATUS[status].ring}` : 'border-2 border-transparent'
+                } ${isSelected ? 'bg-gray-100' : ''} ${
+                  isToday ? 'font-bold text-primary' : isFuture ? 'text-gray-300' : 'font-medium text-gray-700'
+                }`}
+              >
+                {parseDate(date).getDate()}
+              </span>
             </button>
           )
         })}
@@ -106,7 +114,7 @@ export default function ActivityCalendar({ completedDates, partialDates, frozenD
         {Object.entries(STATUS).map(([key, s]) => (
           <div key={key} className="rounded-xl bg-gray-50 px-2 py-2 min-w-0">
             <p className="flex items-center gap-1 text-[10px] leading-tight text-gray-500">
-              <span className={`w-2 h-2 rounded-full flex-shrink-0 ${s.dot}`} />
+              <span className={`w-2.5 h-2.5 rounded-full border-2 flex-shrink-0 ${s.legend}`} />
               {s.label}
             </p>
             <p className="text-lg font-bold text-gray-900 mt-0.5 tabular-nums">{counts[key]}</p>
@@ -138,7 +146,9 @@ export default function ActivityCalendar({ completedDates, partialDates, frozenD
           <p className="text-sm text-gray-400 mt-1">
             {selectedStatus === 'frozen'
               ? '❄️ Тренировки не было — ударный режим сохранила заморозка'
-              : selectedStatus === 'missed' ? 'В этот день тренировки не было' : selected === today ? 'Сегодня ещё нет тренировок' : 'Нет тренировок'}
+              : selectedStatus === 'partial'
+                ? 'Тренировку начали, но пока не завершили'
+                : selectedStatus === 'missed' ? 'В этот день тренировки не было' : selected === today ? 'Сегодня ещё нет тренировок' : 'Нет тренировок'}
           </p>
         )}
       </div>

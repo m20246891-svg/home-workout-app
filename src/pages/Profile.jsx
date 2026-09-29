@@ -121,11 +121,15 @@ export default function Profile() {
   const frozenDates = progress.frozenDates || []
   const partialWorkouts = progress.partialWorkouts || []
 
-  // Календарь: с какого дня считать пропуски — старт программы или первая активность.
-  const onboardingDate = onboarding.completedAt ? localDate(new Date(onboarding.completedAt)) : null
-  const trackingStart = [prog.startDate, onboardingDate, ...completedDates, ...partialWorkouts.map((p) => p.localDate)]
-    .filter(Boolean)
-    .sort()[0]
+  const startedDates = [...(progress.startedDates || []), ...partialWorkouts.map((p) => p.localDate)]
+  const activeDays = new Set([...completedDates, ...completed.map((w) => w.localDate || w.date)]).size
+
+  // Календарь: пропуски считаем с первого прохождения онбординга
+  // (у старых пользователей без этой даты — с первой активности).
+  const onboardedAt = onboarding.firstCompletedAt || onboarding.completedAt
+  const trackingStart = onboardedAt
+    ? localDate(new Date(onboardedAt))
+    : [...completedDates, ...startedDates].filter(Boolean).sort()[0]
 
   const entriesByDate = {}
   for (const w of completed) {
@@ -272,7 +276,7 @@ export default function Profile() {
         </div>
         <div className="bg-white rounded-xl border border-gray-200 p-4">
           <p className="text-sm text-gray-500 mb-1">Активных дней</p>
-          <p className="text-3xl font-bold text-gray-900 tabular-nums">{completedDates.length}</p>
+          <p className="text-3xl font-bold text-gray-900 tabular-nums">{activeDays}</p>
         </div>
       </div>
 
@@ -280,7 +284,7 @@ export default function Profile() {
       <h2 className="text-lg font-semibold text-gray-900 mb-3">История</h2>
       <ActivityCalendar
         completedDates={completedDates}
-        partialDates={partialWorkouts.map((p) => p.localDate)}
+        partialDates={startedDates}
         frozenDates={frozenDates}
         trackingStart={trackingStart}
         entriesByDate={entriesByDate}

@@ -13,6 +13,7 @@ function defaultProgress() {
     lastCompletedDate: null,
     completedDates: [],
     frozenDates: [],
+    startedDates: [],
     partialWorkouts: [],
     onboarding: null,
   }
@@ -56,6 +57,14 @@ export default function useLocalProgress() {
     return save({ ...prev, partialWorkouts: [...prev.partialWorkouts, entry] })
   }, [save])
 
+  // Тренировка началась — день сразу жёлтый в календаре (зелёным станет после завершения).
+  const markStarted = useCallback(() => {
+    const prev = load()
+    const today = localDate()
+    if (prev.startedDates.includes(today)) return prev
+    return save({ ...prev, startedDates: [...prev.startedDates, today] })
+  }, [save])
+
   const refresh = useCallback(() => {
     const data = load()
     setProgress(data)
@@ -66,5 +75,5 @@ export default function useLocalProgress() {
     save(defaultProgress())
   }, [save])
 
-  return { progress, addCompletedWorkout, addPartialWorkout, refresh, resetProgress }
+  return { progress, addCompletedWorkout, addPartialWorkout, markStarted, refresh, resetProgress }
 }
