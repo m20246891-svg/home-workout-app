@@ -1,11 +1,37 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import useProgram from '../hooks/useProgram'
 import data from '../data/workouts.json'
 import { dayCover, daySubtitle, PLAN_COVER } from '../utils/covers'
 import { scaleKcal } from '../utils/generator'
+import { GEAR, workoutGear, gearRatio, getMissingGear, setMissingGear } from '../utils/gear'
 
 const program = data.program
 const plan = (data.plans && data.plans[0]) || program
+const WORKOUTS = Object.fromEntries(data.categories.flatMap((c) => c.workouts.map((w) => [w.id, w])))
+
+// Минуты и калории дня с учётом убранных упражнений.
+function dayStats(day, missing) {
+  const ratio = gearRatio(WORKOUTS[day.workoutId], missing)
+  const min = Math.max(1, Math.round(day.durationMin * ratio))
+  const kcal = Math.round(scaleKcal(day.kcal || Math.round(day.durationMin * 9.5)) * ratio)
+  return { min, kcal }
+}
+
+// Инвентарь дня: зачёркнут, если его нет и упражнения на него убраны.
+function GearLine({ day, missing, className = '' }) {
+  const gear = workoutGear(WORKOUTS[day.workoutId])
+  if (!gear.length) return null
+  return (
+    <p className={`text-xs text-gray-500 flex flex-wrap gap-x-2 gap-y-0.5 ${className}`}>
+      {gear.map((g) => (
+        <span key={g} className={missing.includes(g) ? 'line-through text-gray-300' : ''}>
+          {GEAR[g].icon} {GEAR[g].label}
+        </span>
+      ))}
+    </p>
+  )
+}
 
 const STAGES = [
   'Начни здоровую привычку',
@@ -14,11 +40,11 @@ const STAGES = [
   'Финишная прямая',
 ]
 
-function Meta({ day, className = '' }) {
-  const kcal = scaleKcal(day.kcal || Math.round(day.durationMin * 9.5))
+function Meta({ day, missing, className = '' }) {
+  const { min, kcal } = dayStats(day, missing)
   return (
     <p className={`text-sm text-gray-500 ${className}`}>
-      {day.durationMin} мин <span className="text-gray-300 mx-1">|</span> {kcal} ккал
+      {min} мин <span className="text-gray-300 mx-1">|</span> {kcal} ккал
     </p>
   )
 }
@@ -40,7 +66,7 @@ function LockIcon() {
 }
 
 // Пройденный день: компактная карточка с фото и галочкой.
-function DoneCard({ day }) {
+function DoneCard({ day, missing }) {
   return (
     <Link
       to={`/workout/${day.workoutId}/play`}
@@ -52,7 +78,7 @@ function DoneCard({ day }) {
           <CheckIcon className="w-3.5 h-3.5" /> Выполнено
         </p>
         <p className="text-xl font-bold text-gray-400 mt-0.5">День {day.day}</p>
-        <Meta day={day} className="text-gray-400" />
+        <Meta day={day} missing={missing} className="text-gray-400" />
       </div>
       <div className="relative w-28 h-20 flex-shrink-0">
         <img src={dayCover(day)} alt="" className="w-full h-full object-cover rounded-xl opacity-70" />
@@ -65,7 +91,9 @@ function DoneCard({ day }) {
 }
 
 // Текущий день: большая карточка с фото и кнопкой.
-function CurrentCard({ day, pct }) {
+function CurrentCard({ day, pct, missing, onToggleGear }) {
+  const { min, kcal } = dayStats(day, missing)
+  const gear = workoutGear(WORKOUTS[day.workoutId])
   return (
     <div className="rounded-3xl bg-white border border-gray-200 shadow-lg overflow-hidden">
       <div className="relative h-40">
@@ -81,12 +109,36 @@ function CurrentCard({ day, pct }) {
         </div>
         <div className="flex gap-2 mt-3">
           <span className="text-xs font-medium bg-gray-100 text-gray-700 px-3 py-1.5 rounded-full">
-            ⏱ {day.durationMin} мин
+            ⏱ {min} мин
           </span>
           <span className="text-xs font-medium bg-gray-100 text-gray-700 px-3 py-1.5 rounded-full">
-            🔥 {scaleKcal(day.kcal)} ккал
+            🔥 {kcal} ккал
           </span>
         </div>
+        {gear.length > 0 && (
+          <div className="mt-4 rounded-2xl bg-gray-50 p-3">
+            <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">Понадобится</p>
+            <GearLine day={day} missing={missing} className="mt-1 text-sm text-gray-700" />
+            {gear.some((g) => GEAR[g].removable) && (
+              <div className="mt-2.5 pt-2.5 border-t border-gray-200 space-y-2">
+                {gear
+                  .filter((g) => GEAR[g].removable)
+                  .map((g) => (
+                    <label key={g} className="flex items-center gap-2.5 text-sm text-gray-700 cursor-pointer select-none">
+                      <input
+                        type="checkbox"
+                        checked={missing.includes(g)}
+                        onChange={() => onToggleGear(g)}
+                        className="w-5 h-5 rounded accent-primary"
+                      />
+                      {GEAR[g].missingLabel}
+                    </label>
+                  ))}
+                <p className="text-xs text-gray-400">Упражнения с гантелями уберём из всех дней плана</p>
+              </div>
+            )}
+          </div>
+        )}
         {pct > 0 && (
           <div className="mt-4">
             <div className="h-1.5 rounded-full bg-gray-200 overflow-hidden">
@@ -108,7 +160,7 @@ function CurrentCard({ day, pct }) {
 }
 
 // Закрытый день.
-function LockedCard({ day }) {
+function LockedCard({ day, missing }) {
   return (
     <div className="flex items-center gap-3 rounded-2xl border border-gray-100 p-3 pl-4" aria-disabled="true">
       <div className="flex-1 min-w-0">
@@ -116,7 +168,8 @@ function LockedCard({ day }) {
           <LockIcon /> {daySubtitle(day)}
         </p>
         <p className="text-xl font-bold text-gray-900 mt-0.5">День {day.day}</p>
-        <Meta day={day} />
+        <Meta day={day} missing={missing} />
+        <GearLine day={day} missing={missing} className="mt-1" />
       </div>
       <img src={dayCover(day)} alt="" className="w-28 h-20 object-cover rounded-xl flex-shrink-0 grayscale opacity-50" />
     </div>
@@ -152,6 +205,13 @@ export default function Progress() {
   const completedDays = prog.completedDays
   const completedCount = completedDays.length
   const dayProgress = prog.dayProgress || {}
+  // Нет гантелей — один выбор на весь план.
+  const [missing, setMissing] = useState(getMissingGear)
+  const toggleGear = (g) => {
+    const next = missing.includes(g) ? missing.filter((x) => x !== g) : [...missing, g]
+    setMissingGear(next)
+    setMissing(next)
+  }
 
   function handleStart() {
     startProgram()
@@ -188,7 +248,7 @@ export default function Progress() {
         <div className="mt-6 space-y-3">
           <StageHeader index={0} days={program.days.slice(0, 7)} completedDays={[]} />
           {program.days.slice(0, 3).map((day) => (
-            <LockedCard key={day.day} day={day} />
+            <LockedCard key={day.day} day={day} missing={missing} />
           ))}
           <p className="text-center text-xs text-gray-400 pt-1">и ещё {program.days.length - 3} дней</p>
         </div>
@@ -241,7 +301,13 @@ export default function Progress() {
                         }`}
                       />
                       <div className="flex-1 min-w-0">
-                        {isCompleted ? <DoneCard day={day} /> : isCurrent ? <CurrentCard day={day} pct={pct} /> : <LockedCard day={day} />}
+                        {isCompleted ? (
+                          <DoneCard day={day} missing={missing} />
+                        ) : isCurrent ? (
+                          <CurrentCard day={day} pct={pct} missing={missing} onToggleGear={toggleGear} />
+                        ) : (
+                          <LockedCard day={day} missing={missing} />
+                        )}
                       </div>
                     </div>
                   )

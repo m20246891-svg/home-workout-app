@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom'
 import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import data from '../data/workouts.json'
 import { findAnyWorkout } from '../utils/generator'
+import { withoutGear } from '../utils/gear'
 import { IN_TELEGRAM, haptic, setClosingConfirmation } from '../utils/telegram'
 import { playBell, playBeep, playVoice, stopVoice, isSoundOn, setSoundOn } from '../utils/sounds'
 import voiceMap from '../data/voice.json'
@@ -35,7 +36,9 @@ export default function WorkoutPlayer() {
   const navigate = useNavigate()
   const location = useLocation()
   const programDay = location.state?.programDay
-  const workout = findAnyWorkout(id)
+  // В 28-дневном плане убираем упражнения на инвентарь, которого у человека нет.
+  const found = findAnyWorkout(id)
+  const workout = programDay ? withoutGear(found) : found
   const { progress, addCompletedWorkout, addPartialWorkout, markStarted } = useLocalProgress()
   const { markProgramDayDone, saveDayProgress } = useProgram()
 
