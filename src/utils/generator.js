@@ -1,5 +1,6 @@
 import data from '../data/workouts.json'
 import { get, set } from './storage'
+import { getPreferences, defaultFocus } from './preferences'
 
 // Генератор персональной тренировки дня.
 // Работает по правилам (без сервера): состояние + цель + уровень + область + инвентарь
@@ -105,15 +106,15 @@ export function localDateString(d = new Date()) {
 }
 
 export function defaultSettings() {
-  const onboarding = get('onboarding') || {}
+  const prefs = getPreferences()
   const saved = get('generatorSettings') || {}
   return {
-    durationMin: 15,
-    focus: 'full',
-    level: onboarding.level || 'beginner',
+    durationMin: prefs.timeMin || 15,
+    focus: defaultFocus(prefs.zones),
+    level: prefs.level || 'beginner',
     warmup: true,
     cooldown: true,
-    dumbbells: onboarding.equipment === 'dumbbells',
+    dumbbells: prefs.equipment.includes('dumbbells'),
     ...saved,
   }
 }
@@ -246,8 +247,7 @@ export function workoutStats(workout) {
 }
 
 export function generateWorkout({ mood, settings, seed }) {
-  const onboarding = get('onboarding') || {}
-  const goal = onboarding.goal || 'keep-fit'
+  const goal = getPreferences().goal || 'keep-fit'
   const rnd = mulberry32(seed)
   const reasons = []
 

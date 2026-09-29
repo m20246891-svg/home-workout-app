@@ -1,7 +1,18 @@
 import { useState, useEffect } from 'react'
 import useLocalProgress from '../hooks/useLocalProgress'
 import useProgram from '../hooks/useProgram'
-import { get, set } from '../utils/storage'
+import { useNavigate } from 'react-router-dom'
+import { get, set, remove } from '../utils/storage'
+import {
+  GOAL_OPTIONS,
+  LEVEL_OPTIONS,
+  ZONE_OPTIONS,
+  EQUIPMENT_OPTIONS,
+  TIME_OPTIONS,
+  GENDER_OPTIONS,
+  getPreferences,
+  savePreferences,
+} from '../utils/preferences'
 import data from '../data/workouts.json'
 
 function findWorkoutTitle(id) {
@@ -23,39 +34,19 @@ function getAnimalEmoji(seed) {
   return animalEmojis[idx]
 }
 
-const goalOptions = [
-  { value: 'lose-weight', label: 'Похудеть' },
-  { value: 'keep-fit', label: 'Поддерживать форму' },
-  { value: 'gain-strength', label: 'Набрать силу' },
-]
-
-const levelOptions = [
-  { value: 'beginner', label: 'Новичок' },
-  { value: 'intermediate', label: 'Средний' },
-  { value: 'advanced', label: 'Продвинутый' },
-]
-
-const equipmentOptions = [
-  { value: 'none', label: 'Нет инвентаря' },
-  { value: 'dumbbells', label: 'Гантели' },
-  { value: 'mat', label: 'Коврик' },
-]
-
 const optionGroups = [
-  { key: 'goal', label: 'Цель', options: goalOptions },
-  { key: 'level', label: 'Уровень', options: levelOptions },
-  { key: 'equipment', label: 'Инвентарь', options: equipmentOptions },
-]
-
-const genderOptions = [
-  { value: 'male', label: 'Мужской' },
-  { value: 'female', label: 'Женский' },
+  { key: 'goal', label: 'Цель', options: GOAL_OPTIONS },
+  { key: 'level', label: 'Уровень', options: LEVEL_OPTIONS },
+  { key: 'zones', label: 'Зоны', options: ZONE_OPTIONS, multi: true },
+  { key: 'equipment', label: 'Инвентарь', options: EQUIPMENT_OPTIONS, multi: true, exclusive: 'none' },
+  { key: 'timeMin', label: 'Время на тренировку', options: TIME_OPTIONS },
 ]
 
 export default function Profile() {
   const { progress, resetProgress } = useLocalProgress()
   const { program: prog } = useProgram()
-  const [onboarding, setOnboarding] = useState(() => get('onboarding') || {})
+  const navigate = useNavigate()
+  const [onboarding, setOnboarding] = useState(getPreferences)
   const [showResetConfirm, setShowResetConfirm] = useState(false)
 
   const [userProfile, setUserProfile] = useState(() => {
@@ -72,10 +63,19 @@ export default function Profile() {
 
   const avatarEmoji = getAnimalEmoji(userProfile.avatarSeed)
 
-  function handleChange(key, value) {
-    const updated = { ...onboarding, [key]: value }
+  function handleChange(group, value) {
+    let nextValue = value
+    if (group.multi) {
+      const list = onboarding[group.key] || []
+      if (list.includes(value)) nextValue = list.length > 1 ? list.filter((v) => v !== value) : list
+      else if (value === group.exclusive) nextValue = [value]
+      else nextValue = [...list.filter((v) => v !== group.exclusive), value]
+    }
+    const updated = { ...onboarding, [group.key]: nextValue }
     setOnboarding(updated)
-    set('onboarding', updated)
+    savePreferences(updated)
+    // Генератор возьмёт свежие настройки из профиля.
+    remove('generatorSettings')
   }
 
   function handleReset() {
@@ -105,7 +105,7 @@ export default function Profile() {
               key={opt.value}
               onClick={() => onChange(opt.value)}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                value === opt.value
+                (Array.isArray(value) ? value.includes(opt.value) : value === opt.value)
                   ? 'bg-primary text-white'
                   : 'bg-gray-100 text-gray-700 border border-gray-200 hover:bg-gray-200'
               }`}
@@ -189,7 +189,7 @@ export default function Profile() {
             <div>
               <p className="text-xs text-gray-500 mb-1">Пол</p>
               <div className="grid grid-cols-2 gap-2">
-                {genderOptions.map((opt) => (
+                {GENDER_OPTIONS.map((opt) => (
                   <button
                     key={opt.value}
                     onClick={() => handleProfileChange('gender', opt.value)}
@@ -218,10 +218,16 @@ export default function Profile() {
               label={group.label}
               options={group.options}
               value={onboarding[group.key]}
-              onChange={(val) => handleChange(group.key, val)}
+              onChange={(val) => handleChange(group, val)}
             />
           ))}
         </div>
+        <button
+          onClick={() => navigate('/onboarding')}
+          className="w-full mt-5 py-3 rounded-xl bg-gray-100 text-gray-800 font-medium text-sm hover:bg-gray-200 transition-colors"
+        >
+          Пройти онбординг заново
+        </button>
       </SectionCard>
 
       {/* Stats cards */}

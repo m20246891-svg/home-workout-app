@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { get } from './utils/storage'
 import TabBar from './components/TabBar'
 import Onboarding from './pages/Onboarding'
@@ -14,6 +14,7 @@ import Profile from './pages/Profile'
 export default function App() {
   const [onboardingDone, setOnboardingDone] = useState(null)
   const location = useLocation()
+  const navigate = useNavigate()
   const hideTabBar = location.pathname.includes('/play') || location.pathname.includes('/complete')
 
   useEffect(() => {
@@ -23,8 +24,16 @@ export default function App() {
 
   if (onboardingDone === null) return null
 
-  if (!onboardingDone) {
-    return <Onboarding onComplete={() => setOnboardingDone(true)} />
+  // /onboarding — повторное прохождение из профиля.
+  if (!onboardingDone || location.pathname === '/onboarding') {
+    return (
+      <Onboarding
+        onComplete={() => {
+          setOnboardingDone(true)
+          navigate('/generator', { replace: true, state: { fresh: true } })
+        }}
+      />
+    )
   }
 
   return (
