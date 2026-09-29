@@ -33,7 +33,7 @@ export default function WorkoutPlayer() {
   const location = useLocation()
   const programDay = location.state?.programDay
   const workout = findAnyWorkout(id)
-  const { progress, addCompletedWorkout } = useLocalProgress()
+  const { progress, addCompletedWorkout, addPartialWorkout } = useLocalProgress()
   const { markProgramDayDone, saveDayProgress } = useProgram()
 
   const [{ steps, exerciseCount }, _] = useState(
@@ -176,7 +176,7 @@ export default function WorkoutPlayer() {
       if (programDay) {
         markProgramDayDone(programDay)
       }
-      addCompletedWorkout(id)
+      addCompletedWorkout(id, workout?.title)
       setPhase('workoutReport')
     } else {
       setStepIndex(nextIdx)
@@ -289,6 +289,11 @@ export default function WorkoutPlayer() {
 
   function handleExitWithReason(reason) {
     recordExitReason(reason)
+    // Начатая, но брошенная тренировка — жёлтый день в календаре профиля.
+    if (sessionElapsed > 0 || completedStepIndexes.length > 0) {
+      const percent = exerciseCount > 0 ? Math.round((completedStepIndexes.length / exerciseCount) * 100) : 0
+      addPartialWorkout(id, workout?.title, percent)
+    }
     navigate('/progress', { replace: true })
   }
 

@@ -21,4 +21,4 @@ export function daySubtitle(day) {
 }
 
 export const PLAN_COVER = '/img/plan-full-body.webp'
-export const GENERATOR_COVER = '/img/generator-coach.webp'
+export const GENERATOR_COVER = '/img/generator-trainer.webp'

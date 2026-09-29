@@ -23,8 +23,8 @@ const POOL = {
   'hand-plank': { zones: ['core'], intensity: 1, kcal: 5, gear: 'mat' },
   'bodyweight-russian-twist': { zones: ['core'], intensity: 1, kcal: 6, gear: 'mat' },
   'supermans': { zones: ['back', 'core', 'glutes'], intensity: 1, kcal: 5, gear: 'mat' },
-  'bodyweight-hip-abduction': { zones: ['glutes'], intensity: 1, kcal: 5, gear: 'mat', note: EACH_SIDE },
-  'bodyweight-donkey-calf-raise': { zones: ['legs'], intensity: 1, kcal: 5, gear: 'step' },
+  'bodyweight-hip-abduction': { zones: ['glutes'], intensity: 1, kcal: 5, note: EACH_SIDE },
+  'bodyweight-donkey-calf-raise': { zones: ['legs'], intensity: 1, kcal: 5 },
   'dumbbell-seated-overhead-press': { zones: ['shoulders', 'arms'], intensity: 2, kcal: 7, gear: 'dumbbells' },
   'dumbbell-curl': { zones: ['arms'], intensity: 1, kcal: 6, gear: 'dumbbells' },
 }
@@ -55,7 +55,6 @@ export const LEVELS = [
 export const GEAR_LABELS = {
   mat: 'Коврик',
   chair: 'Стул',
-  step: 'Ступенька',
   dumbbells: 'Гантели',
 }
 
@@ -115,6 +114,8 @@ export function defaultSettings() {
     warmup: true,
     cooldown: true,
     dumbbells: prefs.equipment.includes('dumbbells'),
+    // Стул есть почти в каждом доме; убираем, только если в инвентаре его явно не отметили.
+    chair: prefs.equipment.length === 0 || prefs.equipment.includes('chair'),
     ...saved,
   }
 }
@@ -132,11 +133,12 @@ const FALLBACK_ZONES = {
   glutes: ['legs'],
 }
 
-function pickMain({ focus, dumbbells, allowJumps, wantJumps, calm, count }, rnd) {
+function pickMain({ focus, dumbbells, chair, allowJumps, wantJumps, calm, count }, rnd) {
   const focusZones = FOCUSES.find((f) => f.id === focus)?.zones
   const available = (id) => {
     const p = POOL[id]
     if (p.gear === 'dumbbells' && !dumbbells) return false
+    if (p.gear === 'chair' && chair === false) return false
     if (!allowJumps && p.intensity === 3) return false
     return true
   }
@@ -218,6 +220,16 @@ function buildCooldown() {
   }
 }
 
+// Калории считаются для веса 75 кг; под вес пользователя масштабируем пропорционально.
+export function weightFactor() {
+  const w = Number(getPreferences().weightKg)
+  return w > 0 ? w / 75 : 1
+}
+
+export function scaleKcal(kcal) {
+  return Math.round((kcal * weightFactor()) / 5) * 5
+}
+
 export function workoutStats(workout) {
   let totalSec = 0
   let kcal = 0
@@ -240,9 +252,9 @@ export function workoutStats(workout) {
   return {
     totalSec,
     minutes: Math.max(1, Math.round(totalSec / 60)),
-    kcal: Math.round(kcal / 5) * 5,
+    kcal: Math.round((kcal * weightFactor()) / 5) * 5,
     exerciseCount,
-    gear: ['mat', 'chair', 'step', 'dumbbells'].filter((g) => gear.has(g)),
+    gear: ['mat', 'chair', 'dumbbells'].filter((g) => gear.has(g)),
   }
 }
 
@@ -291,6 +303,7 @@ export function generateWorkout({ mood, settings, seed }) {
   const mainIds = orderForFlow(pickMain({
     focus: settings.focus,
     dumbbells: settings.dumbbells,
+    chair: settings.chair,
     allowJumps,
     wantJumps: allowJumps && (mood === 'great' || goal === 'lose-weight'),
     calm,

@@ -1,67 +1,66 @@
 import { useState, useCallback } from 'react'
 import { get, set } from '../utils/storage'
+import { localDate, computeStreak } from '../utils/activity'
 
 function todayString() {
   return new Date().toISOString().split('T')[0]
 }
 
-function localTodayString() {
-  const d = new Date()
-  const y = d.getFullYear()
-  const m = String(d.getMonth() + 1).padStart(2, '0')
-  const day = String(d.getDate()).padStart(2, '0')
-  return `${y}-${m}-${day}`
-}
-
-function recalculateStreak(prevProgress, today) {
-  if (!prevProgress.lastCompletedDate) return 1
-
-  const last = new Date(prevProgress.lastCompletedDate + 'T00:00:00')
-  const now = new Date(today + 'T00:00:00')
-  const diff = Math.round((now - last) / (1000 * 60 * 60 * 24))
-
-  if (diff === 0) return prevProgress.streak
-  if (diff === 1) return prevProgress.streak + 1
-  return 1
-}
-
 function defaultProgress() {
-  return { completedWorkouts: [], streak: 0, lastCompletedDate: null, completedDates: [], onboarding: null }
+  return {
+    completedWorkouts: [],
+    streak: 0,
+    lastCompletedDate: null,
+    completedDates: [],
+    partialWorkouts: [],
+    onboarding: null,
+  }
+}
+
+// Серию всегда пересчитываем по датам: сохранённое значение устаревает, если был пропуск.
+function withStreak(p) {
+  const data = { ...defaultProgress(), ...p }
+  return { ...data, streak: computeStreak(data.completedDates).current }
+}
+
+function load() {
+  return withStreak(get('progress') || {})
 }
 
 export default function useLocalProgress() {
-  const [progress, setProgress] = useState(() => {
-    return get('progress') || defaultProgress()
-  })
+  const [progress, setProgress] = useState(load)
 
-  const addCompletedWorkout = useCallback((workoutId) => {
-    const today = todayString()
-    const localToday = localTodayString()
-    const prev = get('progress') || defaultProgress()
-
-    const completedWorkouts = [...(prev.completedWorkouts || []), { workoutId, date: today }]
-    const streak = recalculateStreak(prev, today)
-    const prevDates = Array.isArray(prev.completedDates) ? prev.completedDates : []
-    const completedDates = prevDates.includes(localToday)
-      ? prevDates
-      : [...prevDates, localToday]
-    const newProgress = { ...prev, completedWorkouts, streak, lastCompletedDate: today, completedDates }
-
-    set('progress', newProgress)
-    setProgress(newProgress)
-    return newProgress
+  const save = useCallback((next) => {
+    const data = withStreak(next)
+    set('progress', data)
+    setProgress(data)
+    return data
   }, [])
 
+  const addCompletedWorkout = useCallback((workoutId, title) => {
+    const prev = load()
+    const today = localDate()
+    const completedWorkouts = [...prev.completedWorkouts, { workoutId, title, date: todayString(), localDate: today }]
+    const completedDates = prev.completedDates.includes(today) ? prev.completedDates : [...prev.completedDates, today]
+    return save({ ...prev, completedWorkouts, completedDates, lastCompletedDate: today })
+  }, [save])
+
+  // Тренировка начата, но брошена — для жёлтых дней в календаре.
+  const addPartialWorkout = useCallback((workoutId, title, percent) => {
+    const prev = load()
+    const entry = { workoutId, title, percent, localDate: localDate() }
+    return save({ ...prev, partialWorkouts: [...prev.partialWorkouts, entry] })
+  }, [save])
+
   const refresh = useCallback(() => {
-    const data = get('progress') || defaultProgress()
+    const data = load()
     setProgress(data)
     return data
   }, [])
 
   const resetProgress = useCallback(() => {
-    set('progress', defaultProgress())
-    setProgress(defaultProgress())
-  }, [])
+    save(defaultProgress())
+  }, [save])
 
-  return { progress, addCompletedWorkout, refresh, resetProgress }
+  return { progress, addCompletedWorkout, addPartialWorkout, refresh, resetProgress }
 }

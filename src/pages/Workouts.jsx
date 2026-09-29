@@ -12,7 +12,7 @@ function GeneratorCard() {
 
   return (
     <div className="relative -mx-2 mb-6 rounded-3xl bg-primary text-white overflow-hidden">
-      <img src={GENERATOR_COVER} alt="" className="absolute inset-y-0 right-0 h-full w-3/4 object-cover object-right" />
+      <img src={GENERATOR_COVER} alt="" className="absolute inset-y-0 -right-[14%] h-full w-[62%] object-cover object-[50%_20%]" />
       <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/85 to-transparent" />
 
       <div className="relative p-5 pr-28">

@@ -18,12 +18,12 @@ export default function WorkoutComplete() {
   useEffect(() => {
     if (!saved.current) {
       saved.current = true
-      addCompletedWorkout(id)
+      addCompletedWorkout(id, workout?.title)
       if (programDay) {
         markProgramDayDone(programDay)
       }
     }
-  }, [id, addCompletedWorkout, markProgramDayDone, programDay])
+  }, [id, workout, addCompletedWorkout, markProgramDayDone, programDay])
 
   const totalCompleted = progress.completedWorkouts?.length || 0
   const isFirst = totalCompleted === 1

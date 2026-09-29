@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import useProgram from '../hooks/useProgram'
 import data from '../data/workouts.json'
 import { dayCover, daySubtitle, PLAN_COVER } from '../utils/covers'
+import { scaleKcal } from '../utils/generator'
 
 const program = data.program
 const plan = (data.plans && data.plans[0]) || program
@@ -14,7 +15,7 @@ const STAGES = [
 ]
 
 function Meta({ day, className = '' }) {
-  const kcal = day.kcal || Math.round(day.durationMin * 9.5)
+  const kcal = scaleKcal(day.kcal || Math.round(day.durationMin * 9.5))
   return (
     <p className={`text-sm text-gray-500 ${className}`}>
       {day.durationMin} мин <span className="text-gray-300 mx-1">|</span> {kcal} ккал
@@ -69,7 +70,7 @@ function CurrentCard({ day, pct }) {
     <div className="rounded-3xl bg-white border border-gray-200 shadow-lg overflow-hidden">
       <div className="relative h-40">
         <img src={dayCover(day)} alt="" className="w-full h-full object-cover" />
-        <span className="absolute top-3 left-3 text-xs font-bold uppercase tracking-wider bg-accent text-white px-2.5 py-1 rounded-full">
+        <span className="absolute top-3 left-3 text-xs font-bold uppercase tracking-wider bg-accent text-primary px-2.5 py-1 rounded-full">
           Сегодня
         </span>
       </div>
@@ -83,7 +84,7 @@ function CurrentCard({ day, pct }) {
             ⏱ {day.durationMin} мин
           </span>
           <span className="text-xs font-medium bg-gray-100 text-gray-700 px-3 py-1.5 rounded-full">
-            🔥 {day.kcal} ккал
+            🔥 {scaleKcal(day.kcal)} ккал
           </span>
         </div>
         {pct > 0 && (
@@ -233,7 +234,7 @@ export default function Progress() {
                       <span
                         className={`relative z-10 flex-shrink-0 rounded-full ${
                           isCurrent
-                            ? 'w-4 h-4 bg-accent ring-4 ring-amber-100'
+                            ? 'w-4 h-4 bg-accent ring-4 ring-accent-soft'
                             : isCompleted
                               ? 'w-4 h-4 bg-primary'
                               : 'w-4 h-4 bg-white border-2 border-gray-300'

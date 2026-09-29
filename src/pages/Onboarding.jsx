@@ -210,7 +210,7 @@ export default function Onboarding({ onComplete }) {
     return (
       <div className="min-h-screen bg-white flex flex-col px-6 pb-8">
         <div className="flex-1 flex flex-col justify-center max-w-sm mx-auto w-full">
-          <p className="text-xs font-semibold uppercase tracking-wider text-accent">Тренировки дома</p>
+          <p className="text-xs font-semibold uppercase tracking-wider text-accent-dark">Тренировки дома</p>
           <h1 className="text-3xl font-bold text-gray-900 leading-tight mt-2">
             Тренировки, которые подстраиваются под тебя
           </h1>

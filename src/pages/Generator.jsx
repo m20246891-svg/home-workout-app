@@ -252,6 +252,7 @@ function SettingsStep({ mood, settings, onChange, onBack, onCreate }) {
             { key: 'warmup', icon: '🤸', title: 'Разминка', sub: '+2 мин · перед тренировкой' },
             { key: 'cooldown', icon: '🧘', title: 'Заминка', sub: '+2 мин · спокойный темп после' },
             { key: 'dumbbells', icon: '🏋️', title: 'Есть гантели', sub: 'Добавим жим и сгибания' },
+            { key: 'chair', icon: '🪑', title: 'Есть стул', sub: 'Для обратных отжиманий' },
           ].map((row) => (
             <div key={row.key} className="flex items-center gap-3 py-4">
               <span className="text-2xl w-8 text-center" aria-hidden="true">{row.icon}</span>

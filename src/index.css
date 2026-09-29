@@ -6,6 +6,8 @@
   :root {
     --color-primary: #0A0A0A;
     --color-accent: #D97706;
+    --color-accent-dark: #B45309;
+    --color-accent-soft: #FEF3C7;
   }
 }
 

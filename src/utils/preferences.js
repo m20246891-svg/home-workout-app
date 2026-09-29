@@ -96,7 +96,7 @@ export function bmiCategory(bmi) {
   if (bmi == null) return null
   if (bmi < 18.5) return { id: 'low', label: 'Ниже нормы', tone: 'text-sky-600', hint: 'Сделаем упор на силу и набор мышц' }
   if (bmi < 25) return { id: 'normal', label: 'Норма', tone: 'text-emerald-600', hint: 'У тебя отличная база — будем её укреплять' }
-  if (bmi < 30) return { id: 'over', label: 'Выше нормы', tone: 'text-accent', hint: 'Сочетание кардио и силы поможет прийти в форму' }
+  if (bmi < 30) return { id: 'over', label: 'Выше нормы', tone: 'text-accent-dark', hint: 'Сочетание кардио и силы поможет прийти в форму' }
   return { id: 'high', label: 'Значительно выше нормы', tone: 'text-red-600', hint: 'Начнём мягко и без ударной нагрузки на суставы' }
 }
 

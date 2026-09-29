@@ -14,13 +14,35 @@ import {
   savePreferences,
 } from '../utils/preferences'
 import data from '../data/workouts.json'
+import StreakCard from '../components/StreakCard'
+import ActivityCalendar from '../components/ActivityCalendar'
+import { GENERATED_PREFIX } from '../utils/generator'
+import { localDate } from '../utils/activity'
 
 function findWorkoutTitle(id) {
   for (const cat of data.categories) {
     const found = cat.workouts.find((w) => w.id === id)
     if (found) return found.title
   }
-  return id
+  return id?.startsWith(GENERATED_PREFIX) ? 'Персональная тренировка' : id
+}
+
+// Фото аватара: квадрат 256px в JPEG, чтобы влезало в localStorage.
+function resizeImage(file, size = 256) {
+  return new Promise((resolve, reject) => {
+    const img = new Image()
+    img.onload = () => {
+      const canvas = document.createElement('canvas')
+      canvas.width = size
+      canvas.height = size
+      const side = Math.min(img.width, img.height)
+      canvas.getContext('2d').drawImage(img, (img.width - side) / 2, (img.height - side) / 2, side, side, 0, 0, size, size)
+      URL.revokeObjectURL(img.src)
+      resolve(canvas.toDataURL('image/jpeg', 0.85))
+    }
+    img.onerror = reject
+    img.src = URL.createObjectURL(file)
+  })
 }
 
 const animalEmojis = [
@@ -91,9 +113,37 @@ export default function Profile() {
     setUserProfile((prev) => ({ ...prev, avatarSeed: Math.floor(Math.random() * 2147483647) }))
   }
 
+  async function handleAvatarFile(e) {
+    const file = e.target.files?.[0]
+    e.target.value = ''
+    if (!file) return
+    try {
+      const avatarPhoto = await resizeImage(file)
+      setUserProfile((prev) => ({ ...prev, avatarPhoto }))
+    } catch {
+      // не картинка или не удалось прочитать — оставляем как было
+    }
+  }
+
   const completed = progress.completedWorkouts || []
-  const sorted = [...completed].reverse()
   const total = completed.length
+  const completedDates = progress.completedDates || []
+  const partialWorkouts = progress.partialWorkouts || []
+
+  // Календарь: с какого дня считать пропуски — старт программы или первая активность.
+  const onboardingDate = onboarding.completedAt ? localDate(new Date(onboarding.completedAt)) : null
+  const trackingStart = [prog.startDate, onboardingDate, ...completedDates, ...partialWorkouts.map((p) => p.localDate)]
+    .filter(Boolean)
+    .sort()[0]
+
+  const entriesByDate = {}
+  for (const w of completed) {
+    const d = w.localDate || w.date
+    ;(entriesByDate[d] ||= []).push({ title: w.title || findWorkoutTitle(w.workoutId), done: true })
+  }
+  for (const w of partialWorkouts) {
+    ;(entriesByDate[w.localDate] ||= []).push({ title: w.title || findWorkoutTitle(w.workoutId), done: false, percent: w.percent })
+  }
 
   function PillGroup({ label, options, value, onChange }) {
     return (
@@ -148,15 +198,30 @@ export default function Profile() {
         <div className="flex gap-4">
           {/* Avatar */}
           <div className="flex flex-col items-center gap-1.5 flex-shrink-0">
-            <div className="w-16 h-16 rounded-full bg-gray-100 ring-2 ring-gray-200 flex items-center justify-center text-2xl">
-              <span>{avatarEmoji}</span>
-            </div>
-            <button
-              onClick={handleShuffleAvatar}
-              className="text-xs text-gray-400 hover:text-gray-700 transition-colors"
-            >
-              Перемешать
-            </button>
+            <label className="relative w-16 h-16 rounded-full bg-gray-100 ring-2 ring-gray-200 flex items-center justify-center text-2xl overflow-hidden cursor-pointer">
+              {userProfile.avatarPhoto ? (
+                <img src={userProfile.avatarPhoto} alt="" className="w-full h-full object-cover" />
+              ) : (
+                <span>{avatarEmoji}</span>
+              )}
+              <span className="absolute bottom-0 inset-x-0 bg-black/50 text-white text-[10px] text-center leading-4">фото</span>
+              <input type="file" accept="image/*" onChange={handleAvatarFile} className="sr-only" />
+            </label>
+            {userProfile.avatarPhoto ? (
+              <button
+                onClick={() => handleProfileChange('avatarPhoto', null)}
+                className="text-xs text-gray-400 hover:text-gray-700 transition-colors"
+              >
+                Убрать фото
+              </button>
+            ) : (
+              <button
+                onClick={handleShuffleAvatar}
+                className="text-xs text-gray-400 hover:text-gray-700 transition-colors"
+              >
+                Перемешать
+              </button>
+            )}
           </div>
 
           {/* Fields */}
@@ -208,6 +273,29 @@ export default function Profile() {
         </div>
       </SectionCard>
 
+      {/* Серия */}
+      <StreakCard completedDates={completedDates} />
+
+      <div className="grid grid-cols-2 gap-3 mb-6">
+        <div className="bg-white rounded-xl border border-gray-200 p-4">
+          <p className="text-sm text-gray-500 mb-1">Тренировок</p>
+          <p className="text-3xl font-bold text-gray-900 tabular-nums">{total}</p>
+        </div>
+        <div className="bg-white rounded-xl border border-gray-200 p-4">
+          <p className="text-sm text-gray-500 mb-1">Активных дней</p>
+          <p className="text-3xl font-bold text-gray-900 tabular-nums">{completedDates.length}</p>
+        </div>
+      </div>
+
+      {/* История — календарь */}
+      <h2 className="text-lg font-semibold text-gray-900 mb-3">История</h2>
+      <ActivityCalendar
+        completedDates={completedDates}
+        partialDates={partialWorkouts.map((p) => p.localDate)}
+        trackingStart={trackingStart}
+        entriesByDate={entriesByDate}
+      />
+
       {/* Onboarding answers */}
       <SectionCard>
         <SectionHeader>Мои настройки</SectionHeader>
@@ -230,43 +318,6 @@ export default function Profile() {
         </button>
       </SectionCard>
 
-      {/* Stats cards */}
-      <h2 className="text-lg font-semibold text-gray-900 mb-3">Статистика</h2>
-      <div className="grid grid-cols-2 gap-3 mb-4">
-        <div className="bg-white rounded-xl border border-gray-200 p-4 flex flex-col justify-between">
-          <p className="text-sm text-gray-500 mb-1">Тренировок</p>
-          <p className="text-3xl font-bold text-gray-900">{total}</p>
-        </div>
-        <div className="bg-white rounded-xl border border-gray-200 p-4 flex flex-col justify-between">
-          <p className="text-sm text-gray-500 mb-1">Серия</p>
-          <p className="text-3xl font-bold text-gray-900">
-            {progress.streak || 0}
-            <span className="text-lg ml-1">🔥</span>
-          </p>
-        </div>
-      </div>
-
-      {/* History */}
-      <h2 className="text-lg font-semibold text-gray-900 mb-3">История</h2>
-
-      {sorted.length === 0 ? (
-        <EmptyState message="Пока нет завершённых тренировок" submessage="Заверши свою первую тренировку!" />
-      ) : (
-        <div className="space-y-2 mb-4">
-          {sorted.map((entry, idx) => (
-            <div
-              key={`${entry.workoutId}-${entry.date}-${idx}`}
-              className="bg-white rounded-xl border border-gray-200 px-4 py-3 flex items-center justify-between"
-            >
-              <span className="text-sm text-gray-800 truncate mr-2">
-                {findWorkoutTitle(entry.workoutId)}
-              </span>
-              <span className="text-xs text-gray-400 whitespace-nowrap">{entry.date}</span>
-            </div>
-          ))}
-        </div>
-      )}
-
       {/* Completed programs */}
       <h2 className="text-lg font-semibold text-gray-900 mb-3">Пройденные планы</h2>
 
@@ -281,7 +332,7 @@ export default function Profile() {
                 {data.program.title}
               </span>
             </div>
-            <span className="text-xs text-accent font-medium whitespace-nowrap flex-shrink-0 ml-2">
+            <span className="text-xs text-accent-dark font-medium whitespace-nowrap flex-shrink-0 ml-2">
               {data.program.totalDays} / {data.program.totalDays}
             </span>
           </div>
