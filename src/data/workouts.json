@@ -103,7 +103,7 @@
           "id": "full-body-1",
           "title": "Всё тело — День 1",
           "level": "beginner",
-          "durationMin": 9,
+          "durationMin": 8,
           "equipment": "none",
           "description": "Вводная тренировка на всё тело без инвентаря.",
           "blocks": [
@@ -147,7 +147,7 @@
           "id": "upper-body-1",
           "title": "Верх тела — День 2",
           "level": "intermediate",
-          "durationMin": 16,
+          "durationMin": 13,
           "equipment": "dumbbells",
           "description": "Тренировка верхней части тела с гантелями: жим, тяга, отжимания и пресс.",
           "blocks": [
@@ -251,7 +251,7 @@
           "id": "lower-body-1",
           "title": "Низ тела — День 3",
           "level": "intermediate",
-          "durationMin": 16,
+          "durationMin": 14,
           "equipment": "none",
           "description": "Тренировка ног и кора без инвентаря: приседания, выпады, прыжки и пресс.",
           "blocks": [
@@ -358,6 +358,2936 @@
                   "exerciseId": "bodyweight-donkey-calf-raise",
                   "mode": "timed",
                   "durationSec": 30
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "core-1",
+          "title": "Кор и кардио — День 4",
+          "level": "beginner",
+          "durationMin": 11,
+          "equipment": "none",
+          "description": "Пресс, спина и прыжки без инвентаря: планка, твист, супермен и прыжковые приседания.",
+          "blocks": [
+            {
+              "id": "warmup",
+              "name": "Разминка",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-squat",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            },
+            {
+              "id": "main",
+              "name": "Основная часть",
+              "repeat": 3,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "hand-plank",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-russian-twist",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "supermans",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "jump-squats",
+                  "mode": "timed",
+                  "durationSec": 25
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 20
+                }
+              ]
+            },
+            {
+              "id": "finisher",
+              "name": "Завершение",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "hand-plank",
+                  "mode": "timed",
+                  "durationSec": 30
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "full-body-2",
+          "title": "Всё тело — День 5",
+          "level": "beginner",
+          "durationMin": 15,
+          "equipment": "none",
+          "description": "Круговая тренировка на всё тело: ноги, грудь, трицепс и пресс. Нужен стул для обратных отжиманий.",
+          "blocks": [
+            {
+              "id": "warmup",
+              "name": "Разминка",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-squat",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "push-up",
+                  "mode": "timed",
+                  "durationSec": 20
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            },
+            {
+              "id": "main",
+              "name": "Основная часть",
+              "repeat": 3,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-squat",
+                  "mode": "timed",
+                  "durationSec": 35
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "push-up",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "forward-lunge",
+                  "mode": "timed",
+                  "durationSec": 35,
+                  "note": "на каждую ногу"
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bench-dips",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "jump-squats",
+                  "mode": "timed",
+                  "durationSec": 25
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 20
+                }
+              ]
+            },
+            {
+              "id": "core",
+              "name": "Пресс",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "hand-plank",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-russian-twist",
+                  "mode": "timed",
+                  "durationSec": 30
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "upper-body-2",
+          "title": "Верх тела — День 6",
+          "level": "beginner",
+          "durationMin": 14,
+          "equipment": "dumbbells",
+          "description": "Плечи, руки и грудь с гантелями, в конце — планка и супермен для спины.",
+          "blocks": [
+            {
+              "id": "warmup",
+              "name": "Разминка",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "push-up",
+                  "mode": "timed",
+                  "durationSec": 25
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            },
+            {
+              "id": "main",
+              "name": "Основная часть",
+              "repeat": 3,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "dumbbell-seated-overhead-press",
+                  "mode": "timed",
+                  "durationSec": 35
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "push-up",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "dumbbell-curl",
+                  "mode": "timed",
+                  "durationSec": 35
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bench-dips",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 20
+                }
+              ]
+            },
+            {
+              "id": "core",
+              "name": "Пресс и спина",
+              "repeat": 2,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "hand-plank",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "supermans",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "lower-body-2",
+          "title": "Низ тела — День 7",
+          "level": "beginner",
+          "durationMin": 14,
+          "equipment": "none",
+          "description": "Ноги и ягодицы без инвентаря: выпады, приседания, отведения и прыжки. Для икр нужна ступенька.",
+          "blocks": [
+            {
+              "id": "warmup",
+              "name": "Разминка",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-squat",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            },
+            {
+              "id": "main",
+              "name": "Основная часть",
+              "repeat": 3,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "forward-lunge",
+                  "mode": "timed",
+                  "durationSec": 35,
+                  "note": "на каждую ногу"
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-squat",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-hip-abduction",
+                  "mode": "timed",
+                  "durationSec": 30,
+                  "note": "на каждую сторону"
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "jump-squats",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 20
+                }
+              ]
+            },
+            {
+              "id": "finisher",
+              "name": "Икры и спина",
+              "repeat": 2,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-donkey-calf-raise",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "supermans",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "core-2",
+          "title": "Кор и кардио — День 8",
+          "level": "intermediate",
+          "durationMin": 14,
+          "equipment": "none",
+          "description": "Вторая неделя: длиннее интервалы на пресс и больше прыжков. Кор, кардио и отжимания.",
+          "blocks": [
+            {
+              "id": "warmup",
+              "name": "Разминка",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-squat",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "jump-squats",
+                  "mode": "timed",
+                  "durationSec": 20
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            },
+            {
+              "id": "main",
+              "name": "Основная часть",
+              "repeat": 3,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "hand-plank",
+                  "mode": "timed",
+                  "durationSec": 35
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-russian-twist",
+                  "mode": "timed",
+                  "durationSec": 35
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "jump-squats",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "supermans",
+                  "mode": "timed",
+                  "durationSec": 35
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "push-up",
+                  "mode": "timed",
+                  "durationSec": 25
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 20
+                }
+              ]
+            },
+            {
+              "id": "finisher",
+              "name": "Завершение",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "hand-plank",
+                  "mode": "timed",
+                  "durationSec": 40
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "full-body-3",
+          "title": "Всё тело — День 9",
+          "level": "intermediate",
+          "durationMin": 17,
+          "equipment": "none",
+          "description": "Круговая на всё тело: прыжки, отжимания, выпады и приседания, в конце — пресс и спина. Нужен стул.",
+          "blocks": [
+            {
+              "id": "warmup",
+              "name": "Разминка",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-squat",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "push-up",
+                  "mode": "timed",
+                  "durationSec": 20
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            },
+            {
+              "id": "main",
+              "name": "Основная часть",
+              "repeat": 3,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "jump-squats",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "push-up",
+                  "mode": "timed",
+                  "durationSec": 35
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "forward-lunge",
+                  "mode": "timed",
+                  "durationSec": 40,
+                  "note": "на каждую ногу"
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bench-dips",
+                  "mode": "timed",
+                  "durationSec": 35
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-squat",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 20
+                }
+              ]
+            },
+            {
+              "id": "core",
+              "name": "Пресс и спина",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "hand-plank",
+                  "mode": "timed",
+                  "durationSec": 35
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "supermans",
+                  "mode": "timed",
+                  "durationSec": 35
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-russian-twist",
+                  "mode": "timed",
+                  "durationSec": 35
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "upper-body-3",
+          "title": "Верх тела — День 10",
+          "level": "intermediate",
+          "durationMin": 16,
+          "equipment": "dumbbells",
+          "description": "Плечи, бицепс, грудь и трицепс с гантелями. Интервалы длиннее, чем на первой неделе.",
+          "blocks": [
+            {
+              "id": "warmup",
+              "name": "Разминка",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "push-up",
+                  "mode": "timed",
+                  "durationSec": 25
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bench-dips",
+                  "mode": "timed",
+                  "durationSec": 20
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            },
+            {
+              "id": "main",
+              "name": "Основная часть",
+              "repeat": 3,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "dumbbell-seated-overhead-press",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "dumbbell-curl",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "push-up",
+                  "mode": "timed",
+                  "durationSec": 35
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bench-dips",
+                  "mode": "timed",
+                  "durationSec": 35
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 20
+                }
+              ]
+            },
+            {
+              "id": "core",
+              "name": "Пресс",
+              "repeat": 2,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "hand-plank",
+                  "mode": "timed",
+                  "durationSec": 35
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-russian-twist",
+                  "mode": "timed",
+                  "durationSec": 35
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "lower-body-3",
+          "title": "Низ тела — День 11",
+          "level": "intermediate",
+          "durationMin": 16,
+          "equipment": "none",
+          "description": "Ноги, ягодицы и икры: приседания, прыжки, выпады, отведения и подъёмы на носки. Нужна ступенька.",
+          "blocks": [
+            {
+              "id": "warmup",
+              "name": "Разминка",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-squat",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "forward-lunge",
+                  "mode": "timed",
+                  "durationSec": 20,
+                  "note": "на каждую ногу"
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            },
+            {
+              "id": "main",
+              "name": "Основная часть",
+              "repeat": 3,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-squat",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "jump-squats",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "forward-lunge",
+                  "mode": "timed",
+                  "durationSec": 40,
+                  "note": "на каждую ногу"
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-hip-abduction",
+                  "mode": "timed",
+                  "durationSec": 35,
+                  "note": "на каждую сторону"
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-donkey-calf-raise",
+                  "mode": "timed",
+                  "durationSec": 35
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 20
+                }
+              ]
+            },
+            {
+              "id": "finisher",
+              "name": "Завершение",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "supermans",
+                  "mode": "timed",
+                  "durationSec": 35
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "hand-plank",
+                  "mode": "timed",
+                  "durationSec": 35
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "core-3",
+          "title": "Кор и кардио — День 12",
+          "level": "intermediate",
+          "durationMin": 16,
+          "equipment": "none",
+          "description": "Пресс и спина вперемешку с прыжками и отжиманиями — держим пульс высоким.",
+          "blocks": [
+            {
+              "id": "warmup",
+              "name": "Разминка",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-squat",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "jump-squats",
+                  "mode": "timed",
+                  "durationSec": 25
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            },
+            {
+              "id": "main",
+              "name": "Основная часть",
+              "repeat": 3,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "hand-plank",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "jump-squats",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-russian-twist",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "push-up",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "supermans",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 20
+                }
+              ]
+            },
+            {
+              "id": "finisher",
+              "name": "Завершение",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "hand-plank",
+                  "mode": "timed",
+                  "durationSec": 45
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "full-body-4",
+          "title": "Всё тело — День 13",
+          "level": "intermediate",
+          "durationMin": 16,
+          "equipment": "none",
+          "description": "Два круга подряд: сначала ноги и грудь, затем руки и пресс. Нужен стул.",
+          "blocks": [
+            {
+              "id": "warmup",
+              "name": "Разминка",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-squat",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "push-up",
+                  "mode": "timed",
+                  "durationSec": 20
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            },
+            {
+              "id": "legs-chest",
+              "name": "Ноги и грудь",
+              "repeat": 2,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-squat",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "push-up",
+                  "mode": "timed",
+                  "durationSec": 35
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "forward-lunge",
+                  "mode": "timed",
+                  "durationSec": 40,
+                  "note": "на каждую ногу"
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "jump-squats",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 20
+                }
+              ]
+            },
+            {
+              "id": "arms-core",
+              "name": "Руки и пресс",
+              "repeat": 2,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bench-dips",
+                  "mode": "timed",
+                  "durationSec": 35
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "hand-plank",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-russian-twist",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "supermans",
+                  "mode": "timed",
+                  "durationSec": 35
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 20
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "upper-body-4",
+          "title": "Верх тела — День 14",
+          "level": "intermediate",
+          "durationMin": 17,
+          "equipment": "dumbbells",
+          "description": "Суперсеты: два упражнения почти без паузы. Плечи + грудь, бицепс + трицепс, затем пресс.",
+          "blocks": [
+            {
+              "id": "warmup",
+              "name": "Разминка",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "push-up",
+                  "mode": "timed",
+                  "durationSec": 25
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            },
+            {
+              "id": "superset-1",
+              "name": "Суперсет: плечи и грудь",
+              "repeat": 3,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "dumbbell-seated-overhead-press",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 10
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "push-up",
+                  "mode": "timed",
+                  "durationSec": 35
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 20
+                }
+              ]
+            },
+            {
+              "id": "superset-2",
+              "name": "Суперсет: бицепс и трицепс",
+              "repeat": 3,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "dumbbell-curl",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 10
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bench-dips",
+                  "mode": "timed",
+                  "durationSec": 35
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 20
+                }
+              ]
+            },
+            {
+              "id": "core",
+              "name": "Пресс и спина",
+              "repeat": 2,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "hand-plank",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-russian-twist",
+                  "mode": "timed",
+                  "durationSec": 35
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "supermans",
+                  "mode": "timed",
+                  "durationSec": 35
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "lower-body-4",
+          "title": "Низ тела — День 15",
+          "level": "intermediate",
+          "durationMin": 20,
+          "equipment": "none",
+          "description": "Четыре круга на ноги и ягодицы, в конце — икры и спина. Нужна ступенька.",
+          "blocks": [
+            {
+              "id": "warmup",
+              "name": "Разминка",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-squat",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "forward-lunge",
+                  "mode": "timed",
+                  "durationSec": 25,
+                  "note": "на каждую ногу"
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            },
+            {
+              "id": "main",
+              "name": "Основная часть",
+              "repeat": 4,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-squat",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "forward-lunge",
+                  "mode": "timed",
+                  "durationSec": 40,
+                  "note": "на каждую ногу"
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "jump-squats",
+                  "mode": "timed",
+                  "durationSec": 35
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-hip-abduction",
+                  "mode": "timed",
+                  "durationSec": 35,
+                  "note": "на каждую сторону"
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 20
+                }
+              ]
+            },
+            {
+              "id": "finisher",
+              "name": "Икры и спина",
+              "repeat": 2,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-donkey-calf-raise",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "supermans",
+                  "mode": "timed",
+                  "durationSec": 35
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "core-4",
+          "title": "Кор и кардио — День 16",
+          "level": "intermediate",
+          "durationMin": 18,
+          "equipment": "none",
+          "description": "Четыре круга кора и кардио: планка, твист, прыжки и супермен.",
+          "blocks": [
+            {
+              "id": "warmup",
+              "name": "Разминка",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-squat",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "jump-squats",
+                  "mode": "timed",
+                  "durationSec": 25
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            },
+            {
+              "id": "main",
+              "name": "Основная часть",
+              "repeat": 4,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "hand-plank",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-russian-twist",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "jump-squats",
+                  "mode": "timed",
+                  "durationSec": 35
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "supermans",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 20
+                }
+              ]
+            },
+            {
+              "id": "finisher",
+              "name": "Завершение",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "push-up",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "hand-plank",
+                  "mode": "timed",
+                  "durationSec": 45
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "full-body-5",
+          "title": "Всё тело — День 17",
+          "level": "intermediate",
+          "durationMin": 18,
+          "equipment": "none",
+          "description": "Длинный круг из пяти упражнений на всё тело и блок пресса. Нужен стул.",
+          "blocks": [
+            {
+              "id": "warmup",
+              "name": "Разминка",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-squat",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "push-up",
+                  "mode": "timed",
+                  "durationSec": 25
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            },
+            {
+              "id": "main",
+              "name": "Основная часть",
+              "repeat": 3,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "jump-squats",
+                  "mode": "timed",
+                  "durationSec": 35
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "push-up",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-squat",
+                  "mode": "timed",
+                  "durationSec": 45
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bench-dips",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "forward-lunge",
+                  "mode": "timed",
+                  "durationSec": 40,
+                  "note": "на каждую ногу"
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 20
+                }
+              ]
+            },
+            {
+              "id": "core",
+              "name": "Пресс и спина",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "hand-plank",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-russian-twist",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "supermans",
+                  "mode": "timed",
+                  "durationSec": 40
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "upper-body-5",
+          "title": "Верх тела — День 18",
+          "level": "intermediate",
+          "durationMin": 19,
+          "equipment": "dumbbells",
+          "description": "Четыре круга на верх тела с гантелями и отжиманиями, затем пресс и спина.",
+          "blocks": [
+            {
+              "id": "warmup",
+              "name": "Разминка",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "push-up",
+                  "mode": "timed",
+                  "durationSec": 25
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bench-dips",
+                  "mode": "timed",
+                  "durationSec": 20
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            },
+            {
+              "id": "main",
+              "name": "Основная часть",
+              "repeat": 4,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "dumbbell-seated-overhead-press",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "push-up",
+                  "mode": "timed",
+                  "durationSec": 35
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "dumbbell-curl",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bench-dips",
+                  "mode": "timed",
+                  "durationSec": 35
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 20
+                }
+              ]
+            },
+            {
+              "id": "core",
+              "name": "Пресс и спина",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "hand-plank",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-russian-twist",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "supermans",
+                  "mode": "timed",
+                  "durationSec": 40
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "lower-body-5",
+          "title": "Низ тела — День 19",
+          "level": "intermediate",
+          "durationMin": 18,
+          "equipment": "none",
+          "description": "Пирамида: сначала короткие серии, затем длинные. После — ягодицы и икры. Нужна ступенька.",
+          "blocks": [
+            {
+              "id": "warmup",
+              "name": "Разминка",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-squat",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            },
+            {
+              "id": "series-1",
+              "name": "Серия 1 · короткая",
+              "repeat": 3,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-squat",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "forward-lunge",
+                  "mode": "timed",
+                  "durationSec": 30,
+                  "note": "на каждую ногу"
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "jump-squats",
+                  "mode": "timed",
+                  "durationSec": 25
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            },
+            {
+              "id": "series-2",
+              "name": "Серия 2 · длинная",
+              "repeat": 2,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-squat",
+                  "mode": "timed",
+                  "durationSec": 45
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "forward-lunge",
+                  "mode": "timed",
+                  "durationSec": 45,
+                  "note": "на каждую ногу"
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "jump-squats",
+                  "mode": "timed",
+                  "durationSec": 35
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 20
+                }
+              ]
+            },
+            {
+              "id": "glutes-calves",
+              "name": "Ягодицы и икры",
+              "repeat": 2,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-hip-abduction",
+                  "mode": "timed",
+                  "durationSec": 40,
+                  "note": "на каждую сторону"
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-donkey-calf-raise",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            },
+            {
+              "id": "finisher",
+              "name": "Завершение",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "supermans",
+                  "mode": "timed",
+                  "durationSec": 40
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "core-5",
+          "title": "Кор и кардио — День 20",
+          "level": "intermediate",
+          "durationMin": 20,
+          "equipment": "none",
+          "description": "Самая плотная тренировка кора: пять упражнений в круге, четыре круга.",
+          "blocks": [
+            {
+              "id": "warmup",
+              "name": "Разминка",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-squat",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "jump-squats",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            },
+            {
+              "id": "main",
+              "name": "Основная часть",
+              "repeat": 4,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "hand-plank",
+                  "mode": "timed",
+                  "durationSec": 45
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-russian-twist",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "jump-squats",
+                  "mode": "timed",
+                  "durationSec": 35
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "supermans",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "push-up",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 20
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "full-body-6",
+          "title": "Всё тело — День 21",
+          "level": "intermediate",
+          "durationMin": 19,
+          "equipment": "none",
+          "description": "Итог третьей недели: силовой блок на всё тело, затем кардио и пресс. Нужен стул.",
+          "blocks": [
+            {
+              "id": "warmup",
+              "name": "Разминка",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-squat",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "push-up",
+                  "mode": "timed",
+                  "durationSec": 25
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            },
+            {
+              "id": "strength",
+              "name": "Сила",
+              "repeat": 3,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-squat",
+                  "mode": "timed",
+                  "durationSec": 45
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "push-up",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bench-dips",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "forward-lunge",
+                  "mode": "timed",
+                  "durationSec": 40,
+                  "note": "на каждую ногу"
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 20
+                }
+              ]
+            },
+            {
+              "id": "cardio-core",
+              "name": "Кардио и пресс",
+              "repeat": 2,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "jump-squats",
+                  "mode": "timed",
+                  "durationSec": 35
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "hand-plank",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-russian-twist",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 20
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "upper-body-6",
+          "title": "Верх тела — День 22",
+          "level": "advanced",
+          "durationMin": 19,
+          "equipment": "dumbbells",
+          "description": "Суперсеты по четыре круга: плечи + грудь, бицепс + трицепс. В конце — планка и супермен.",
+          "blocks": [
+            {
+              "id": "warmup",
+              "name": "Разминка",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "push-up",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bench-dips",
+                  "mode": "timed",
+                  "durationSec": 25
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            },
+            {
+              "id": "superset-1",
+              "name": "Суперсет: плечи и грудь",
+              "repeat": 4,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "dumbbell-seated-overhead-press",
+                  "mode": "timed",
+                  "durationSec": 45
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 10
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "push-up",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 20
+                }
+              ]
+            },
+            {
+              "id": "superset-2",
+              "name": "Суперсет: бицепс и трицепс",
+              "repeat": 4,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "dumbbell-curl",
+                  "mode": "timed",
+                  "durationSec": 45
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 10
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bench-dips",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 20
+                }
+              ]
+            },
+            {
+              "id": "core",
+              "name": "Пресс и спина",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "hand-plank",
+                  "mode": "timed",
+                  "durationSec": 45
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "supermans",
+                  "mode": "timed",
+                  "durationSec": 40
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "lower-body-6",
+          "title": "Низ тела — День 23",
+          "level": "advanced",
+          "durationMin": 21,
+          "equipment": "none",
+          "description": "Четыре длинных круга на ноги и ягодицы, затем икры и спина. Нужна ступенька.",
+          "blocks": [
+            {
+              "id": "warmup",
+              "name": "Разминка",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-squat",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "forward-lunge",
+                  "mode": "timed",
+                  "durationSec": 25,
+                  "note": "на каждую ногу"
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            },
+            {
+              "id": "main",
+              "name": "Основная часть",
+              "repeat": 4,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-squat",
+                  "mode": "timed",
+                  "durationSec": 45
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "forward-lunge",
+                  "mode": "timed",
+                  "durationSec": 45,
+                  "note": "на каждую ногу"
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "jump-squats",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-hip-abduction",
+                  "mode": "timed",
+                  "durationSec": 40,
+                  "note": "на каждую сторону"
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 20
+                }
+              ]
+            },
+            {
+              "id": "finisher",
+              "name": "Икры и спина",
+              "repeat": 2,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-donkey-calf-raise",
+                  "mode": "timed",
+                  "durationSec": 45
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "supermans",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "core-6",
+          "title": "Кор и кардио — День 24",
+          "level": "advanced",
+          "durationMin": 21,
+          "equipment": "none",
+          "description": "Кор и кардио на максимум: четыре круга по пять упражнений с длинными интервалами.",
+          "blocks": [
+            {
+              "id": "warmup",
+              "name": "Разминка",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-squat",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "jump-squats",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            },
+            {
+              "id": "main",
+              "name": "Основная часть",
+              "repeat": 4,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "hand-plank",
+                  "mode": "timed",
+                  "durationSec": 45
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-russian-twist",
+                  "mode": "timed",
+                  "durationSec": 45
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "jump-squats",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "supermans",
+                  "mode": "timed",
+                  "durationSec": 45
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "push-up",
+                  "mode": "timed",
+                  "durationSec": 35
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 20
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "full-body-7",
+          "title": "Всё тело — День 25",
+          "level": "advanced",
+          "durationMin": 20,
+          "equipment": "none",
+          "description": "Пять упражнений на всё тело в длинном круге и два круга пресса. Нужен стул.",
+          "blocks": [
+            {
+              "id": "warmup",
+              "name": "Разминка",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-squat",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "push-up",
+                  "mode": "timed",
+                  "durationSec": 25
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            },
+            {
+              "id": "main",
+              "name": "Основная часть",
+              "repeat": 3,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "jump-squats",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "push-up",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-squat",
+                  "mode": "timed",
+                  "durationSec": 45
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bench-dips",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "forward-lunge",
+                  "mode": "timed",
+                  "durationSec": 45,
+                  "note": "на каждую ногу"
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 20
+                }
+              ]
+            },
+            {
+              "id": "core",
+              "name": "Пресс",
+              "repeat": 2,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "hand-plank",
+                  "mode": "timed",
+                  "durationSec": 45
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-russian-twist",
+                  "mode": "timed",
+                  "durationSec": 45
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "upper-body-7",
+          "title": "Верх тела — День 26",
+          "level": "advanced",
+          "durationMin": 21,
+          "equipment": "dumbbells",
+          "description": "Четыре круга на верх тела с гантелями, затем пресс и спина.",
+          "blocks": [
+            {
+              "id": "warmup",
+              "name": "Разминка",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "push-up",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            },
+            {
+              "id": "main",
+              "name": "Основная часть",
+              "repeat": 4,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "dumbbell-seated-overhead-press",
+                  "mode": "timed",
+                  "durationSec": 45
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "dumbbell-curl",
+                  "mode": "timed",
+                  "durationSec": 45
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "push-up",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bench-dips",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 20
+                }
+              ]
+            },
+            {
+              "id": "core",
+              "name": "Пресс и спина",
+              "repeat": 2,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "hand-plank",
+                  "mode": "timed",
+                  "durationSec": 45
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "supermans",
+                  "mode": "timed",
+                  "durationSec": 45
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "lower-body-7",
+          "title": "Низ тела — День 27",
+          "level": "advanced",
+          "durationMin": 21,
+          "equipment": "none",
+          "description": "Пирамида для ног потяжелее: короткие и длинные серии, затем ягодицы и икры. Нужна ступенька.",
+          "blocks": [
+            {
+              "id": "warmup",
+              "name": "Разминка",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-squat",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "forward-lunge",
+                  "mode": "timed",
+                  "durationSec": 25,
+                  "note": "на каждую ногу"
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            },
+            {
+              "id": "series-1",
+              "name": "Серия 1 · короткая",
+              "repeat": 3,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-squat",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "forward-lunge",
+                  "mode": "timed",
+                  "durationSec": 40,
+                  "note": "на каждую ногу"
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "jump-squats",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            },
+            {
+              "id": "series-2",
+              "name": "Серия 2 · длинная",
+              "repeat": 2,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-squat",
+                  "mode": "timed",
+                  "durationSec": 50
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "forward-lunge",
+                  "mode": "timed",
+                  "durationSec": 50,
+                  "note": "на каждую ногу"
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "jump-squats",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 20
+                }
+              ]
+            },
+            {
+              "id": "glutes-calves",
+              "name": "Ягодицы и икры",
+              "repeat": 2,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-hip-abduction",
+                  "mode": "timed",
+                  "durationSec": 45,
+                  "note": "на каждую сторону"
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-donkey-calf-raise",
+                  "mode": "timed",
+                  "durationSec": 45
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            },
+            {
+              "id": "finisher",
+              "name": "Завершение",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "supermans",
+                  "mode": "timed",
+                  "durationSec": 45
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "full-body-final",
+          "title": "Всё тело — День 28",
+          "level": "advanced",
+          "durationMin": 21,
+          "equipment": "none",
+          "description": "Финал программы: ноги, верх, кор и финальный рывок с минутной планкой. Нужен стул.",
+          "blocks": [
+            {
+              "id": "warmup",
+              "name": "Разминка",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-squat",
+                  "mode": "timed",
+                  "durationSec": 30
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "push-up",
+                  "mode": "timed",
+                  "durationSec": 25
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "jump-squats",
+                  "mode": "timed",
+                  "durationSec": 20
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                }
+              ]
+            },
+            {
+              "id": "legs",
+              "name": "Ноги",
+              "repeat": 2,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-squat",
+                  "mode": "timed",
+                  "durationSec": 50
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "forward-lunge",
+                  "mode": "timed",
+                  "durationSec": 45,
+                  "note": "на каждую ногу"
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "jump-squats",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 20
+                }
+              ]
+            },
+            {
+              "id": "upper",
+              "name": "Верх тела",
+              "repeat": 2,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "push-up",
+                  "mode": "timed",
+                  "durationSec": 45
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bench-dips",
+                  "mode": "timed",
+                  "durationSec": 45
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 20
+                }
+              ]
+            },
+            {
+              "id": "core",
+              "name": "Кор",
+              "repeat": 2,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "hand-plank",
+                  "mode": "timed",
+                  "durationSec": 50
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "bodyweight-russian-twist",
+                  "mode": "timed",
+                  "durationSec": 45
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "supermans",
+                  "mode": "timed",
+                  "durationSec": 45
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 20
+                }
+              ]
+            },
+            {
+              "id": "final",
+              "name": "Финальный рывок",
+              "repeat": 1,
+              "items": [
+                {
+                  "type": "exercise",
+                  "exerciseId": "jump-squats",
+                  "mode": "timed",
+                  "durationSec": 40
+                },
+                {
+                  "type": "rest",
+                  "durationSec": 15
+                },
+                {
+                  "type": "exercise",
+                  "exerciseId": "hand-plank",
+                  "mode": "timed",
+                  "durationSec": 60
                 }
               ]
             }
@@ -498,7 +3428,7 @@
       "id": "full-body-28",
       "title": "Всё тело",
       "description": "28-дневная программа для всего тела",
-      "durationMin": 16,
+      "durationMin": 17,
       "totalDays": 28
     }
   ],
@@ -512,198 +3442,198 @@
       {
         "day": 1,
         "title": "День 1 — Всё тело",
-        "durationMin": 9,
-        "kcal": 90,
+        "durationMin": 8,
+        "kcal": 45,
         "workoutId": "full-body-1"
       },
       {
         "day": 2,
         "title": "День 2 — Верх тела",
-        "durationMin": 16,
-        "kcal": 150,
+        "durationMin": 13,
+        "kcal": 70,
         "workoutId": "upper-body-1"
       },
       {
         "day": 3,
         "title": "День 3 — Низ тела",
-        "durationMin": 16,
-        "kcal": 180,
+        "durationMin": 14,
+        "kcal": 85,
         "workoutId": "lower-body-1"
       },
       {
         "day": 4,
-        "title": "День 4",
-        "durationMin": 18,
-        "kcal": 180,
-        "workoutId": "full-body-hiit"
+        "title": "День 4 — Кор и кардио",
+        "durationMin": 11,
+        "kcal": 55,
+        "workoutId": "core-1"
       },
       {
         "day": 5,
-        "title": "День 5",
-        "durationMin": 20,
-        "kcal": 200,
-        "workoutId": "full-body-hiit"
+        "title": "День 5 — Всё тело",
+        "durationMin": 15,
+        "kcal": 90,
+        "workoutId": "full-body-2"
       },
       {
         "day": 6,
-        "title": "День 6",
-        "durationMin": 12,
-        "kcal": 120,
-        "workoutId": "full-body-hiit"
+        "title": "День 6 — Верх тела",
+        "durationMin": 14,
+        "kcal": 70,
+        "workoutId": "upper-body-2"
       },
       {
         "day": 7,
-        "title": "День 7",
-        "durationMin": 10,
-        "kcal": 100,
-        "workoutId": "full-body-hiit"
+        "title": "День 7 — Низ тела",
+        "durationMin": 14,
+        "kcal": 80,
+        "workoutId": "lower-body-2"
       },
       {
         "day": 8,
-        "title": "День 8",
+        "title": "День 8 — Кор и кардио",
         "durationMin": 14,
-        "kcal": 140,
-        "workoutId": "full-body-hiit"
+        "kcal": 80,
+        "workoutId": "core-2"
       },
       {
         "day": 9,
-        "title": "День 9",
+        "title": "День 9 — Всё тело",
         "durationMin": 17,
-        "kcal": 170,
-        "workoutId": "full-body-hiit"
+        "kcal": 105,
+        "workoutId": "full-body-3"
       },
       {
         "day": 10,
-        "title": "День 10",
-        "durationMin": 19,
-        "kcal": 190,
-        "workoutId": "full-body-hiit"
+        "title": "День 10 — Верх тела",
+        "durationMin": 16,
+        "kcal": 85,
+        "workoutId": "upper-body-3"
       },
       {
         "day": 11,
-        "title": "День 11",
-        "durationMin": 11,
-        "kcal": 110,
-        "workoutId": "full-body-hiit"
+        "title": "День 11 — Низ тела",
+        "durationMin": 16,
+        "kcal": 95,
+        "workoutId": "lower-body-3"
       },
       {
         "day": 12,
-        "title": "День 12",
-        "durationMin": 13,
-        "kcal": 130,
-        "workoutId": "full-body-hiit"
+        "title": "День 12 — Кор и кардио",
+        "durationMin": 16,
+        "kcal": 85,
+        "workoutId": "core-3"
       },
       {
         "day": 13,
-        "title": "День 13",
+        "title": "День 13 — Всё тело",
         "durationMin": 16,
-        "kcal": 160,
-        "workoutId": "full-body-hiit"
+        "kcal": 90,
+        "workoutId": "full-body-4"
       },
       {
         "day": 14,
-        "title": "День 14",
-        "durationMin": 18,
-        "kcal": 180,
-        "workoutId": "full-body-hiit"
+        "title": "День 14 — Верх тела",
+        "durationMin": 17,
+        "kcal": 90,
+        "workoutId": "upper-body-4"
       },
       {
         "day": 15,
-        "title": "День 15",
-        "durationMin": 9,
-        "kcal": 90,
-        "workoutId": "full-body-hiit"
+        "title": "День 15 — Низ тела",
+        "durationMin": 20,
+        "kcal": 115,
+        "workoutId": "lower-body-4"
       },
       {
         "day": 16,
-        "title": "День 16",
-        "durationMin": 12,
-        "kcal": 120,
-        "workoutId": "full-body-hiit"
+        "title": "День 16 — Кор и кардио",
+        "durationMin": 18,
+        "kcal": 100,
+        "workoutId": "core-4"
       },
       {
         "day": 17,
-        "title": "День 17",
-        "durationMin": 15,
-        "kcal": 150,
-        "workoutId": "full-body-hiit"
+        "title": "День 17 — Всё тело",
+        "durationMin": 18,
+        "kcal": 115,
+        "workoutId": "full-body-5"
       },
       {
         "day": 18,
-        "title": "День 18",
-        "durationMin": 20,
-        "kcal": 200,
-        "workoutId": "full-body-hiit"
+        "title": "День 18 — Верх тела",
+        "durationMin": 19,
+        "kcal": 100,
+        "workoutId": "upper-body-5"
       },
       {
         "day": 19,
-        "title": "День 19",
-        "durationMin": 11,
+        "title": "День 19 — Низ тела",
+        "durationMin": 18,
         "kcal": 110,
-        "workoutId": "full-body-hiit"
+        "workoutId": "lower-body-5"
       },
       {
         "day": 20,
-        "title": "День 20",
-        "durationMin": 14,
-        "kcal": 140,
-        "workoutId": "full-body-hiit"
+        "title": "День 20 — Кор и кардио",
+        "durationMin": 20,
+        "kcal": 115,
+        "workoutId": "core-5"
       },
       {
         "day": 21,
-        "title": "День 21",
-        "durationMin": 17,
-        "kcal": 170,
-        "workoutId": "full-body-hiit"
+        "title": "День 21 — Всё тело",
+        "durationMin": 19,
+        "kcal": 115,
+        "workoutId": "full-body-6"
       },
       {
         "day": 22,
-        "title": "День 22",
-        "durationMin": 13,
-        "kcal": 130,
-        "workoutId": "full-body-hiit"
+        "title": "День 22 — Верх тела",
+        "durationMin": 19,
+        "kcal": 105,
+        "workoutId": "upper-body-6"
       },
       {
         "day": 23,
-        "title": "День 23",
-        "durationMin": 16,
-        "kcal": 160,
-        "workoutId": "full-body-hiit"
+        "title": "День 23 — Низ тела",
+        "durationMin": 21,
+        "kcal": 130,
+        "workoutId": "lower-body-6"
       },
       {
         "day": 24,
-        "title": "День 24",
-        "durationMin": 18,
-        "kcal": 180,
-        "workoutId": "full-body-hiit"
+        "title": "День 24 — Кор и кардио",
+        "durationMin": 21,
+        "kcal": 125,
+        "workoutId": "core-6"
       },
       {
         "day": 25,
-        "title": "День 25",
-        "durationMin": 10,
-        "kcal": 100,
-        "workoutId": "full-body-hiit"
+        "title": "День 25 — Всё тело",
+        "durationMin": 20,
+        "kcal": 130,
+        "workoutId": "full-body-7"
       },
       {
         "day": 26,
-        "title": "День 26",
-        "durationMin": 12,
-        "kcal": 120,
-        "workoutId": "full-body-hiit"
+        "title": "День 26 — Верх тела",
+        "durationMin": 21,
+        "kcal": 115,
+        "workoutId": "upper-body-7"
       },
       {
         "day": 27,
-        "title": "День 27",
-        "durationMin": 15,
-        "kcal": 150,
-        "workoutId": "full-body-hiit"
+        "title": "День 27 — Низ тела",
+        "durationMin": 21,
+        "kcal": 130,
+        "workoutId": "lower-body-7"
       },
       {
         "day": 28,
-        "title": "День 28",
-        "durationMin": 19,
-        "kcal": 190,
-        "workoutId": "full-body-hiit"
+        "title": "День 28 — Финал",
+        "durationMin": 21,
+        "kcal": 125,
+        "workoutId": "full-body-final"
       }
     ]
   }
